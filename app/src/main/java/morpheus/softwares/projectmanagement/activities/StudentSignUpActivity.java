@@ -1,18 +1,42 @@
 package morpheus.softwares.projectmanagement.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import morpheus.softwares.projectmanagement.R;
 
 public class StudentSignUpActivity extends AppCompatActivity {
+    EditText idNum, pinCode, confirmPinCode, studentName;
+    Button createAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_sign_up);
+
+        idNum = findViewById(R.id.studentSignupIDNumber);
+        pinCode = findViewById(R.id.studentSignupPin);
+        confirmPinCode = findViewById(R.id.studentSignupConfirmPin);
+        studentName = findViewById(R.id.studentSignupName);
+        createAccount = findViewById(R.id.studentSignupCreateAccount);
+
+        String idNumber = String.valueOf(idNum.getText());
+        String pin = String.valueOf(pinCode.getText());
+        String confirmPin = String.valueOf(confirmPinCode.getText());
+        String name = String.valueOf(studentName.getText());
+
+        createAccount.setOnClickListener(v -> {
+            if (!pin.equals(confirmPin)) {
+                pinCode.setError("Pin mismatch");
+                confirmPinCode.setError("Confirm pin mismatch");
+            } else {
+
+            }
+        });
     }
 
     /**

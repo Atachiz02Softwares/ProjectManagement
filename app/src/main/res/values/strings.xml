@@ -5,4 +5,5 @@
     <string name="student">Proceed as Student</string>
     <string name="supervisor">Proceed as Supervisor</string>
     <string name="proceed_as_coordinator">Proceed as Coordinator</string>
+    <string name="student_account">Create Your Student Account</string>
 </resources>

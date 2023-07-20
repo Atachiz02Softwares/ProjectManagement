@@ -1,9 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/student"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.StudentActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/studentSignupFirstProjectName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/green"
+        android:hint="1st proposed project topic"
+        android:inputType="textMultiLine" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/categoryOne"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="1st project area of interest"
+        app:boxStrokeColor="@color/green"
+        app:boxStrokeWidth="0dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/studentSignupFirstProjectArea"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <EditText
+        android:id="@+id/studentSignupSecondProjectName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/green"
+        android:hint="2nd proposed project topic"
+        android:inputType="textMultiLine" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/categoryTwo"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="2nd project area of interest"
+        app:boxStrokeColor="@color/green"
+        app:boxStrokeWidth="0dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/studentSignupSecondProjectArea"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <EditText
+        android:id="@+id/studentSignupThirdProjectName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/green"
+        android:hint="3rd proposed project topic"
+        android:inputType="textMultiLine" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/categoryThree"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="3rd project area of interest"
+        app:boxStrokeColor="@color/green"
+        app:boxStrokeWidth="0dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/studentSignupThirdProjectArea"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

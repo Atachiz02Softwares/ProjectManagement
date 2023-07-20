@@ -1,9 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/studentSignup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".activities.StudentSignUpActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/studentSignupIcon"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/baseline_school_24" />
+
+    <TextView
+        android:id="@+id/studentSignupTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/studentSignupIcon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/student_account"
+        android:textAlignment="center"
+        android:textColor="@color/darkGreen"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:id="@+id/studentSignupLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/studentSignupTitle"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/studentSignupIDNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"
+            android:hint="Student ID number"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/studentSignupPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/green"
+            android:hint="Pin"
+            android:inputType="numberPassword" />
+
+        <EditText
+            android:id="@+id/studentSignupConfirmPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/green"
+            android:hint="Confirm pin"
+            android:inputType="numberPassword" />
+
+        <EditText
+            android:id="@+id/studentSignupName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/green"
+            android:hint="Student name"
+            android:maxLines="1" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/studentSignupCreateAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/studentSignupLinearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/darkGreen"
+        android:text="Create Account"
+        android:textSize="24sp" />
+
+</RelativeLayout>
