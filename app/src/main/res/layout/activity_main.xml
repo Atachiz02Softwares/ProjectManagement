@@ -1,18 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".activities.MainActivity">
+
+    <ImageView
+        android:id="@+id/mainIcon"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/icons" />
+
+    <TextView
+        android:id="@+id/mainTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mainIcon"
+        android:layout_centerHorizontal="true"
+        android:text="@string/title"
+        android:textAlignment="center"
+        android:textColor="@color/darkGreen"
+        android:textSize="40sp" />
+
+    <Button
+        android:id="@+id/mainStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mainTitle"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/darkGreen"
+        android:text="@string/student"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/mainSupervisor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mainStudent"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/darkGreen"
+        android:text="@string/supervisor"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/mainCoordinator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mainSupervisor"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/darkGreen"
+        android:text="@string/proceed_as_coordinator"
+        android:textSize="24sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/atachiz02_softwares"
+        android:textColor="@color/darkGreen"
+        android:textSize="14sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
