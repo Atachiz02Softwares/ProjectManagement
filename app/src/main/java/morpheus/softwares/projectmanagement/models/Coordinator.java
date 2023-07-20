@@ -1,12 +1,13 @@
 package morpheus.softwares.projectmanagement.models;
 
 public class Coordinator {
-    private String name, phoneNumber, email;
+    private String name, phoneNumber, email, pin;
 
-    public Coordinator(String name, String phoneNumber, String email) {
+    public Coordinator(String name, String phoneNumber, String email, String pin) {
         setName(name);
         setPhoneNumber(phoneNumber);
         setEmail(email);
+        setPin(pin);
     }
 
     public String getName() {
@@ -31,5 +32,13 @@ public class Coordinator {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
     }
 }
