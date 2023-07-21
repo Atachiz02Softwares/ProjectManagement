@@ -1,14 +1,13 @@
 package morpheus.softwares.projectmanagement.models;
 
 public class Supervisors {
-    private String name, phoneNumber, email, area, pin;
+    private String name, phoneNumber, email, area;
 
-    public Supervisors(String name, String phoneNumber, String email, String area, String pin) {
+    public Supervisors(String name, String phoneNumber, String email, String area) {
         setName(name);
         setPhoneNumber(phoneNumber);
         setEmail(email);
         setArea(area);
-        setPin(pin);
     }
 
     public String getName() {
@@ -41,13 +40,5 @@ public class Supervisors {
 
     public void setArea(String area) {
         this.area = area;
-    }
-
-    public String getPin() {
-        return pin;
-    }
-
-    public void setPin(String pin) {
-        this.pin = pin;
     }
 }

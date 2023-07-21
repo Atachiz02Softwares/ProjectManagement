@@ -11,8 +11,9 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class Database extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "undergraduate_projects.db", TABLE_STUDENTS = "students",
-            TABLE_SUPERVISORS = "supervisors", TABLE_COORDINATOR = "coordinator", TABLE_PROJECTS = "projects";
+    public static final String DATABASE_NAME = "undergraduate_projects.db",
+            TABLE_USERS = "users", TABLE_STUDENTS = "students", TABLE_SUPERVISORS = "supervisors",
+            TABLE_COORDINATOR = "coordinator", TABLE_PROJECTS = "projects";
     public static final int DATABASE_VERSION = 1;
 
     public Database(@Nullable Context context) {
@@ -21,24 +22,40 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE users (id integer PRIMARY KEY AUTOINCREMENT, identifier " +
+                "text, pin text, name text)");
         db.execSQL("CREATE TABLE students (id integer PRIMARY KEY AUTOINCREMENT, id_number " +
-                "text, pin text, email text, first_project text, second_project text, " +
+                "text, email text, first_project text, second_project text, " +
                 "third_project text, first_area text, second_area text, third_area text)");
         db.execSQL("CREATE TABLE supervisors (id integer PRIMARY KEY AUTOINCREMENT, name text, " +
-                "phone_number text, email text, area text, pin text)");
+                "phone_number text, email text, area text)");
         db.execSQL("CREATE TABLE coordinator (id integer PRIMARY KEY AUTOINCREMENT, name text, " +
-                "phone_number text, email text, pin text)");
+                "phone_number text, email text)");
         db.execSQL("CREATE TABLE projects (id integer PRIMARY KEY AUTOINCREMENT, id_number " +
                 "text, topic_one text, topic_two text, topic_three text, date text, status text)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUPERVISORS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COORDINATOR);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROJECTS);
         onCreate(db);
+    }
+
+    /**
+     * Adds a row to Users Table
+     */
+    public void insertUsers(Users users) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sqlInsert = "INSERT INTO " + TABLE_USERS;
+        sqlInsert += " values( null, '" + users.getIdentifier() + "', '" + users.getPin() +
+                "', '" + users.getName() + "' )";
+
+        db.execSQL(sqlInsert);
+        db.close();
     }
 
     /**
@@ -48,7 +65,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String sqlInsert = "INSERT INTO " + TABLE_COORDINATOR;
         sqlInsert += " values( null, '" + coordinator.getName() + "', '" + coordinator.getPhoneNumber() + "', '" +
-                coordinator.getEmail() + "', '" + coordinator.getPin() + "' )";
+                coordinator.getEmail() + "' )";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -61,7 +78,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String sqlInsert = "INSERT INTO " + TABLE_SUPERVISORS;
         sqlInsert += " values( null, '" + supervisors.getName() + "', '" + supervisors.getPhoneNumber() +
-                "', '" + supervisors.getEmail() + "', '" + supervisors.getArea() + "', '" + supervisors.getPin() + "' )";
+                "', '" + supervisors.getEmail() + "', '" + supervisors.getArea() + "' )";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -87,13 +104,34 @@ public class Database extends SQLiteOpenHelper {
     public void insertStudent(Students students) {
         SQLiteDatabase db = this.getWritableDatabase();
         String sqlInsert = "INSERT INTO " + TABLE_STUDENTS;
-        sqlInsert += " values( null, '" + students.getIdNumber() + "', '" + students.getPin() + "'," +
-                " '" + students.getEmail() + "', '" + students.getFirstProject() + "', '" + students.getSecondProject() + "', '" +
+        sqlInsert += " values( null, '" + students.getIdNumber() + "', '" + students.getEmail() + "', '" +
+                students.getFirstProject() + "', '" + students.getSecondProject() + "', '" +
                 students.getThirdProject() + "', '" + students.getFirstArea() + "', '" +
                 students.getSecondArea() + "', '" + students.getThirdArea() + "' )";
 
         db.execSQL(sqlInsert);
         db.close();
+    }
+
+    /**
+     * Selects and returns all the rows in Users Table
+     */
+    public ArrayList<Users> selectAllUsers() {
+        String sqlQuery = "SELECT * FROM " + TABLE_USERS;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        @SuppressLint("Recycle")
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        ArrayList<Users> users = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            Users currentUser = new Users(cursor.getString(0),
+                    cursor.getString(1), cursor.getString(2));
+            users.add(currentUser);
+        }
+
+        db.close();
+        return users;
     }
 
     /**
@@ -109,7 +147,7 @@ public class Database extends SQLiteOpenHelper {
         ArrayList<Coordinator> coordinators = new ArrayList<>();
         while (cursor.moveToNext()) {
             Coordinator currentCoordinator = new Coordinator(cursor.getString(0),
-                    cursor.getString(1), cursor.getString(2), cursor.getString(3));
+                    cursor.getString(1), cursor.getString(2));
             coordinators.add(currentCoordinator);
         }
 
@@ -130,8 +168,7 @@ public class Database extends SQLiteOpenHelper {
         ArrayList<Supervisors> supervisors = new ArrayList<>();
         while (cursor.moveToNext()) {
             Supervisors currentSupervisor = new Supervisors(cursor.getString(0),
-                    cursor.getString(1), cursor.getString(2), cursor.getString(3),
-                    cursor.getString(4));
+                    cursor.getString(1), cursor.getString(2), cursor.getString(3));
             supervisors.add(currentSupervisor);
         }
 
@@ -176,7 +213,7 @@ public class Database extends SQLiteOpenHelper {
             Students currentStudent = new Students(cursor.getString(0),
                     cursor.getString(1), cursor.getString(2), cursor.getString(3),
                     cursor.getString(4), cursor.getString(5), cursor.getString(6),
-                    cursor.getString(7), cursor.getString(8));
+                    cursor.getString(7));
             students.add(currentStudent);
         }
 
@@ -185,16 +222,25 @@ public class Database extends SQLiteOpenHelper {
     }
 
     /**
-     * Removes the row with the selected word from Students Table
+     * Removes the row with the selected item from Users Table
      */
-    public void deleteStudents(String idNumber) {
+    public void deleteUser(String identifier) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_USERS, "identifier" + " = ?", new String[]{identifier});
+        db.close();
+    }
+
+    /**
+     * Removes the row with the selected item from Students Table
+     */
+    public void deleteStudent(String idNumber) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_STUDENTS, "id_number" + " = ?", new String[]{idNumber});
         db.close();
     }
 
     /**
-     * Removes the row with the selected word from Projects Table
+     * Removes the row with the selected item from Projects Table
      */
     public void deleteProject(String idNumber) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -203,7 +249,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
     /**
-     * Removes the row with the selected word from Supervisors Table
+     * Removes the row with the selected item from Supervisors Table
      */
     public void deleteSupervisor(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -212,12 +258,23 @@ public class Database extends SQLiteOpenHelper {
     }
 
     /**
-     * Removes the row with the selected word from Coordinator Table
+     * Removes the row with the selected item from Coordinator Table
      */
     public void deleteCoordinator(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_COORDINATOR, "email" + " = ?", new String[]{email});
         db.close();
+    }
+
+    /**
+     * Returns the total number of rows in Users Table
+     */
+    public int getUsersCount() {
+        String countQuery = "SELECT * FROM " + TABLE_USERS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.close();
+        return cursor.getCount();
     }
 
     /**
@@ -262,6 +319,14 @@ public class Database extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(countQuery, null);
         cursor.close();
         return cursor.getCount();
+    }
+
+    /**
+     * Clears all rows in Users Table and returns the number of rows remaining
+     */
+    public Integer clearUsers() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.delete(TABLE_USERS, null, null);
     }
 
     /**

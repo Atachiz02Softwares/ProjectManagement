@@ -8,10 +8,12 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import morpheus.softwares.projectmanagement.R;
+import morpheus.softwares.projectmanagement.models.Database;
 
 public class StudentSignUpActivity extends AppCompatActivity {
     EditText idNum, pinCode, confirmPinCode, studentName;
     Button createAccount;
+    Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class StudentSignUpActivity extends AppCompatActivity {
         confirmPinCode = findViewById(R.id.studentSignupConfirmPin);
         studentName = findViewById(R.id.studentSignupName);
         createAccount = findViewById(R.id.studentSignupCreateAccount);
+
+        database = new Database(StudentSignUpActivity.this);
 
         String idNumber = String.valueOf(idNum.getText());
         String pin = String.valueOf(pinCode.getText());

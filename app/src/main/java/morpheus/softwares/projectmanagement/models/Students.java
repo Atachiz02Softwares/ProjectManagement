@@ -1,13 +1,12 @@
 package morpheus.softwares.projectmanagement.models;
 
 public class Students {
-    private String idNumber, pin, email, firstProject, secondProject, thirdProject, firstArea,
+    private String idNumber, email, firstProject, secondProject, thirdProject, firstArea,
             secondArea, thirdArea;
 
-    public Students(String idNumber, String pin, String email, String firstProject,
+    public Students(String idNumber, String email, String firstProject,
                     String secondProject, String thirdProject, String firstArea, String secondArea, String thirdArea) {
         setIdNumber(idNumber);
-        setPin(pin);
         setEmail(email);
         setFirstProject(firstProject);
         setSecondProject(secondProject);
@@ -23,14 +22,6 @@ public class Students {
 
     public void setIdNumber(String idNumber) {
         this.idNumber = idNumber;
-    }
-
-    public String getPin() {
-        return pin;
-    }
-
-    public void setPin(String pin) {
-        this.pin = pin;
     }
 
     public String getEmail() {
