@@ -23,7 +23,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE users (id integer PRIMARY KEY AUTOINCREMENT, identifier " +
-                "text, pin text, name text)");
+                "text, pin text, name text, role text)");
         db.execSQL("CREATE TABLE students (id integer PRIMARY KEY AUTOINCREMENT, id_number " +
                 "text, email text, first_project text, second_project text, " +
                 "third_project text, first_area text, second_area text, third_area text)");
@@ -52,7 +52,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String sqlInsert = "INSERT INTO " + TABLE_USERS;
         sqlInsert += " values( null, '" + users.getIdentifier() + "', '" + users.getPin() +
-                "', '" + users.getName() + "' )";
+                "', '" + users.getName() + "', '" + users.getRole() + "' )";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -126,7 +126,7 @@ public class Database extends SQLiteOpenHelper {
         ArrayList<Users> users = new ArrayList<>();
         while (cursor.moveToNext()) {
             Users currentUser = new Users(cursor.getString(0),
-                    cursor.getString(1), cursor.getString(2));
+                    cursor.getString(1), cursor.getString(2), cursor.getString(3));
             users.add(currentUser);
         }
 

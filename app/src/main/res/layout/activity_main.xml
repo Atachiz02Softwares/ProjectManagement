@@ -61,6 +61,7 @@
         android:layout_centerHorizontal="true"
         android:text="@string/atachiz02_softwares"
         android:textColor="@color/darkGreen"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:textStyle="italic" />
 
 </RelativeLayout>

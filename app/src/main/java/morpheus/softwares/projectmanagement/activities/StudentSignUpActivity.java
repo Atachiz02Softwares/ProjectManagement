@@ -24,13 +24,15 @@ public class StudentSignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_sign_up);
 
-        idNum = findViewById(R.id.studentSignupIDNumber);
+        idNum = findViewById(R.id.studentSignupID);
         pinCode = findViewById(R.id.studentSignupPin);
         confirmPinCode = findViewById(R.id.studentSignupConfirmPin);
         studentName = findViewById(R.id.studentSignupName);
         createAccount = findViewById(R.id.studentSignupCreateAccount);
 
         database = new Database(StudentSignUpActivity.this);
+
+        String role = "student";
 
         createAccount.setOnClickListener(v -> {
             String idNumber = String.valueOf(idNum.getText()).trim();
@@ -43,9 +45,9 @@ public class StudentSignUpActivity extends AppCompatActivity {
             } else if (!TextUtils.equals(pin, confirmPin)) {
                 Toast.makeText(StudentSignUpActivity.this, "Pins must be the same!", Toast.LENGTH_SHORT).show();
             } else {
-                Users user = new Users(idNumber, pin, name);
+                Users user = new Users(idNumber, pin, name, role);
                 database.insertUser(user);
-                new Links(StudentSignUpActivity.this).setStatus("student");
+                new Links(StudentSignUpActivity.this).setStatus(role);
                 startActivity(new Intent(StudentSignUpActivity.this, StudentActivity.class));
                 finish();
             }

@@ -13,6 +13,7 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:contentDescription="@string/todo"
         android:src="@drawable/baseline_school_24" />
 
     <TextView
@@ -32,14 +33,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/studentSignupTitle"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
         android:padding="10dp">
 
         <EditText
-            android:id="@+id/studentSignupIDNumber"
+            android:id="@+id/studentSignupID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="username"
             android:backgroundTint="@color/green"
             android:hint="Student ID number"
             android:inputType="text"
@@ -50,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:autofillHints="password"
             android:backgroundTint="@color/green"
             android:hint="Pin"
             android:inputType="numberPassword" />
@@ -59,6 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:autofillHints="password"
             android:backgroundTint="@color/green"
             android:hint="Confirm pin"
             android:inputType="numberPassword" />
@@ -68,6 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:autofillHints="name"
             android:backgroundTint="@color/green"
             android:hint="Student name"
             android:inputType="textPersonName" />
@@ -80,9 +85,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/studentSignupLinearLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:backgroundTint="@color/darkGreen"
-        android:text="Create Account"
+        android:text="@string/create_account"
         android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/atachiz02_softwares"
+        android:textColor="@color/darkGreen"
+        android:textSize="14sp"
+        android:textStyle="italic" />
 
 </RelativeLayout>

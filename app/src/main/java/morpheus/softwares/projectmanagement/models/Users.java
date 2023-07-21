@@ -1,12 +1,13 @@
 package morpheus.softwares.projectmanagement.models;
 
 public class Users {
-    protected String identifier, pin, name;
+    protected String identifier, pin, name, role;
 
-    public Users(String identifier, String pin, String name) {
+    public Users(String identifier, String pin, String name, String role) {
         setIdentifier(identifier);
         setPin(pin);
         setName(name);
+        setRole(role);
     }
 
     public String getIdentifier() {
@@ -31,5 +32,13 @@ public class Users {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
