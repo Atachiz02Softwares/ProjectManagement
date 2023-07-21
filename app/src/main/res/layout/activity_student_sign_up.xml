@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/green"
             android:hint="Student ID number"
+            android:inputType="text"
             android:maxLines="1" />
 
         <EditText
@@ -69,7 +70,7 @@
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/green"
             android:hint="Student name"
-            android:maxLines="1" />
+            android:inputType="textPersonName" />
 
     </LinearLayout>
 

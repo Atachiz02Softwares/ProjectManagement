@@ -27,15 +27,18 @@ public class MainActivity extends AppCompatActivity {
         switch (status) {
             case "student":
                 startActivity(new Intent(MainActivity.this, StudentActivity.class));
+                finish();
                 break;
             case "supervisor":
                 startActivity(new Intent(MainActivity.this, SupervisorActivity.class));
+                finish();
                 break;
             case "coordinator":
                 startActivity(new Intent(MainActivity.this, CoordinatorActivity.class));
+                finish();
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + status);
+//                throw new IllegalStateException("Unexpected value: " + status);
         }
 
         student.setOnClickListener(v -> {

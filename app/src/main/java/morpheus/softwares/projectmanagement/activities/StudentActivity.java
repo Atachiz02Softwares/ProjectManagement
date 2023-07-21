@@ -10,7 +10,7 @@ import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.models.Links;
 
 public class StudentActivity extends AppCompatActivity {
-    private final String[] AREAS = new Links().getAreas();
+    private final String[] AREAS = new Links(StudentActivity.this).getAreas();
     AutoCompleteTextView firstArea;
     ArrayAdapter<String> firstAreaAdapter;
     AutoCompleteTextView secondArea;
@@ -23,13 +23,13 @@ public class StudentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
-        firstAreaAdapter = new ArrayAdapter<>(this, R.layout.list_items, AREAS);
-        firstArea.setAdapter(firstAreaAdapter);
-
-        secondAreaAdapter = new ArrayAdapter<>(this, R.layout.list_items, AREAS);
-        secondArea.setAdapter(secondAreaAdapter);
-
-        thirdAreaAdapter = new ArrayAdapter<>(this, R.layout.list_items, AREAS);
-        thirdArea.setAdapter(thirdAreaAdapter);
+//        firstAreaAdapter = new ArrayAdapter<>(this, R.layout.list_items, AREAS);
+//        firstArea.setAdapter(firstAreaAdapter);
+//
+//        secondAreaAdapter = new ArrayAdapter<>(this, R.layout.list_items, AREAS);
+//        secondArea.setAdapter(secondAreaAdapter);
+//
+//        thirdAreaAdapter = new ArrayAdapter<>(this, R.layout.list_items, AREAS);
+//        thirdArea.setAdapter(thirdAreaAdapter);
     }
 }

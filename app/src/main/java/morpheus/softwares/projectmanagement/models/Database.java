@@ -48,7 +48,7 @@ public class Database extends SQLiteOpenHelper {
     /**
      * Adds a row to Users Table
      */
-    public void insertUsers(Users users) {
+    public void insertUser(Users users) {
         SQLiteDatabase db = this.getWritableDatabase();
         String sqlInsert = "INSERT INTO " + TABLE_USERS;
         sqlInsert += " values( null, '" + users.getIdentifier() + "', '" + users.getPin() +
