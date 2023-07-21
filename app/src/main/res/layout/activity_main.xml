@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/mainIcon"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/icons" />
 
@@ -19,39 +19,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/mainIcon"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:text="@string/title"
         android:textAlignment="center"
         android:textColor="@color/darkGreen"
         android:textSize="40sp" />
 
     <Button
-        android:id="@+id/mainStudent"
+        android:id="@+id/mainSignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/mainTitle"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:backgroundTint="@color/darkGreen"
         android:text="@string/student"
-        android:textSize="24sp" />
-
-    <Button
-        android:id="@+id/mainSupervisor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/mainStudent"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/darkGreen"
-        android:text="@string/supervisor"
-        android:textSize="24sp" />
-
-    <Button
-        android:id="@+id/mainCoordinator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/mainSupervisor"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/darkGreen"
-        android:text="@string/proceed_as_coordinator"
+        android:textColor="@color/white"
         android:textSize="24sp" />
 
     <TextView

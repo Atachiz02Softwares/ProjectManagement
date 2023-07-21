@@ -1,54 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/studentSignup"
+    android:id="@+id/signUp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".activities.StudentSignUpActivity">
+    tools:context=".activities.SignUpActivity">
 
     <ImageView
-        android:id="@+id/studentSignupIcon"
+        android:id="@+id/signUpIcon"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="@string/todo"
         android:src="@drawable/baseline_school_24" />
 
     <TextView
-        android:id="@+id/studentSignupTitle"
+        android:id="@+id/signUpTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/studentSignupIcon"
+        android:layout_below="@id/signUpIcon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="@string/student_account"
+        android:text="@string/account"
         android:textAlignment="center"
         android:textColor="@color/darkGreen"
         android:textSize="30sp" />
 
     <LinearLayout
-        android:id="@+id/studentSignupLinearLayout"
+        android:id="@+id/signUpLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/studentSignupTitle"
-        android:layout_marginTop="30dp"
+        android:layout_below="@id/signUpTitle"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         android:padding="10dp">
 
         <EditText
-            android:id="@+id/studentSignupID"
+            android:id="@+id/signUpID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="username"
             android:backgroundTint="@color/green"
-            android:hint="Student ID number"
-            android:inputType="text"
+            android:hint="ID number (if student) or Email (if staff)"
+            android:inputType="textEmailAddress"
             android:maxLines="1" />
 
         <EditText
-            android:id="@+id/studentSignupPin"
+            android:id="@+id/signUpPin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -58,7 +59,7 @@
             android:inputType="numberPassword" />
 
         <EditText
-            android:id="@+id/studentSignupConfirmPin"
+            android:id="@+id/signUpConfirmPin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -68,7 +69,7 @@
             android:inputType="numberPassword" />
 
         <EditText
-            android:id="@+id/studentSignupName"
+            android:id="@+id/signUpName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -77,17 +78,36 @@
             android:hint="Student name"
             android:inputType="textPersonName" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signUpRole"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Sign up as"
+            app:boxStrokeColor="@color/green"
+            app:boxStrokeWidth="1dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/signUpAs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
     <Button
-        android:id="@+id/studentSignupCreateAccount"
+        android:id="@+id/signUpCreateAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/studentSignupLinearLayout"
+        android:layout_below="@+id/signUpLinearLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/darkGreen"
         android:text="@string/create_account"
+        android:textColor="@color/white"
         android:textSize="24sp" />
 
     <TextView

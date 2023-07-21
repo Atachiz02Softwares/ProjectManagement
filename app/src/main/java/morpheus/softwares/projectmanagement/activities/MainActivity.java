@@ -10,16 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import morpheus.softwares.projectmanagement.R;
 
 public class MainActivity extends AppCompatActivity {
-    Button student, supervisor, coordinator;
+    Button signup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        student = findViewById(R.id.mainStudent);
-        supervisor = findViewById(R.id.mainSupervisor);
-        coordinator = findViewById(R.id.mainCoordinator);
+        signup = findViewById(R.id.mainSignup);
 
         SharedPreferences sharedPreferences = getSharedPreferences("Status", MODE_PRIVATE);
         String status = sharedPreferences.getString("status", "");
@@ -37,18 +35,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, CoordinatorActivity.class));
                 finish();
                 break;
-            default:
-//                throw new IllegalStateException("Unexpected value: " + status);
         }
 
-        student.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, StudentSignUpActivity.class));
-        });
-        supervisor.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, SupervisorSignUpActivity.class));
-        });
-        coordinator.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, CoordinatorSignUpActivity.class));
+        signup.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, SignUpActivity.class));
         });
     }
 }

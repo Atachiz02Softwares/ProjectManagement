@@ -6,12 +6,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class Links {
-    String[] areas = {"Artificial Intelligence", "Software Engineering", "Game Design", "Networking",
+    protected final Context context;
+    private final String[] areas = {"Artificial Intelligence", "Software Engineering", "Game " +
+            "Design",
+            "Networking",
             "Multimedia Technology", "Cyber Security", "Data Science", "Programming Languages",
             "Soft Computing", "Machine Learning", "Data structures & Algorithms", "Computer Hardware",
             "Medical Informatics", "Cloud Computing", "Game Design", "Data Mining", "Information " +
             "& Communication Technology", "Computer Vision", "Natural Language Processing"};
-    Context context;
+    private final String[] roles = {"student", "supervisor", "coordinator"};
 
     public Links(Context context) {
         this.context = context;
@@ -22,6 +25,13 @@ public class Links {
      */
     public String[] getAreas() {
         return areas;
+    }
+
+    /**
+     * Returns the list of available roles of to be signed up as
+     */
+    public String[] getRoles() {
+        return roles;
     }
 
     /**

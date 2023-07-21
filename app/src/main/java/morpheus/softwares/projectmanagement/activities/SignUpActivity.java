@@ -3,6 +3,8 @@ package morpheus.softwares.projectmanagement.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,25 +16,32 @@ import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Users;
 
-public class SupervisorSignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
+    private final String[] ROLES = new Links(SignUpActivity.this).getRoles();
     EditText idNum, pinCode, confirmPinCode, studentName;
+    AutoCompleteTextView role;
+    ArrayAdapter<String> roleAdapter;
     Button createAccount;
     Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_supervisor_sign_up);
+        setContentView(R.layout.activity_sign_up);
 
-        idNum = findViewById(R.id.supervisorSignupEmail);
-        pinCode = findViewById(R.id.supervisorSignupPin);
-        confirmPinCode = findViewById(R.id.supervisorSignupConfirmPin);
-        studentName = findViewById(R.id.supervisorSignupName);
-        createAccount = findViewById(R.id.supervisorSignupCreateAccount);
+        idNum = findViewById(R.id.signUpID);
+        pinCode = findViewById(R.id.signUpPin);
+        confirmPinCode = findViewById(R.id.signUpConfirmPin);
+        studentName = findViewById(R.id.signUpName);
+        role = findViewById(R.id.signUpAs);
+        createAccount = findViewById(R.id.signUpCreateAccount);
 
-        database = new Database(SupervisorSignUpActivity.this);
+        roleAdapter = new ArrayAdapter<>(this, R.layout.list_items, ROLES);
+        role.setAdapter(roleAdapter);
 
-        String role = "supervisor";
+        database = new Database(SignUpActivity.this);
+
+        String signUpAs = String.valueOf(role.getText());
 
         createAccount.setOnClickListener(v -> {
             String idNumber = String.valueOf(idNum.getText()).trim();
@@ -41,14 +50,14 @@ public class SupervisorSignUpActivity extends AppCompatActivity {
             String name = String.valueOf(studentName.getText()).trim();
 
             if (TextUtils.isEmpty(pin) || TextUtils.isEmpty(confirmPin) || TextUtils.isEmpty(idNumber) || TextUtils.isEmpty(name)) {
-                Toast.makeText(SupervisorSignUpActivity.this, "No field should be empty!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUpActivity.this, "No field should be empty!", Toast.LENGTH_SHORT).show();
             } else if (!TextUtils.equals(pin, confirmPin)) {
-                Toast.makeText(SupervisorSignUpActivity.this, "Pins must be the same!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUpActivity.this, "Pins must be the same!", Toast.LENGTH_SHORT).show();
             } else {
-                Users user = new Users(idNumber, pin, name, role);
+                Users user = new Users(idNumber, pin, name, signUpAs);
                 database.insertUser(user);
-                new Links(SupervisorSignUpActivity.this).setStatus(role);
-                startActivity(new Intent(SupervisorSignUpActivity.this, SupervisorActivity.class));
+                new Links(SignUpActivity.this).setStatus(signUpAs);
+                startActivity(new Intent(SignUpActivity.this, StudentActivity.class));
                 finish();
             }
         });

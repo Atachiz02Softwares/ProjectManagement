@@ -22,13 +22,7 @@
             android:name=".activities.StudentActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.CoordinatorSignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.SupervisorSignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.StudentSignUpActivity"
+            android:name=".activities.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"

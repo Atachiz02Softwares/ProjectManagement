@@ -2,10 +2,8 @@
     <string name="app_name">Project Management</string>
     <string name="atachiz02_softwares">Atachiz02 Softwares</string>
     <string name="title">Student Project Management System</string>
-    <string name="student">Proceed as Student</string>
-    <string name="supervisor">Proceed as Supervisor</string>
-    <string name="proceed_as_coordinator">Proceed as Coordinator</string>
-    <string name="student_account">Create Your Student Account</string>
+    <string name="student">Proceed to Sign Up</string>
+    <string name="account">Create Your Account</string>
     <string name="todo">TODO</string>
     <string name="create_account">Create Account</string>
 </resources>
