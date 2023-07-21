@@ -13,7 +13,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:contentDescription="@string/todo"
         android:src="@drawable/baseline_school_24" />
 
@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/signUpIcon"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         android:text="@string/account"
         android:textAlignment="center"
         android:textColor="@color/darkGreen"
@@ -44,7 +43,7 @@
             android:layout_height="wrap_content"
             android:autofillHints="username"
             android:backgroundTint="@color/green"
-            android:hint="ID number (if student) or Email (if staff)"
+            android:hint="@string/staff_student"
             android:inputType="textEmailAddress"
             android:maxLines="1" />
 
@@ -55,7 +54,7 @@
             android:layout_marginTop="10dp"
             android:autofillHints="password"
             android:backgroundTint="@color/green"
-            android:hint="Pin"
+            android:hint="@string/pin"
             android:inputType="numberPassword" />
 
         <EditText
@@ -65,7 +64,7 @@
             android:layout_marginTop="10dp"
             android:autofillHints="password"
             android:backgroundTint="@color/green"
-            android:hint="Confirm pin"
+            android:hint="@string/confirm_pin"
             android:inputType="numberPassword" />
 
         <EditText
@@ -75,7 +74,7 @@
             android:layout_marginTop="10dp"
             android:autofillHints="name"
             android:backgroundTint="@color/green"
-            android:hint="Student name"
+            android:hint="@string/name"
             android:inputType="textPersonName" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -84,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Sign up as"
+            android:hint="@string/sign_up_as"
             app:boxStrokeColor="@color/green"
             app:boxStrokeWidth="1dp">
 
@@ -98,13 +97,24 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/signUpCreateAccount"
+    <TextView
+        android:id="@+id/signUpLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/signUpLinearLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/signed_up"
+        android:textSize="16sp"
+        android:textStyle="italic" />
+
+    <Button
+        android:id="@+id/signUpCreateAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signUpLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/darkGreen"
         android:text="@string/create_account"
         android:textColor="@color/white"

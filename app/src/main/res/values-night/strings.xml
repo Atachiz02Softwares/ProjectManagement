@@ -6,4 +6,12 @@
     <string name="account">Create Your Account</string>
     <string name="todo">TODO</string>
     <string name="create_account">Create Account</string>
+    <string name="signed_up">Already signed up? Click here to login...</string>
+    <string name="login">Login to Your Account</string>
+    <string name="logIn">Login</string>
+    <string name="staff_student">ID number (if student) or Email (if staff)</string>
+    <string name="pin">Pin</string>
+    <string name="confirm_pin">Confirm pin</string>
+    <string name="name">Student/Staff name</string>
+    <string name="sign_up_as">Sign up as</string>
 </resources>
