@@ -14,4 +14,12 @@
     <string name="confirm_pin">Confirm pin</string>
     <string name="name">Student/Staff name</string>
     <string name="sign_up_as">Sign up as</string>
+    <string name="create_profile">Create Profile</string>
+    <string name="view_approved_topic">View Approved Topic</string>
+    <string name="exit">Exit</string>
+    <string name="logout">Logout</string>
+    <string name="complain">Complain</string>
+    <string name="about">About</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
