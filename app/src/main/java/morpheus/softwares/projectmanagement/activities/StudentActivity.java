@@ -80,7 +80,7 @@ public class StudentActivity extends AppCompatActivity {
 
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile)
-                Toast.makeText(StudentActivity.this, "Create Profile", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(StudentActivity.this, CreateProfileActivity.class));
             else if (item.getItemId() == R.id.viewApprovedTopic)
                 Toast.makeText(StudentActivity.this, "View Approved Topic", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.complain)

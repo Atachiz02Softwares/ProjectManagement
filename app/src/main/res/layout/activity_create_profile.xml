@@ -1,91 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/student"
+    android:id="@+id/createProfile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.StudentActivity">
+    android:padding="10dp"
+    tools:context=".activities.CreateProfileActivity">
 
-    <EditText
-        android:id="@+id/studentSignupFirstProjectName"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/createProfileTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/green"
-        android:hint="1st proposed project topic"
-        android:inputType="textMultiLine" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Create Your Profile"
+        android:textColor="@color/darkGreen"
+        android:textSize="30sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/categoryOne"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+    <!--    <de.hdodenhof.circleimageview.CircleImageView-->
+    <!--        android:id="@+id/createProfileProfilePic"-->
+    <!--        android:layout_width="100dp"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_height="150dp"-->
+    <!--        android:src="@drawable/avatar"-->
+    <!--        app:civ_border_color="@color/green"-->
+    <!--        app:civ_border_width="1dp" />-->
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="1st project area of interest"
-        app:boxStrokeColor="@color/green"
-        app:boxStrokeWidth="0dp">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/createProfileTitle"
+        android:layout_marginTop="50dp">
 
-        <AutoCompleteTextView
-            android:id="@+id/studentSignupFirstProjectArea"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="none" />
+            android:layout_height="match_parent">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/createProfileFirstProjectName"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/line_border"
+                android:hint="1st proposed project topic"
+                android:inputType="textMultiLine" />
 
-    <EditText
-        android:id="@+id/studentSignupSecondProjectName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/green"
-        android:hint="2nd proposed project topic"
-        android:inputType="textMultiLine" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/categoryOne"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/createProfileFirstProjectName"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/line_border"
+                android:hint="1st project area of interest"
+                app:boxStrokeColor="@color/green"
+                app:boxStrokeWidth="0dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/categoryTwo"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="2nd project area of interest"
-        app:boxStrokeColor="@color/green"
-        app:boxStrokeWidth="0dp">
+                <AutoCompleteTextView
+                    android:id="@+id/createProfileFirstProjectArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none" />
 
-        <AutoCompleteTextView
-            android:id="@+id/studentSignupSecondProjectArea"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/createProfileSecondProjectName"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/categoryOne"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/line_border"
+                android:hint="2nd proposed project topic"
+                android:inputType="textMultiLine" />
 
-    <EditText
-        android:id="@+id/studentSignupThirdProjectName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/green"
-        android:hint="3rd proposed project topic"
-        android:inputType="textMultiLine" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/categoryTwo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/createProfileSecondProjectName"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/line_border"
+                android:hint="2nd project area of interest"
+                app:boxStrokeColor="@color/green"
+                app:boxStrokeWidth="0dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/categoryThree"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="3rd project area of interest"
-        app:boxStrokeColor="@color/green"
-        app:boxStrokeWidth="0dp">
+                <AutoCompleteTextView
+                    android:id="@+id/createProfileSecondProjectArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none" />
 
-        <AutoCompleteTextView
-            android:id="@+id/studentSignupThirdProjectArea"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/createProfileThirdProjectName"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/categoryTwo"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/line_border"
+                android:hint="3rd proposed project topic"
+                android:inputType="textMultiLine" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/categoryThree"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/createProfileThirdProjectName"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/line_border"
+                android:hint="3rd project area of interest"
+                app:boxStrokeColor="@color/green"
+                app:boxStrokeWidth="0dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/createProfileThirdProjectArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/createProfileGrouping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/categoryThree"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/createProfileAlone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
+                    android:buttonTint="@color/green"
+                    android:text="Working Alone"
+                    android:textSize="14sp" />
+
+                <RadioButton
+                    android:id="@+id/createProfileGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:buttonTint="@color/green"
+                    android:text="Working in Group"
+                    android:textSize="14sp" />
+            </RadioGroup>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>
