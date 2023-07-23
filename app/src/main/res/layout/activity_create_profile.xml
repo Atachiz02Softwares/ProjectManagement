@@ -28,6 +28,7 @@
     <!--        app:civ_border_width="1dp" />-->
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/createProfileScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/createProfileTitle"
@@ -38,9 +39,33 @@
             android:layout_height="match_parent">
 
             <EditText
+                android:id="@+id/createProfileID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/green"
+                android:hint="ID number"
+                android:inputType="textMultiLine"
+                android:maxLines="1"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/createProfileEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/createProfileID"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/green"
+                android:hint="Email"
+                android:maxLines="1"
+                android:textSize="18sp" />
+
+            <EditText
                 android:id="@+id/createProfileFirstProjectName"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:layout_below="@id/createProfileEmail"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/line_border"
                 android:hint="1st proposed project topic"
                 android:inputType="textMultiLine" />
@@ -152,6 +177,16 @@
                     android:text="Working in Group"
                     android:textSize="14sp" />
             </RadioGroup>
+
+            <Button
+                android:id="@+id/createProfileCreate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/createProfileGrouping"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="20dp"
+                android:text="@string/create_profile"
+                android:textColor="@color/white" />
 
         </RelativeLayout>
 
