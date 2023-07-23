@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         signup.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+            finish();
         });
     }
 }

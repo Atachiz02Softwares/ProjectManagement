@@ -1,7 +1,6 @@
 package morpheus.softwares.projectmanagement.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -89,10 +88,7 @@ public class StudentActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.about)
                 Toast.makeText(StudentActivity.this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
-                SharedPreferences sharedPreferences = getSharedPreferences("Status", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.remove("status");
-                editor.apply();
+                new Links(StudentActivity.this).removeStatus();
                 startActivity(new Intent(StudentActivity.this, LoginActivity.class));
                 finish();
             } else if (item.getItemId() == R.id.exit) finishAffinity();

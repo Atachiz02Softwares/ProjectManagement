@@ -1,12 +1,22 @@
 package morpheus.softwares.projectmanagement.models;
 
 public class Coordinator {
+    private int id;
     private String name, phoneNumber, email;
 
-    public Coordinator(String name, String phoneNumber, String email) {
+    public Coordinator(int id, String name, String phoneNumber, String email) {
+        setId(id);
         setName(name);
         setPhoneNumber(phoneNumber);
         setEmail(email);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

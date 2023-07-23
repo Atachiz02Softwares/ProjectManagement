@@ -3,6 +3,7 @@ package morpheus.softwares.projectmanagement.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -46,38 +47,43 @@ public class SignUpActivity extends AppCompatActivity {
 
         login.setOnClickListener(v -> startActivity(new Intent(SignUpActivity.this, LoginActivity.class)));
 
-        createAccount.setOnClickListener(v -> {
-            String idNumber = String.valueOf(idNum.getText()).trim(),
-                    pin = String.valueOf(pinCode.getText()).trim(),
-                    confirmPin = String.valueOf(confirmPinCode.getText()).trim(),
-                    name = String.valueOf(studentName.getText()).trim(),
-                    signUpAs = String.valueOf(role.getText());
+        createAccount.setOnClickListener(this::onClick);
+    }
 
-            if (TextUtils.isEmpty(pin) || TextUtils.isEmpty(confirmPin) || TextUtils.isEmpty(idNumber) || TextUtils.isEmpty(name)) {
-                Toast.makeText(SignUpActivity.this, "No field should be empty!", Toast.LENGTH_SHORT).show();
-            } else if (!TextUtils.equals(pin, confirmPin)) {
-                Toast.makeText(SignUpActivity.this, "Pins must be the same!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(SignUpActivity.this, "Signup successful!", Toast.LENGTH_SHORT).show();
-                Users user = new Users(idNumber, pin, name, signUpAs);
-                database.insertUser(user);
-                new Links(SignUpActivity.this).setStatus(signUpAs);
+    private void onClick(View v) {
+        String idNumber = String.valueOf(idNum.getText()).trim(),
+                pin = String.valueOf(pinCode.getText()).trim(),
+                confirmPin = String.valueOf(confirmPinCode.getText()).trim(),
+                name = String.valueOf(studentName.getText()).trim(),
+                signUpAs = String.valueOf(role.getText());
+        boolean hasSignedUp = new Links(SignUpActivity.this).hasSignedUp(idNumber);
 
-                switch (signUpAs) {
-                    case "student":
-                        startActivity(new Intent(SignUpActivity.this, StudentActivity.class));
-                        finish();
-                        break;
-                    case "supervisor":
-                        startActivity(new Intent(SignUpActivity.this, SupervisorActivity.class));
-                        finish();
-                        break;
-                    case "coordinator":
-                        startActivity(new Intent(SignUpActivity.this, CoordinatorActivity.class));
-                        finish();
-                        break;
-                }
+        if (TextUtils.isEmpty(pin) || TextUtils.isEmpty(confirmPin) || TextUtils.isEmpty(idNumber) || TextUtils.isEmpty(name))
+            Toast.makeText(SignUpActivity.this, "No field should be empty!", Toast.LENGTH_SHORT).show();
+        else if (!TextUtils.equals(pin, confirmPin))
+            Toast.makeText(SignUpActivity.this, "Pins must be the same!", Toast.LENGTH_SHORT).show();
+        else if (hasSignedUp)
+            Toast.makeText(SignUpActivity.this, "You already have an account!", Toast.LENGTH_SHORT).show();
+        else {
+            Users newUser = new Users(0, idNumber, pin, name, signUpAs);
+            database.insertUser(newUser);
+            new Links(SignUpActivity.this).setStatus(signUpAs);
+            Toast.makeText(SignUpActivity.this, "Signup successful!", Toast.LENGTH_SHORT).show();
+
+            switch (signUpAs) {
+                case "student":
+                    startActivity(new Intent(SignUpActivity.this, StudentActivity.class));
+                    finish();
+                    break;
+                case "supervisor":
+                    startActivity(new Intent(SignUpActivity.this, SupervisorActivity.class));
+                    finish();
+                    break;
+                case "coordinator":
+                    startActivity(new Intent(SignUpActivity.this, CoordinatorActivity.class));
+                    finish();
+                    break;
             }
-        });
+        }
     }
 }

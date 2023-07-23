@@ -125,8 +125,9 @@ public class Database extends SQLiteOpenHelper {
 
         ArrayList<Users> users = new ArrayList<>();
         while (cursor.moveToNext()) {
-            Users currentUser = new Users(cursor.getString(0),
-                    cursor.getString(1), cursor.getString(2), cursor.getString(3));
+            Users currentUser = new Users(cursor.getInt(0),
+                    cursor.getString(1), cursor.getString(2), cursor.getString(3),
+                    cursor.getString(4));
             users.add(currentUser);
         }
 
@@ -146,8 +147,8 @@ public class Database extends SQLiteOpenHelper {
 
         ArrayList<Coordinator> coordinators = new ArrayList<>();
         while (cursor.moveToNext()) {
-            Coordinator currentCoordinator = new Coordinator(cursor.getString(0),
-                    cursor.getString(1), cursor.getString(2));
+            Coordinator currentCoordinator = new Coordinator(cursor.getInt(0),
+                    cursor.getString(1), cursor.getString(2), cursor.getString(3));
             coordinators.add(currentCoordinator);
         }
 
@@ -167,8 +168,9 @@ public class Database extends SQLiteOpenHelper {
 
         ArrayList<Supervisors> supervisors = new ArrayList<>();
         while (cursor.moveToNext()) {
-            Supervisors currentSupervisor = new Supervisors(cursor.getString(0),
-                    cursor.getString(1), cursor.getString(2), cursor.getString(3));
+            Supervisors currentSupervisor = new Supervisors(cursor.getInt(0),
+                    cursor.getString(1), cursor.getString(2), cursor.getString(3),
+                    cursor.getString(4));
             supervisors.add(currentSupervisor);
         }
 
@@ -188,9 +190,9 @@ public class Database extends SQLiteOpenHelper {
 
         ArrayList<Projects> projects = new ArrayList<>();
         while (cursor.moveToNext()) {
-            Projects currentProject = new Projects(cursor.getString(0),
+            Projects currentProject = new Projects(cursor.getInt(0),
                     cursor.getString(1), cursor.getString(2), cursor.getString(3),
-                    cursor.getString(4), cursor.getString(5));
+                    cursor.getString(4), cursor.getString(5), cursor.getString(6));
             projects.add(currentProject);
         }
 
@@ -210,10 +212,10 @@ public class Database extends SQLiteOpenHelper {
 
         ArrayList<Students> students = new ArrayList<>();
         while (cursor.moveToNext()) {
-            Students currentStudent = new Students(cursor.getString(0),
+            Students currentStudent = new Students(cursor.getInt(0),
                     cursor.getString(1), cursor.getString(2), cursor.getString(3),
                     cursor.getString(4), cursor.getString(5), cursor.getString(6),
-                    cursor.getString(7));
+                    cursor.getString(7), cursor.getString(8));
             students.add(currentStudent);
         }
 

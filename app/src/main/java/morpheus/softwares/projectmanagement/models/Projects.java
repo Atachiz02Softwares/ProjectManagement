@@ -1,15 +1,26 @@
 package morpheus.softwares.projectmanagement.models;
 
 public class Projects {
+    private int id;
     private String idNumber, firstTopic, secondTopic, thirdTopic, date, status;
 
-    public Projects(String idNumber, String firstTopic, String secondTopic, String thirdTopic, String date, String status) {
+    public Projects(int id, String idNumber, String firstTopic, String secondTopic,
+                    String thirdTopic, String date, String status) {
+        setId(id);
         setIdNumber(idNumber);
         setFirstTopic(firstTopic);
         setSecondTopic(secondTopic);
         setThirdTopic(thirdTopic);
         setDate(date);
         setStatus(status);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getIdNumber() {
