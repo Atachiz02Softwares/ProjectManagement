@@ -11,19 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-
 import morpheus.softwares.projectmanagement.R;
-import morpheus.softwares.projectmanagement.adapters.ProjectsAdapter;
 import morpheus.softwares.projectmanagement.models.Links;
-import morpheus.softwares.projectmanagement.models.Projects;
 
 public class StudentActivity extends AppCompatActivity {
     private final String[] AREAS = new Links(StudentActivity.this).getAreas();
@@ -35,10 +29,10 @@ public class StudentActivity extends AppCompatActivity {
     AppBarLayout appBarLayout;
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
-    TextView studentName, studentID, studentNavName, studentNavID;
-    ArrayList<Projects> projects;
-    ProjectsAdapter projectsAdapter;
-    RecyclerView recyclerView;
+
+    TextView studentName, studentID, studentNavName, studentNavID, firstProject, firstArea,
+            firstSupervisor, firstStatus, secondProject, secondArea, secondSupervisor,
+            secondStatus, thirdProject, thirdArea, thirdSupervisor, thirdStatus;
 
     @Override
 
@@ -67,16 +61,6 @@ public class StudentActivity extends AppCompatActivity {
         header = navigationView.getHeaderView(0);
         studentNavName = header.findViewById(R.id.studentNavName);
         studentNavID = header.findViewById(R.id.studentNavID);
-
-        projects = new ArrayList<>();
-        recyclerView = findViewById(R.id.studentList);
-        projectsAdapter = new ProjectsAdapter(StudentActivity.this, projects);
-        recyclerView.setHasFixedSize(true);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(projectsAdapter);
 
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile)

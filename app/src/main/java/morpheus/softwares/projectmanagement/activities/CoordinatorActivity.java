@@ -5,12 +5,21 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
+import morpheus.softwares.projectmanagement.adapters.ProjectsAdapter;
 import morpheus.softwares.projectmanagement.models.Links;
+import morpheus.softwares.projectmanagement.models.Projects;
 
 public class CoordinatorActivity extends AppCompatActivity {
     Button button;
+//    ArrayList<Projects> projects;
+//    ProjectsAdapter projectsAdapter;
+//    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +27,16 @@ public class CoordinatorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_coordinator);
 
         button = findViewById(R.id.logout);
+
+//        projects = new ArrayList<>();
+//        recyclerView = findViewById(R.id.studentList);
+//        projectsAdapter = new ProjectsAdapter(StudentActivity.this, projects);
+//        recyclerView.setHasFixedSize(true);
+//
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+//        recyclerView.setAdapter(projectsAdapter);
 
         button.setOnClickListener(v -> {
             new Links(CoordinatorActivity.this).removeStatus();
