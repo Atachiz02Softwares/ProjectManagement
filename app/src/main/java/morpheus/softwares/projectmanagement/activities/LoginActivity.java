@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
-import morpheus.softwares.projectmanagement.models.Users;
+import morpheus.softwares.projectmanagement.models.User;
 
 public class LoginActivity extends AppCompatActivity {
     EditText id, pin;
@@ -40,11 +40,11 @@ public class LoginActivity extends AppCompatActivity {
     private void onClick(View v) {
         String identifier = id.getText().toString().trim();
         String pinCode = pin.getText().toString().trim();
-        ArrayList<Users> users = database.selectAllUsers();
+        ArrayList<User> users = database.selectAllUsers();
 
         boolean loginSuccessful = false;
 
-        for (Users user : users) {
+        for (User user : users) {
             if (TextUtils.isEmpty(identifier) || TextUtils.isEmpty(pinCode)) {
                 Toast.makeText(LoginActivity.this, "No field should be empty!", Toast.LENGTH_SHORT).show();
                 return; // Exit the method to prevent further processing

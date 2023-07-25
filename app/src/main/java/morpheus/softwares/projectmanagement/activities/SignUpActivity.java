@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
-import morpheus.softwares.projectmanagement.models.Users;
+import morpheus.softwares.projectmanagement.models.User;
 
 public class SignUpActivity extends AppCompatActivity {
     private final String[] ROLES = new Links(SignUpActivity.this).getRoles();
@@ -65,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
         else if (hasSignedUp)
             Toast.makeText(SignUpActivity.this, "You already have an account!", Toast.LENGTH_SHORT).show();
         else {
-            Users newUser = new Users(0, idNumber, pin, name, signUpAs);
+            User newUser = new User(0, idNumber, pin, name, signUpAs);
             database.insertUser(newUser);
             new Links(SignUpActivity.this).setStatus(signUpAs);
             Toast.makeText(SignUpActivity.this, "Signup successful!", Toast.LENGTH_SHORT).show();

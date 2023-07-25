@@ -42,9 +42,9 @@ public class Links {
      * Checks if the user has signed up before
      */
     public boolean hasSignedUp(String identifier) {
-        ArrayList<Users> users = database.selectAllUsers();
+        ArrayList<User> users = database.selectAllUsers();
 
-        for (Users user : users) {
+        for (User user : users) {
             if (user.getIdentifier().equals(identifier))
                 return true;
         }
@@ -78,5 +78,55 @@ public class Links {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("status");
         editor.apply();
+    }
+
+    /**
+     * Sets the status of profile creation to 'student', 'supervisor' or 'coordinator'
+     */
+    public void setProfile(String profile) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putString("profile", profile);
+        myEdit.apply();
+    }
+
+    /**
+     * Sets the status of profile creation to 'student', 'supervisor' or 'coordinator'
+     */
+    public boolean checkProfile(String profile) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);
+        String prof = sharedPreferences.getString("profile", "");
+        return prof.equals(profile);
+    }
+
+    /**
+     * Matches supervisors in the database with a specified supervisory area and returns a formatted string.
+     *
+     * @param supervisoryArea The supervisory area to match against supervisors in the database.
+     * @return A formatted string containing the names of supervisors that match the specified supervisory area.
+     * The names of matching supervisors are separated by a newline in the returned string.
+     */
+    public String matchSupervisors(String supervisoryArea) {
+        // Get all supervisors from the database
+        ArrayList<Supervisor> supervisors = database.selectAllSupervisors();
+
+        // Initialize an empty StringBuilder to hold the result
+        StringBuilder result = new StringBuilder();
+
+        // Iterate through the list of supervisors and add matching supervisors to the result StringBuilder
+        for (Supervisor supervisor : supervisors) {
+            // Get the name of the current supervisor
+            String currentSupervisor = supervisor.getName();
+
+            // Check if the supervisory area of the current supervisor matches the specified supervisoryArea
+            if (supervisor.getArea().equals(supervisoryArea)) {
+                // Append the name of the current supervisor to the result StringBuilder
+                // and add a newline character to separate the names of matching supervisors
+                result.append(currentSupervisor).append("\n");
+            }
+        }
+
+        // Convert the result StringBuilder to a String and return it
+        return result.toString();
     }
 }

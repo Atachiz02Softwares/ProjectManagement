@@ -1,10 +1,10 @@
 package morpheus.softwares.projectmanagement.models;
 
-public class Users {
+public class User {
     protected int id;
     protected String identifier, pin, name, role;
 
-    public Users(int id, String identifier, String pin, String name, String role) {
+    public User(int id, String identifier, String pin, String name, String role) {
         setId(id);
         setIdentifier(identifier);
         setPin(pin);

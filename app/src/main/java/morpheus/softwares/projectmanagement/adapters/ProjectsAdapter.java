@@ -12,15 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
-import morpheus.softwares.projectmanagement.models.Projects;
+import morpheus.softwares.projectmanagement.models.Student;
 
 public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder> {
     Context context;
-    ArrayList<Projects> projects;
+    ArrayList<Student> students;
 
-    public ProjectsAdapter(Context context, ArrayList<Projects> projects) {
+    public ProjectsAdapter(Context context, ArrayList<Student> students) {
         this.context = context;
-        this.projects = projects;
+        this.students = students;
     }
 
     @NonNull
@@ -32,14 +32,14 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder
 
     @Override
     public void onBindViewHolder(@NonNull ProjectsAdapter.Holder holder, int position) {
-        Projects project = projects.get(position);
+        Student student = students.get(position);
 
-        String topic = project.getFirstTopic(), idNumber, name, email, area, supervisor;
+        String topic = student.getFirstProject(), idNumber, name, email, area, supervisor;
     }
 
     @Override
     public int getItemCount() {
-        return projects.size();
+        return students.size();
     }
 
     public static class Holder extends RecyclerView.ViewHolder {
@@ -48,11 +48,11 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder
         public Holder(@NonNull View itemView) {
             super(itemView);
 
-            topic = itemView.findViewById(R.id.topic);
+//            topic = itemView.findViewById(R.id.topic);
             idNumber = itemView.findViewById(R.id.idNumber);
             name = itemView.findViewById(R.id.name);
             email = itemView.findViewById(R.id.email);
-            area = itemView.findViewById(R.id.area);
+//            area = itemView.findViewById(R.id.area);
             supervisor = itemView.findViewById(R.id.supervisor);
         }
     }

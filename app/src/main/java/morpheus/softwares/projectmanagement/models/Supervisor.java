@@ -1,10 +1,10 @@
 package morpheus.softwares.projectmanagement.models;
 
-public class Supervisors {
+public class Supervisor {
     private int id;
     private String name, phoneNumber, email, area;
 
-    public Supervisors(int id, String name, String phoneNumber, String email, String area) {
+    public Supervisor(int id, String name, String phoneNumber, String email, String area) {
         setId(id);
         setName(name);
         setPhoneNumber(phoneNumber);

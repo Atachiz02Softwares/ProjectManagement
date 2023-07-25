@@ -1,5 +1,6 @@
 package morpheus.softwares.projectmanagement.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -11,10 +12,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
-import morpheus.softwares.projectmanagement.models.Students;
+import morpheus.softwares.projectmanagement.models.Student;
 
 public class CreateProfileActivity extends AppCompatActivity {
     String[] AREAS = new Links(CreateProfileActivity.this).getAreas();
@@ -63,6 +67,10 @@ public class CreateProfileActivity extends AppCompatActivity {
         database = new Database(CreateProfileActivity.this);
 
         createProfile.setOnClickListener(v -> {
+            // Current Date/Time
+            LocalDateTime date = LocalDateTime.now();
+            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+            // Variable initializations
             String idNumber = String.valueOf(id.getText()).trim(),
                     email = String.valueOf(mail.getText()).trim(),
                     firstProject = String.valueOf(firstTopic.getText()).trim(),
@@ -72,12 +80,18 @@ public class CreateProfileActivity extends AppCompatActivity {
                     thirdProject = String.valueOf(thirdTopic.getText()).trim(),
                     areaThree = String.valueOf(thirdArea.getText()).trim(),
                     aloneGroup = alone.isChecked() ? String.valueOf(alone.getText()).trim() :
-                            group.isChecked() ? String.valueOf(group.getText()).trim() : null;
+                            group.isChecked() ? String.valueOf(group.getText()).trim() : null,
+                    formattedDate = date.format(myFormatObj);
 
-            Students student = new Students(0, idNumber, email, firstProject, secondProject,
-                    thirdProject, areaOne, areaTwo, areaThree, aloneGroup);
+            Student student = new Student(0, idNumber, email, firstProject, secondProject,
+                    thirdProject, areaOne, areaTwo, areaThree, aloneGroup, formattedDate, "Unapproved");
             database.insertStudent(student);
+
+            new Links(CreateProfileActivity.this).setProfile(idNumber);
             Toast.makeText(CreateProfileActivity.this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
+
+            startActivity(new Intent(CreateProfileActivity.this, StudentActivity.class).putExtra("uid", idNumber));
+            finish();
         });
     }
 }

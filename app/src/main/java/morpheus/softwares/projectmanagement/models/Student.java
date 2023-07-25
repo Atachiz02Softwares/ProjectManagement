@@ -1,13 +1,13 @@
 package morpheus.softwares.projectmanagement.models;
 
-public class Students {
+public class Student {
     private int id;
     private String idNumber, email, firstProject, secondProject, thirdProject, firstArea,
-            secondArea, thirdArea, grouping;
+            secondArea, thirdArea, grouping, date, status;
 
-    public Students(int id, String idNumber, String email, String firstProject,
-                    String secondProject, String thirdProject, String firstArea,
-                    String secondArea, String thirdArea, String grouping) {
+    public Student(int id, String idNumber, String email, String firstProject,
+                   String secondProject, String thirdProject, String firstArea,
+                   String secondArea, String thirdArea, String grouping, String date, String status) {
         setId(id);
         setIdNumber(idNumber);
         setEmail(email);
@@ -18,6 +18,8 @@ public class Students {
         setSecondArea(secondArea);
         setThirdArea(thirdArea);
         setGrouping(grouping);
+        setDate(date);
+        setStatus(status);
     }
 
     public int getId() {
@@ -98,5 +100,21 @@ public class Students {
 
     public void setGrouping(String grouping) {
         this.grouping = grouping;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
