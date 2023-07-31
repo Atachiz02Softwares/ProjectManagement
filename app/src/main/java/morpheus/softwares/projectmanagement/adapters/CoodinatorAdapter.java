@@ -68,7 +68,8 @@ public class CoodinatorAdapter extends RecyclerView.Adapter<CoodinatorAdapter.Ho
                 builder.setIcon(R.drawable.baseline_cancel_24);
                 builder.setCancelable(false);
 
-                View view = getLayoutInflater().inflate(R.layout.report_dialog, null);
+                LayoutInflater inflater = LayoutInflater.from(context);
+                View view = inflater.inflate(R.layout.report_dialog, null);
                 EditText report = view.findViewById(R.id.report);
                 Button disapprove = view.findViewById(R.id.disapprove);
 

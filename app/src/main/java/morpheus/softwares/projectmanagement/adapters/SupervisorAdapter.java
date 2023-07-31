@@ -34,7 +34,8 @@ public class SupervisorAdapter extends RecyclerView.Adapter<SupervisorAdapter.Ho
     public void onBindViewHolder(@NonNull SupervisorAdapter.Holder holder, int position) {
         Student student = students.get(position);
 
-        String topic = student.get
+
+//        String topic = student.get
     }
 
     @Override

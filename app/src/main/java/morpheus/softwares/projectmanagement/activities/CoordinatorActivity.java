@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.models.Links;
-import morpheus.softwares.projectmanagement.models.Projects;
 
 public class CoordinatorActivity extends AppCompatActivity {
     Button button;
