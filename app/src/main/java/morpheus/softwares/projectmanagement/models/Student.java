@@ -3,11 +3,15 @@ package morpheus.softwares.projectmanagement.models;
 public class Student {
     private int id;
     private String idNumber, email, firstProject, secondProject, thirdProject, firstArea,
-            secondArea, thirdArea, grouping, date, status;
+            secondArea, thirdArea, grouping, date, firstStatus, secondStatus, thirdStatus, firstReport,
+            secondReport,
+            thirdReport;
 
     public Student(int id, String idNumber, String email, String firstProject,
                    String secondProject, String thirdProject, String firstArea,
-                   String secondArea, String thirdArea, String grouping, String date, String status) {
+                   String secondArea, String thirdArea, String grouping, String date,
+                   String firstStatus, String secondStatus, String thirdStatus, String firstReport,
+                   String secondReport, String thirdReport) {
         setId(id);
         setIdNumber(idNumber);
         setEmail(email);
@@ -19,7 +23,12 @@ public class Student {
         setThirdArea(thirdArea);
         setGrouping(grouping);
         setDate(date);
-        setStatus(status);
+        setFirstStatus(firstStatus);
+        setSecondStatus(secondStatus);
+        setThirdStatus(thirdStatus);
+        setFirstReport(firstReport);
+        setSecondReport(secondReport);
+        setThirdReport(thirdReport);
     }
 
     public int getId() {
@@ -110,11 +119,51 @@ public class Student {
         this.date = date;
     }
 
-    public String getStatus() {
-        return status;
+    public String getFirstStatus() {
+        return firstStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setFirstStatus(String firstStatus) {
+        this.firstStatus = firstStatus;
+    }
+
+    public String getSecondStatus() {
+        return secondStatus;
+    }
+
+    public void setSecondStatus(String secondStatus) {
+        this.secondStatus = secondStatus;
+    }
+
+    public String getThirdStatus() {
+        return thirdStatus;
+    }
+
+    public void setThirdStatus(String thirdStatus) {
+        this.thirdStatus = thirdStatus;
+    }
+
+    public String getFirstReport() {
+        return firstReport;
+    }
+
+    public void setFirstReport(String firstReport) {
+        this.firstReport = firstReport;
+    }
+
+    public String getSecondReport() {
+        return secondReport;
+    }
+
+    public void setSecondReport(String secondReport) {
+        this.secondReport = secondReport;
+    }
+
+    public String getThirdReport() {
+        return thirdReport;
+    }
+
+    public void setThirdReport(String thirdReport) {
+        this.thirdReport = thirdReport;
     }
 }

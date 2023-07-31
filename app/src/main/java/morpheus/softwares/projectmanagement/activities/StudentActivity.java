@@ -88,7 +88,7 @@ public class StudentActivity extends AppCompatActivity {
         String nil = "Create profile...";
 
         ArrayList<User> users = database.selectAllUsers();
-        for (User user : users) {
+        for (User user : users)
             if (user.getIdentifier().equals(profile)) {
                 String name = user.getName();
                 studentName.setText(name);
@@ -97,12 +97,11 @@ public class StudentActivity extends AppCompatActivity {
                 studentName.setText(nil);
                 studentNavName.setText(nil);
             }
-        }
 
         ArrayList<Student> students = database.selectAllStudents();
-        for (Student student : students) {
+        for (Student student : students)
             if (student.getIdNumber().equals(profile)) {
-                String status = student.getStatus(), areaOne = student.getFirstArea(),
+                String status = student.getFirstStatus(), areaOne = student.getFirstArea(),
                         areaTwo = student.getSecondArea(), areaThree = student.getThirdArea(),
                         supervisorOne = new Links(StudentActivity.this).matchSupervisors(areaOne),
                         supervisorTwo = new Links(StudentActivity.this).matchSupervisors(areaTwo),
@@ -125,7 +124,6 @@ public class StudentActivity extends AppCompatActivity {
                 studentName.setText(nil);
                 studentNavName.setText(nil);
             }
-        }
 
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile) {
@@ -133,7 +131,7 @@ public class StudentActivity extends AppCompatActivity {
                 if (new Links(StudentActivity.this).checkProfile(email))
                     Toast.makeText(StudentActivity.this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
                 else
-                    startActivity(new Intent(StudentActivity.this, CreateProfileActivity.class));
+                    startActivity(new Intent(StudentActivity.this, CreateStudentProfileActivity.class));
             } else if (item.getItemId() == R.id.viewApprovedTopic)
                 Toast.makeText(StudentActivity.this, "View Approved Topic", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.complain)

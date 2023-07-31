@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".activities.CreateProfileActivity">
+    tools:context=".activities.CreateStudentProfileActivity">
 
     <TextView
         android:id="@+id/createProfileTitle"
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="Create Your Profile"
+        android:text="@string/create_your_profile"
         android:textColor="@color/darkGreen"
         android:textSize="30sp" />
 
@@ -43,9 +43,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:autofillHints="username"
                 android:backgroundTint="@color/green"
-                android:hint="ID number"
-                android:inputType="textMultiLine"
+                android:hint="@string/id_number"
+                android:inputType="textAutoComplete"
                 android:maxLines="1"
                 android:textSize="18sp" />
 
@@ -55,8 +56,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/createProfileID"
                 android:layout_marginTop="10dp"
+                android:autofillHints="emailAddress"
                 android:backgroundTint="@color/green"
-                android:hint="Email"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:textSize="18sp" />
 
@@ -67,7 +70,7 @@
                 android:layout_below="@id/createProfileEmail"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/line_border"
-                android:hint="1st proposed project topic"
+                android:hint="@string/_1st_proposed_project_topic"
                 android:inputType="textMultiLine" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -78,7 +81,7 @@
                 android:layout_below="@id/createProfileFirstProjectName"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/line_border"
-                android:hint="1st project area of interest"
+                android:hint="@string/_1st_project_area_of_interest"
                 app:boxStrokeColor="@color/green"
                 app:boxStrokeWidth="0dp">
 
@@ -97,7 +100,7 @@
                 android:layout_below="@id/categoryOne"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/line_border"
-                android:hint="2nd proposed project topic"
+                android:hint="@string/_2nd_proposed_project_topic"
                 android:inputType="textMultiLine" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -108,7 +111,7 @@
                 android:layout_below="@id/createProfileSecondProjectName"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/line_border"
-                android:hint="2nd project area of interest"
+                android:hint="@string/_2nd_project_area_of_interest"
                 app:boxStrokeColor="@color/green"
                 app:boxStrokeWidth="0dp">
 
@@ -127,7 +130,7 @@
                 android:layout_below="@id/categoryTwo"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/line_border"
-                android:hint="3rd proposed project topic"
+                android:hint="@string/_3rd_proposed_project_topic"
                 android:inputType="textMultiLine" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -138,7 +141,7 @@
                 android:layout_below="@id/createProfileThirdProjectName"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/line_border"
-                android:hint="3rd project area of interest"
+                android:hint="@string/_3rd_project_area_of_interest"
                 app:boxStrokeColor="@color/green"
                 app:boxStrokeWidth="0dp">
 
@@ -165,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="25dp"
                     android:buttonTint="@color/green"
-                    android:text="Working Alone"
+                    android:text="@string/working_alone"
                     android:textSize="14sp" />
 
                 <RadioButton
@@ -174,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
                     android:buttonTint="@color/green"
-                    android:text="Working in Group"
+                    android:text="@string/working_in_group"
                     android:textSize="14sp" />
             </RadioGroup>
 

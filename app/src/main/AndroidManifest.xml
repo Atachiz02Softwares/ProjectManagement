@@ -13,7 +13,13 @@
         android:theme="@style/Theme.ProjectManagement"
         tools:targetApi="31">
         <activity
-            android:name=".activities.CreateProfileActivity"
+            android:name=".activities.CreateCoordinatorProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.CreateSupervisorProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.CreateStudentProfileActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"

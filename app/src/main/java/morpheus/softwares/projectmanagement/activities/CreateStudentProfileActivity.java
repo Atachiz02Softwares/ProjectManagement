@@ -20,8 +20,8 @@ import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Student;
 
-public class CreateProfileActivity extends AppCompatActivity {
-    String[] AREAS = new Links(CreateProfileActivity.this).getAreas();
+public class CreateStudentProfileActivity extends AppCompatActivity {
+    String[] AREAS = new Links(CreateStudentProfileActivity.this).getAreas();
     EditText id, mail, firstTopic, secondTopic, thirdTopic;
 
     AutoCompleteTextView firstArea;
@@ -40,7 +40,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_profile);
+        setContentView(R.layout.activity_create_student_profile);
 
         id = findViewById(R.id.createProfileEmail);
         mail = findViewById(R.id.createProfileEmail);
@@ -64,7 +64,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         thirdAreaAdapter = new ArrayAdapter<>(this, R.layout.list_items, AREAS);
         thirdArea.setAdapter(thirdAreaAdapter);
 
-        database = new Database(CreateProfileActivity.this);
+        database = new Database(CreateStudentProfileActivity.this);
 
         createProfile.setOnClickListener(v -> {
             // Current Date/Time
@@ -84,13 +84,14 @@ public class CreateProfileActivity extends AppCompatActivity {
                     formattedDate = date.format(myFormatObj);
 
             Student student = new Student(0, idNumber, email, firstProject, secondProject,
-                    thirdProject, areaOne, areaTwo, areaThree, aloneGroup, formattedDate, "Unapproved");
+                    thirdProject, areaOne, areaTwo, areaThree, aloneGroup, formattedDate,
+                    "Unapproved", "Unapproved", "Unapproved", "", "", "");
             database.insertStudent(student);
 
-            new Links(CreateProfileActivity.this).setProfile(idNumber);
-            Toast.makeText(CreateProfileActivity.this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
+            new Links(CreateStudentProfileActivity.this).setProfile(idNumber);
+            Toast.makeText(CreateStudentProfileActivity.this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
 
-            startActivity(new Intent(CreateProfileActivity.this, StudentActivity.class).putExtra("uid", idNumber));
+            startActivity(new Intent(CreateStudentProfileActivity.this, StudentActivity.class).putExtra("uid", idNumber));
             finish();
         });
     }

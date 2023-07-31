@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="First Project Topic"
+            android:text="@string/first_project_topic"
             android:textSize="14sp" />
 
         <TextView
@@ -27,25 +27,64 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <TextView
+        <Button
+            android:id="@+id/firstApprove"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Project Area of Interest"
-            android:textSize="14sp" />
+            android:layout_gravity="end"
+            android:text="@string/approve" />
 
         <TextView
-            android:id="@+id/firstArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textSize="18sp" />
+            android:text="@string/second_project_topic"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/secondTopic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/secondApprove"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="@string/approve" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Student's ID Number"
+            android:layout_marginTop="10dp"
+            android:text="@string/third_project_topic"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/thirdTopic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/thirdApprove"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="@string/approve" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/student_id_number"
             android:textSize="14sp" />
 
         <TextView
@@ -59,43 +98,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Student's Name"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Student's Email"
+            android:text="@string/possible_supervisor_s"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            android:textStyle="italic" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Possible Supervisor(s)"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/supervisor"
+            android:id="@+id/supervisors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

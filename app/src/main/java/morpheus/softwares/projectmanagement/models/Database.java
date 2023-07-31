@@ -28,7 +28,8 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE students (id integer PRIMARY KEY AUTOINCREMENT, id_number " +
                 "text, email text, first_project text, second_project text, " +
                 "third_project text, first_area text, second_area text, third_area text, " +
-                "grouping text, date text, status text)");
+                "grouping text, date text, first_status text, second_status text, third_status " +
+                "text, first_report text, second_report text, third_report text)");
         db.execSQL("CREATE TABLE supervisors (id integer PRIMARY KEY AUTOINCREMENT, name text, " +
                 "phone_number text, email text, area text)");
         db.execSQL("CREATE TABLE coordinator (id integer PRIMARY KEY AUTOINCREMENT, name text, " +
@@ -110,7 +111,10 @@ public class Database extends SQLiteOpenHelper {
                 students.getFirstProject() + "', '" + students.getSecondProject() + "', '" +
                 students.getThirdProject() + "', '" + students.getFirstArea() + "', '" +
                 students.getSecondArea() + "', '" + students.getThirdArea() + "', '" +
-                students.getGrouping() + "', '" + students.getDate() + "', '" + students.getStatus() + "' )";
+                students.getGrouping() + "', '" + students.getDate() + "', '" +
+                students.getFirstStatus() + "', '" + students.getSecondStatus() + "', '" +
+                students.getThirdStatus() + "', '" + students.getFirstReport() + "', '" +
+                students.getSecondReport() + "', '" + students.getThirdReport() + "' )";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -219,7 +223,9 @@ public class Database extends SQLiteOpenHelper {
                     cursor.getString(1), cursor.getString(2), cursor.getString(3),
                     cursor.getString(4), cursor.getString(5), cursor.getString(6),
                     cursor.getString(7), cursor.getString(8), cursor.getString(9),
-                    cursor.getString(10), cursor.getString(11));
+                    cursor.getString(10), cursor.getString(11), cursor.getString(12),
+                    cursor.getString(13), cursor.getString(14), cursor.getString(15),
+                    cursor.getString(16));
             students.add(currentStudent);
         }
 

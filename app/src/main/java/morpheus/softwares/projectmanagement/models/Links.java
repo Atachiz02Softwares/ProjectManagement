@@ -10,9 +10,7 @@ import java.util.ArrayList;
 public class Links {
     protected final Context context;
     private final String[] areas = {"Artificial Intelligence", "Software Engineering", "Game " +
-            "Design",
-            "Networking",
-            "Multimedia Technology", "Cyber Security", "Data Science", "Programming Languages",
+            "Design", "Networking", "Multimedia Technology", "Cyber Security", "Data Science", "Programming Languages",
             "Soft Computing", "Machine Learning", "Data structures & Algorithms", "Computer Hardware",
             "Medical Informatics", "Cloud Computing", "Game Design", "Data Mining", "Information " +
             "& Communication Technology", "Computer Vision", "Natural Language Processing"};
@@ -122,7 +120,7 @@ public class Links {
             if (supervisor.getArea().equals(supervisoryArea)) {
                 // Append the name of the current supervisor to the result StringBuilder
                 // and add a newline character to separate the names of matching supervisors
-                result.append(currentSupervisor).append("\n");
+                result.append(currentSupervisor).append(", ");
             }
         }
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/createCoordinatorProfile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".activities.CreateCoordinatorProfileActivity">
+
+    <TextView
+        android:id="@+id/createCoordinatorProfileTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/create_your_profile"
+        android:textColor="@color/darkGreen"
+        android:textSize="30sp" />
+
+    <!--    <de.hdodenhof.circleimageview.CircleImageView-->
+    <!--        android:id="@+id/createCoordinatorProfileProfilePic"-->
+    <!--        android:layout_width="100dp"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_height="150dp"-->
+    <!--        android:src="@drawable/avatar"-->
+    <!--        app:civ_border_color="@color/green"-->
+    <!--        app:civ_border_width="1dp" />-->
+
+    <EditText
+        android:id="@+id/createCoordinatorProfileName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/createCoordinatorProfileTitle"
+        android:layout_marginTop="50dp"
+        android:autofillHints="name"
+        android:backgroundTint="@color/green"
+        android:hint="@string/your_name"
+        android:inputType="textMultiLine"
+        android:maxLines="1"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/createCoordinatorProfileEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/createCoordinatorProfileName"
+        android:layout_marginTop="20dp"
+        android:autofillHints="emailAddress"
+        android:backgroundTint="@color/green"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/createCoordinatorProfilePhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/createCoordinatorProfileEmail"
+        android:layout_marginTop="20dp"
+        android:autofillHints="phone"
+        android:backgroundTint="@color/green"
+        android:hint="@string/phone_number"
+        android:inputType="phone"
+        android:maxLines="1"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/createCoordinatorProfileCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/createCoordinatorProfilePhone"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="50dp"
+        android:text="@string/create_profile"
+        android:textColor="@color/white" />
+</RelativeLayout>

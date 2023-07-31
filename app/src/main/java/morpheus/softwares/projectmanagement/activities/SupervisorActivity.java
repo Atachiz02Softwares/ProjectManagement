@@ -26,7 +26,7 @@ public class SupervisorActivity extends AppCompatActivity {
 //        recyclerView = findViewById(R.id.studentList);
 //        projectsAdapter = new ProjectsAdapter(StudentActivity.this, projects);
 //        recyclerView.setHasFixedSize(true);
-//
+
 //        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 //        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
 //        recyclerView.setLayoutManager(linearLayoutManager);
