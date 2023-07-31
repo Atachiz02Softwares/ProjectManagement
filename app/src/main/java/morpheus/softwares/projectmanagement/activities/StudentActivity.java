@@ -66,8 +66,7 @@ public class StudentActivity extends AppCompatActivity {
         thirdStatus = findViewById(R.id.studentThirdStatus);
         drawerLayout = findViewById(R.id.studentDrawer);
         navigationView = findViewById(R.id.studentNavigator);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.open, R.string.close);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.setDrawerSlideAnimationEnabled(true);

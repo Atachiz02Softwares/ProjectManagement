@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -79,7 +80,8 @@ public class CoodinatorAdapter extends RecyclerView.Adapter<CoodinatorAdapter.Ho
                     if (String.valueOf(report.getText()).isEmpty()) {
                         report.setError("Please provide a reason for your disapproval...");
                     } else {
-                        student.setFirstReport(String.valueOf(report.getText()));
+                        student.setFirstReport(String.valueOf(report.getText()).trim());
+                        Toast.makeText(context, "Topic disapproved!", Toast.LENGTH_SHORT).show();
                         alertDialog.dismiss();
                     }
                 });
@@ -91,9 +93,81 @@ public class CoodinatorAdapter extends RecyclerView.Adapter<CoodinatorAdapter.Ho
             }
         });
 
-//        holder.secondApprove.setOnClickListener(v -> student.setSecondStatus("Approved"));
+        holder.secondApprove.setOnClickListener(v -> {
+            if ((holder.secondApprove.getText()).equals("Approve")) {
+                student.setFirstStatus("Disapproved");
+                student.setSecondStatus("Approved");
+                student.setThirdStatus("Disapproved");
+                holder.firstApprove.setText(R.string.disapprove);
+                holder.thirdApprove.setVisibility(R.string.disapprove);
+            } else {
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogRounded);
+                builder.setCancelable(false);
+                builder.setTitle("Reason for disapproval");
+                builder.setIcon(R.drawable.baseline_cancel_24);
+                builder.setCancelable(false);
 
-//        holder.thirdApprove.setOnClickListener(v -> student.setThirdStatus("Approved"));
+                LayoutInflater inflater = LayoutInflater.from(context);
+                View view = inflater.inflate(R.layout.report_dialog, null);
+                EditText report = view.findViewById(R.id.report);
+                Button disapprove = view.findViewById(R.id.disapprove);
+
+                AlertDialog alertDialog = builder.create();
+
+                disapprove.setOnClickListener(vi -> {
+                    if (String.valueOf(report.getText()).isEmpty()) {
+                        report.setError("Please provide a reason for your disapproval...");
+                    } else {
+                        student.setSecondReport(String.valueOf(report.getText()).trim());
+                        Toast.makeText(context, "Topic disapproved!", Toast.LENGTH_SHORT).show();
+                        alertDialog.dismiss();
+                    }
+                });
+
+                builder.setView(view);
+
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.show();
+            }
+        });
+
+        holder.thirdApprove.setOnClickListener(v -> {
+            if ((holder.thirdApprove.getText()).equals("Approve")) {
+                student.setFirstStatus("Disapproved");
+                student.setSecondStatus("Disapproved");
+                student.setThirdStatus("Approved");
+                holder.firstApprove.setText(R.string.disapprove);
+                holder.thirdApprove.setVisibility(R.string.disapprove);
+            } else {
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogRounded);
+                builder.setCancelable(false);
+                builder.setTitle("Reason for disapproval");
+                builder.setIcon(R.drawable.baseline_cancel_24);
+                builder.setCancelable(false);
+
+                LayoutInflater inflater = LayoutInflater.from(context);
+                View view = inflater.inflate(R.layout.report_dialog, null);
+                EditText report = view.findViewById(R.id.report);
+                Button disapprove = view.findViewById(R.id.disapprove);
+
+                AlertDialog alertDialog = builder.create();
+
+                disapprove.setOnClickListener(vi -> {
+                    if (String.valueOf(report.getText()).isEmpty()) {
+                        report.setError("Please provide a reason for your disapproval...");
+                    } else {
+                        student.setThirdReport(String.valueOf(report.getText()).trim());
+                        Toast.makeText(context, "Topic disapproved!", Toast.LENGTH_SHORT).show();
+                        alertDialog.dismiss();
+                    }
+                });
+
+                builder.setView(view);
+
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.show();
+            }
+        });
     }
 
     @Override
