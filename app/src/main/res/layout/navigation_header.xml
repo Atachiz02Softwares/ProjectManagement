@@ -15,22 +15,35 @@
     <!--        app:civ_border_width="1dp" />-->
 
     <TextView
-        android:id="@+id/coordinatorNavName"
+        android:id="@+id/navName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp"
+        android:layout_margin="5dp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/coordinatorNavEmail"
+        android:id="@+id/navEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/coordinatorNavName"
+        android:layout_below="@id/navName"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:textSize="14sp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="18sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/navRole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/navEmail"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="18sp"
         android:textStyle="italic" />
 
 </RelativeLayout>

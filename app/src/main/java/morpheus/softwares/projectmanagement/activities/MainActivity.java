@@ -24,21 +24,21 @@ public class MainActivity extends AppCompatActivity {
 
         switch (status) {
             case "student":
-                startActivity(new Intent(MainActivity.this, StudentActivity.class));
+                startActivity(new Intent(this, StudentActivity.class));
                 finish();
                 break;
             case "supervisor":
-                startActivity(new Intent(MainActivity.this, SupervisorActivity.class));
+                startActivity(new Intent(this, SupervisorActivity.class));
                 finish();
                 break;
             case "coordinator":
-                startActivity(new Intent(MainActivity.this, CoordinatorActivity.class));
+                startActivity(new Intent(this, CoordinatorActivity.class));
                 finish();
                 break;
         }
 
         signup.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+            startActivity(new Intent(this, SignUpActivity.class));
             finish();
         });
     }

@@ -26,7 +26,6 @@ import morpheus.softwares.projectmanagement.models.Student;
 import morpheus.softwares.projectmanagement.models.User;
 
 public class StudentActivity extends AppCompatActivity {
-    private final String[] AREAS = new Links(StudentActivity.this).getAreas();
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -36,8 +35,8 @@ public class StudentActivity extends AppCompatActivity {
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
 
-    TextView studentName, studentID, studentNavName, studentNavEmail, firstProject, firstArea,
-            firstSupervisor, firstStatus, secondProject, secondArea, secondSupervisor,
+    TextView studentName, studentID, studentNavName, studentNavID, studentNavRole, firstProject,
+            firstArea, firstSupervisor, firstStatus, secondProject, secondArea, secondSupervisor,
             secondStatus, thirdProject, thirdArea, thirdSupervisor, thirdStatus;
 
     Database database;
@@ -49,7 +48,7 @@ public class StudentActivity extends AppCompatActivity {
 
         appBarLayout = findViewById(R.id.studentAppBar);
         toolbar = findViewById(R.id.studentToolbar);
-        collapsingToolbarLayout = findViewById(R.id.studentCollapsingToolnar);
+        collapsingToolbarLayout = findViewById(R.id.studentCollapsingToolbar);
         studentName = findViewById(R.id.studentName);
         studentID = findViewById(R.id.studentID);
         firstProject = findViewById(R.id.studentFirstTopic);
@@ -72,18 +71,20 @@ public class StudentActivity extends AppCompatActivity {
         actionBarDrawerToggle.setDrawerSlideAnimationEnabled(true);
         actionBarDrawerToggle.syncState();
 
-        database = new Database(StudentActivity.this);
+        database = new Database(this);
 
 //        setSupportActionBar(toolbar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedTitle);
 
         // NavigationView items
         header = navigationView.getHeaderView(0);
-        studentNavName = header.findViewById(R.id.studentNavName);
-        studentNavEmail = header.findViewById(R.id.studentNavID);
+        studentNavName = header.findViewById(R.id.navName);
+        studentNavID = header.findViewById(R.id.navEmail);
+        studentNavRole = header.findViewById(R.id.navRole);
+        studentNavRole.setText(R.string.stdent);
 
         SharedPreferences sharedPreferences = getSharedPreferences("Profile", MODE_PRIVATE);
-        String profile = sharedPreferences.getString("profile", "");
+        String profile = sharedPreferences.getString("profile", "null");
         String nil = "Create profile...";
 
         ArrayList<User> users = database.selectAllUsers();
@@ -102,11 +103,11 @@ public class StudentActivity extends AppCompatActivity {
             if (student.getIdNumber().equals(profile)) {
                 String status = student.getFirstStatus(), areaOne = student.getFirstArea(),
                         areaTwo = student.getSecondArea(), areaThree = student.getThirdArea(),
-                        supervisorOne = new Links(StudentActivity.this).matchSupervisors(areaOne),
-                        supervisorTwo = new Links(StudentActivity.this).matchSupervisors(areaTwo),
-                        supervisorThree = new Links(StudentActivity.this).matchSupervisors(areaThree);
+                        supervisorOne = new Links(this).matchSupervisors(areaOne),
+                        supervisorTwo = new Links(this).matchSupervisors(areaTwo),
+                        supervisorThree = new Links(this).matchSupervisors(areaThree);
                 studentID.setText(profile);
-                studentNavEmail.setText(student.getEmail());
+                studentNavID.setText(student.getEmail());
                 firstProject.setText(student.getFirstProject());
                 firstArea.setText(areaOne);
                 firstSupervisor.setText(supervisorOne);
@@ -119,27 +120,24 @@ public class StudentActivity extends AppCompatActivity {
                 thirdArea.setText(areaThree);
                 thirdSupervisor.setText(supervisorThree);
                 thirdStatus.setText(status);
-            } else {
-                studentName.setText(nil);
-                studentNavName.setText(nil);
             }
 
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile) {
-                String email = String.valueOf(studentNavEmail.getText()).trim();
-                if (new Links(StudentActivity.this).checkProfile(email))
-                    Toast.makeText(StudentActivity.this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
+                String id = String.valueOf(studentNavID.getText()).trim();
+                if (new Links(this).checkProfile(id))
+                    Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
                 else
-                    startActivity(new Intent(StudentActivity.this, CreateStudentProfileActivity.class));
-            } else if (item.getItemId() == R.id.viewApprovedTopic)
-                Toast.makeText(StudentActivity.this, "View Approved Topic", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, CreateStudentProfileActivity.class));
+            } else if (item.getItemId() == R.id.viewApprovedTopics)
+                Toast.makeText(this, "View Approved Topic", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.complain)
-                Toast.makeText(StudentActivity.this, "Complain", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Complain", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.about)
-                Toast.makeText(StudentActivity.this, "About", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
-                new Links(StudentActivity.this).removeStatus();
-                startActivity(new Intent(StudentActivity.this, LoginActivity.class));
+                new Links(this).removeStatus();
+                startActivity(new Intent(this, LoginActivity.class));
                 finish();
             } else if (item.getItemId() == R.id.exit) finishAffinity();
 

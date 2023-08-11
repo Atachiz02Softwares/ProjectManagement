@@ -46,20 +46,20 @@
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    android:gravity="end"
+                    android:textColor="@color/darkGreen"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/supervisorEmail"
-                    android:layout_width="250dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/supervisorName"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    android:gravity="end"
+                    android:textColor="@color/darkGreen"
                     android:textSize="18sp" />
 
                 <!--                <de.hdodenhof.circleimageview.CircleImageView-->
@@ -84,7 +84,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/projectsList"
+        android:id="@+id/supervisorList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

@@ -29,7 +29,7 @@ public class CreateCoordinatorProfileActivity extends AppCompatActivity {
         phone = findViewById(R.id.createCoordinatorProfilePhone);
         createProfile = findViewById(R.id.createCoordinatorProfileCreate);
 
-        database = new Database(CreateCoordinatorProfileActivity.this);
+        database = new Database(this);
 
         createProfile.setOnClickListener(v -> {
             String coordinatorName = String.valueOf(name.getText()).trim(),
@@ -39,12 +39,10 @@ public class CreateCoordinatorProfileActivity extends AppCompatActivity {
             Coordinator coordinator = new Coordinator(0, coordinatorName, phoneNumber, email);
             database.insertCoordinator(coordinator);
 
-            new Links(CreateCoordinatorProfileActivity.this).setProfile(email);
-            Toast.makeText(CreateCoordinatorProfileActivity.this, "Profile created successfully!",
-                    Toast.LENGTH_SHORT).show();
+            new Links(this).setProfile(email);
+            Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
 
-            startActivity(new Intent(CreateCoordinatorProfileActivity.this, CoordinatorActivity.class)
-                    .putExtra("uid", email));
+            startActivity(new Intent(this, CoordinatorActivity.class).putExtra("uid", email));
             finish();
         });
     }

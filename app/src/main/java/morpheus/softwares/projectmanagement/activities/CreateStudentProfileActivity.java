@@ -42,7 +42,7 @@ public class CreateStudentProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_student_profile);
 
-        id = findViewById(R.id.createProfileEmail);
+        id = findViewById(R.id.createProfileID);
         mail = findViewById(R.id.createProfileEmail);
         firstTopic = findViewById(R.id.createProfileFirstProjectName);
         secondTopic = findViewById(R.id.createProfileSecondProjectName);
@@ -64,7 +64,7 @@ public class CreateStudentProfileActivity extends AppCompatActivity {
         thirdAreaAdapter = new ArrayAdapter<>(this, R.layout.list_items, AREAS);
         thirdArea.setAdapter(thirdAreaAdapter);
 
-        database = new Database(CreateStudentProfileActivity.this);
+        database = new Database(this);
 
         createProfile.setOnClickListener(v -> {
             // Current Date/Time
@@ -88,10 +88,10 @@ public class CreateStudentProfileActivity extends AppCompatActivity {
                     "Unapproved", "Unapproved", "Unapproved", "", "", "");
             database.insertStudent(student);
 
-            new Links(CreateStudentProfileActivity.this).setProfile(idNumber);
-            Toast.makeText(CreateStudentProfileActivity.this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
+            new Links(this).setProfile(idNumber);
+            Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
 
-            startActivity(new Intent(CreateStudentProfileActivity.this, StudentActivity.class).putExtra("uid", idNumber));
+            startActivity(new Intent(this, StudentActivity.class).putExtra("uid", idNumber));
             finish();
         });
     }

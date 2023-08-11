@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         pin = findViewById(R.id.logInPin);
         login = findViewById(R.id.logInLogin);
 
-        database = new Database(LoginActivity.this);
+        database = new Database(this);
 
         login.setOnClickListener(this::onClick);
     }
@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
         for (User user : users) {
             if (TextUtils.isEmpty(identifier) || TextUtils.isEmpty(pinCode)) {
-                Toast.makeText(LoginActivity.this, "No field should be empty!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "No field should be empty!", Toast.LENGTH_SHORT).show();
                 return; // Exit the method to prevent further processing
             }
 
@@ -54,19 +54,19 @@ public class LoginActivity extends AppCompatActivity {
                 loginSuccessful = true;
                 String role = user.getRole();
 
-                new Links(LoginActivity.this).setStatus(role);
+                new Links(this).setStatus(role);
 
                 switch (role) {
                     case "student":
-                        startActivity(new Intent(LoginActivity.this, StudentActivity.class));
+                        startActivity(new Intent(this, StudentActivity.class));
                         finish();
                         break;
                     case "supervisor":
-                        startActivity(new Intent(LoginActivity.this, SupervisorActivity.class));
+                        startActivity(new Intent(this, SupervisorActivity.class));
                         finish();
                         break;
                     case "coordinator":
-                        startActivity(new Intent(LoginActivity.this, CoordinatorActivity.class));
+                        startActivity(new Intent(this, CoordinatorActivity.class));
                         finish();
                         break;
                 }
@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (!loginSuccessful) {
-            Toast.makeText(LoginActivity.this, "Incorrect login details!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Incorrect login details!", Toast.LENGTH_SHORT).show();
         }
     }
 }

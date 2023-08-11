@@ -46,4 +46,10 @@
     <string name="first_project_topic">First Project Topic</string>
     <string name="project_topic">Project Topic</string>
     <string name="reason">Reason for disapproval...</string>
+    <string name="supervisor">Supervisor</string>
+    <string name="stdent">Student</string>
+    <string name="coordinator">Coordinator</string>
+    <string name="area_of_interest">Area of Interest</string>
+    <string name="possible_supervisors">Possible Supervisor(s)</string>
+    <string name="project_status">Project Status</string>
 </resources>

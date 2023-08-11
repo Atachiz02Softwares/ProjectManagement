@@ -18,8 +18,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:theme="@style/NavigationViewStyle"
-        app:headerLayout="@layout/coordinator_navigation_header"
+        app:headerLayout="@layout/navigation_header"
         app:itemIconSize="30dp"
-        app:menu="@menu/coordinator_navigation_menu" />
+        app:menu="@menu/navigation_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

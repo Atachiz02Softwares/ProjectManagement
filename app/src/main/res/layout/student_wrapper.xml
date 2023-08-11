@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/studentCollapsingToolnar"
+            android:id="@+id/studentCollapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -46,19 +46,20 @@
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
+                    android:textColor="@color/darkGreen"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/studentID"
-                    android:layout_width="250dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/studentName"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    android:gravity="end"
+                    android:textColor="@color/darkGreen"
                     android:textSize="18sp" />
 
                 <!--                <de.hdodenhof.circleimageview.CircleImageView-->
@@ -109,8 +110,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Project Topic"
-                        android:textSize="14sp" />
+                        android:text="@string/project_topic"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/studentFirstTopic"
@@ -124,8 +126,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Area of Interest"
-                        android:textSize="14sp" />
+                        android:text="@string/area_of_interest"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/studentFirstArea"
@@ -138,8 +141,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Possible Supervisor(s)"
-                        android:textSize="14sp" />
+                        android:text="@string/possible_supervisors"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/studentFirstSupervisor"
@@ -152,8 +156,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Project Status"
-                        android:textSize="14sp" />
+                        android:text="@string/project_status"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/studentFirstStatus"
@@ -180,8 +185,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Project Topic"
-                        android:textSize="14sp" />
+                        android:text="@string/project_topic"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/studentSecondTopic"
@@ -195,8 +201,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Area of Interest"
-                        android:textSize="14sp" />
+                        android:text="@string/area_of_interest"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/studentSecondArea"
@@ -209,8 +216,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Possible Supervisor(s)"
-                        android:textSize="14sp" />
+                        android:text="@string/possible_supervisors"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/studentSecondSupervisor"
@@ -223,8 +231,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Project Status"
-                        android:textSize="14sp" />
+                        android:text="@string/project_status"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/studentSecondStatus"
@@ -251,8 +260,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Project Topic"
-                        android:textSize="14sp" />
+                        android:text="@string/project_topic"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/studentThirdTopic"
@@ -266,8 +276,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Area of Interest"
-                        android:textSize="14sp" />
+                        android:text="@string/area_of_interest"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/studentThirdArea"
@@ -280,8 +291,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Possible Supervisor(s)"
-                        android:textSize="14sp" />
+                        android:text="@string/possible_supervisors"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/studentThirdSupervisor"
@@ -294,8 +306,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Project Status"
-                        android:textSize="14sp" />
+                        android:text="@string/project_status"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/studentThirdStatus"

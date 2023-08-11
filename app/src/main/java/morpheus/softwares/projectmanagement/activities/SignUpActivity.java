@@ -43,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
         roleAdapter = new ArrayAdapter<>(this, R.layout.list_items, ROLES);
         role.setAdapter(roleAdapter);
 
-        database = new Database(SignUpActivity.this);
+        database = new Database(this);
 
         login.setOnClickListener(v -> startActivity(new Intent(SignUpActivity.this, LoginActivity.class)));
 
@@ -56,31 +56,31 @@ public class SignUpActivity extends AppCompatActivity {
                 confirmPin = String.valueOf(confirmPinCode.getText()).trim(),
                 name = String.valueOf(studentName.getText()).trim(),
                 signUpAs = String.valueOf(role.getText());
-        boolean hasSignedUp = new Links(SignUpActivity.this).hasSignedUp(idNumber);
+        boolean hasSignedUp = new Links(this).hasSignedUp(idNumber);
 
         if (TextUtils.isEmpty(pin) || TextUtils.isEmpty(confirmPin) || TextUtils.isEmpty(idNumber) || TextUtils.isEmpty(name))
-            Toast.makeText(SignUpActivity.this, "No field should be empty!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No field should be empty!", Toast.LENGTH_SHORT).show();
         else if (!TextUtils.equals(pin, confirmPin))
-            Toast.makeText(SignUpActivity.this, "Pins must be the same!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Pins must be the same!", Toast.LENGTH_SHORT).show();
         else if (hasSignedUp)
-            Toast.makeText(SignUpActivity.this, "You already have an account!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You already have an account!", Toast.LENGTH_SHORT).show();
         else {
             User newUser = new User(0, idNumber, pin, name, signUpAs);
             database.insertUser(newUser);
-            new Links(SignUpActivity.this).setStatus(signUpAs);
-            Toast.makeText(SignUpActivity.this, "Signup successful!", Toast.LENGTH_SHORT).show();
+            new Links(this).setStatus(signUpAs);
+            Toast.makeText(this, "Signup successful!", Toast.LENGTH_SHORT).show();
 
             switch (signUpAs) {
                 case "student":
-                    startActivity(new Intent(SignUpActivity.this, StudentActivity.class));
+                    startActivity(new Intent(this, StudentActivity.class));
                     finish();
                     break;
                 case "supervisor":
-                    startActivity(new Intent(SignUpActivity.this, SupervisorActivity.class));
+                    startActivity(new Intent(this, SupervisorActivity.class));
                     finish();
                     break;
                 case "coordinator":
-                    startActivity(new Intent(SignUpActivity.this, CoordinatorActivity.class));
+                    startActivity(new Intent(this, CoordinatorActivity.class));
                     finish();
                     break;
             }

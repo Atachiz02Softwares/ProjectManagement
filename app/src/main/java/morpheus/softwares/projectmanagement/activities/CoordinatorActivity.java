@@ -1,6 +1,7 @@
 package morpheus.softwares.projectmanagement.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -26,9 +27,10 @@ import morpheus.softwares.projectmanagement.models.Coordinator;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Student;
+import morpheus.softwares.projectmanagement.models.User;
 
 public class CoordinatorActivity extends AppCompatActivity {
-    TextView coordinatorName, coordinatorEmail, coordinatorNavName, coordinatorNavEmail;
+    TextView coordinatorName, coordinatorEmail, coordinatorNavName, coordinatorNavEmail, coordinatorNavRole;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     View header;
@@ -56,7 +58,7 @@ public class CoordinatorActivity extends AppCompatActivity {
         coordinatorName = findViewById(R.id.coordinatorName);
         coordinatorEmail = findViewById(R.id.coordinatorEmail);
 
-        database = new Database(CoordinatorActivity.this);
+        database = new Database(this);
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.setDrawerSlideAnimationEnabled(true);
@@ -65,12 +67,14 @@ public class CoordinatorActivity extends AppCompatActivity {
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedTitle);
 
         header = navigationView.getHeaderView(0);
-        coordinatorNavName = header.findViewById(R.id.coordinatorNavName);
-        coordinatorNavEmail = header.findViewById(R.id.coordinatorNavEmail);
+        coordinatorNavName = header.findViewById(R.id.navName);
+        coordinatorNavEmail = header.findViewById(R.id.navEmail);
+        coordinatorNavRole = header.findViewById(R.id.navRole);
+        coordinatorNavRole.setText(R.string.coordinator);
 
         students = new ArrayList<>();
-        recyclerView = findViewById(R.id.projectsList);
-        coodinatorAdapter = new CoodinatorAdapter(CoordinatorActivity.this, students);
+        recyclerView = findViewById(R.id.coordinatorList);
+        coodinatorAdapter = new CoodinatorAdapter(this, students);
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -79,7 +83,6 @@ public class CoordinatorActivity extends AppCompatActivity {
         recyclerView.setAdapter(coodinatorAdapter);
 
         ArrayList<Coordinator> coordinators = database.selectAllCoordinators();
-
         for (Coordinator coordinator : coordinators) {
             String name = coordinator.getName(), email = coordinator.getEmail();
 
@@ -89,25 +92,37 @@ public class CoordinatorActivity extends AppCompatActivity {
             coordinatorNavEmail.setText(email);
         }
 
+        SharedPreferences sharedPreferences = getSharedPreferences("Profile", MODE_PRIVATE);
+        String profile = sharedPreferences.getString("profile", "null");
+        String nil = "Create profile...";
+
+        ArrayList<User> users = database.selectAllUsers();
+        for (User user : users)
+            if (user.getIdentifier().equals(profile)) {
+                String name = user.getName();
+                coordinatorName.setText(name);
+                coordinatorNavName.setText(name);
+            } else {
+                coordinatorName.setText(nil);
+                coordinatorNavName.setText(nil);
+            }
+
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile) {
                 String email = String.valueOf(coordinatorNavEmail.getText()).trim();
-                if (new Links(CoordinatorActivity.this).checkProfile(email))
-                    Toast.makeText(CoordinatorActivity.this, "You can't create multiple profiles." +
-                            "..", Toast.LENGTH_SHORT).show();
+                if (new Links(this).checkProfile(email))
+                    Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
                 else
-                    startActivity(new Intent(CoordinatorActivity.this,
-                            CreateCoordinatorProfileActivity.class));
-            } else if (item.getItemId() == R.id.viewApprovedTopic)
-                Toast.makeText(CoordinatorActivity.this, "View Approved Topic",
-                        Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, CreateCoordinatorProfileActivity.class));
+            } else if (item.getItemId() == R.id.viewApprovedTopics)
+                Toast.makeText(this, "View Approved Topic", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.complain)
-                Toast.makeText(CoordinatorActivity.this, "Complain", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Complain", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.about)
-                Toast.makeText(CoordinatorActivity.this, "About", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
-                new Links(CoordinatorActivity.this).removeStatus();
-                startActivity(new Intent(CoordinatorActivity.this, LoginActivity.class));
+                new Links(this).removeStatus();
+                startActivity(new Intent(this, LoginActivity.class));
                 finish();
             } else if (item.getItemId() == R.id.exit) finishAffinity();
 

@@ -62,6 +62,7 @@
         android:backgroundTint="@color/green"
         android:hint="@string/phone_number"
         android:inputType="phone"
+        android:maxLength="11"
         android:maxLines="1"
         android:textSize="18sp" />
 

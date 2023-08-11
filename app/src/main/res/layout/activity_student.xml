@@ -18,8 +18,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:theme="@style/NavigationViewStyle"
-        app:headerLayout="@layout/student_navigation_header"
+        app:headerLayout="@layout/navigation_header"
         app:itemIconSize="30dp"
-        app:menu="@menu/student_navigation_menu" />
+        app:menu="@menu/navigation_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

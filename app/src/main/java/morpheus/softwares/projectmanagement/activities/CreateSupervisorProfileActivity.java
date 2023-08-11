@@ -39,7 +39,7 @@ public class CreateSupervisorProfileActivity extends AppCompatActivity {
         areaAdapter = new ArrayAdapter<>(this, R.layout.list_items, AREAS);
         area.setAdapter(areaAdapter);
 
-        database = new Database(CreateSupervisorProfileActivity.this);
+        database = new Database(this);
 
         createProfile.setOnClickListener(v -> {
             String supervisorName = String.valueOf(name.getText()).trim(),
@@ -50,12 +50,10 @@ public class CreateSupervisorProfileActivity extends AppCompatActivity {
             Supervisor supervisor = new Supervisor(0, supervisorName, phoneNumber, email, areaOfExpertise);
             database.insertSupervisor(supervisor);
 
-            new Links(CreateSupervisorProfileActivity.this).setProfile(email);
-            Toast.makeText(CreateSupervisorProfileActivity.this, "Profile created successfully!",
-                    Toast.LENGTH_SHORT).show();
+            new Links(this).setProfile(email);
+            Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
 
-            startActivity(new Intent(CreateSupervisorProfileActivity.this, StudentActivity.class)
-                    .putExtra("uid", email));
+            startActivity(new Intent(this, SupervisorActivity.class).putExtra("uid", email));
             finish();
         });
     }
