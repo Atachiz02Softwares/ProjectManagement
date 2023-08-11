@@ -46,20 +46,20 @@
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    android:gravity="end"
+                    android:textColor="@color/darkGreen"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/coordinatorEmail"
-                    android:layout_width="250dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/coordinatorName"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    android:gravity="end"
+                    android:textColor="@color/darkGreen"
                     android:textSize="18sp" />
 
                 <!--                <de.hdodenhof.circleimageview.CircleImageView-->

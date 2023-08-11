@@ -43,7 +43,7 @@ public class CreateCoordinatorProfileActivity extends AppCompatActivity {
             Toast.makeText(CreateCoordinatorProfileActivity.this, "Profile created successfully!",
                     Toast.LENGTH_SHORT).show();
 
-            startActivity(new Intent(CreateCoordinatorProfileActivity.this, StudentActivity.class)
+            startActivity(new Intent(CreateCoordinatorProfileActivity.this, CoordinatorActivity.class)
                     .putExtra("uid", email));
             finish();
         });

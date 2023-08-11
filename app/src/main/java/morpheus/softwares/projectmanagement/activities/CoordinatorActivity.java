@@ -96,9 +96,11 @@ public class CoordinatorActivity extends AppCompatActivity {
                     Toast.makeText(CoordinatorActivity.this, "You can't create multiple profiles." +
                             "..", Toast.LENGTH_SHORT).show();
                 else
-                    startActivity(new Intent(CoordinatorActivity.this, CreateStudentProfileActivity.class));
+                    startActivity(new Intent(CoordinatorActivity.this,
+                            CreateCoordinatorProfileActivity.class));
             } else if (item.getItemId() == R.id.viewApprovedTopic)
-                Toast.makeText(CoordinatorActivity.this, "View Approved Topic", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CoordinatorActivity.this, "View Approved Topic",
+                        Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.complain)
                 Toast.makeText(CoordinatorActivity.this, "Complain", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.about)

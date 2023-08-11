@@ -93,7 +93,7 @@ public class Links {
      */
     public boolean checkProfile(String profile) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);
-        String prof = sharedPreferences.getString("profile", "");
+        String prof = sharedPreferences.getString("profile", "null");
         return prof.equals(profile);
     }
 
