@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ import morpheus.softwares.projectmanagement.models.User;
 
 public class SupervisorActivity extends AppCompatActivity {
     TextView supervisorName, supervisorEmail, supervisorNavName, supervisorNavEmail, supervisorNavRole;
+    Button viewSubmittedTopics;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     View header;
@@ -57,6 +59,7 @@ public class SupervisorActivity extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         supervisorName = findViewById(R.id.supervisorName);
         supervisorEmail = findViewById(R.id.supervisorEmail);
+        viewSubmittedTopics = findViewById(R.id.supervisorSubmittedProjects);
 
         database = new Database(this);
 

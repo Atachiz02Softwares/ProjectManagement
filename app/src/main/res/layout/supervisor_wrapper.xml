@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/darkGreen"
@@ -56,11 +56,22 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/supervisorName"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/darkGreen"
                     android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/supervisorSubmittedProjects"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/supervisorEmail"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/view_submitted_topics"
+                    android:textColor="@color/white" />
 
                 <!--                <de.hdodenhof.circleimageview.CircleImageView-->
                 <!--                    android:id="@+id/supervisorProfilePic"-->

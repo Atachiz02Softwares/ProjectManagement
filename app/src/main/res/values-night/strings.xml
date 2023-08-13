@@ -52,4 +52,7 @@
     <string name="area_of_interest">Area of Interest</string>
     <string name="possible_supervisors">Possible Supervisor(s)</string>
     <string name="project_status">Project Status</string>
+    <string name="approved">Approved</string>
+    <string name="view_submitted_topics">View Submitted Topics</string>
+    <string name="submitted_topics">Submitted Topics</string>
 </resources>

@@ -26,7 +26,7 @@ public class SupervisorAdapter extends RecyclerView.Adapter<SupervisorAdapter.Ho
     @NonNull
     @Override
     public SupervisorAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.supervisor_recycler, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recycler_view, parent, false);
         return new Holder(view);
     }
 
@@ -34,8 +34,10 @@ public class SupervisorAdapter extends RecyclerView.Adapter<SupervisorAdapter.Ho
     public void onBindViewHolder(@NonNull SupervisorAdapter.Holder holder, int position) {
         Student student = students.get(position);
 
-
-//        String topic = student.get
+        ArrayList<String> areas = new ArrayList<>();
+        for (Student std : students) {
+//            if (std.getFirstArea().equals()
+        }
     }
 
     @Override
@@ -44,13 +46,14 @@ public class SupervisorAdapter extends RecyclerView.Adapter<SupervisorAdapter.Ho
     }
 
     public static class Holder extends RecyclerView.ViewHolder {
-        TextView topic, idNumber;
+        TextView topic, idNumber, status;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
 
             topic = itemView.findViewById(R.id.projectTopic);
             idNumber = itemView.findViewById(R.id.idNum);
+            status = itemView.findViewById(R.id.status);
         }
     }
 }

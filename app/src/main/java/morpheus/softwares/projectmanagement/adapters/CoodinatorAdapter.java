@@ -35,7 +35,7 @@ public class CoodinatorAdapter extends RecyclerView.Adapter<CoodinatorAdapter.Ho
     @NonNull
     @Override
     public CoodinatorAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.coordinator_recycler, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.projects_recycler, parent, false);
         return new Holder(view);
     }
 

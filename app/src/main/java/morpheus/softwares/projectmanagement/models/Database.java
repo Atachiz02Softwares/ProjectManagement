@@ -13,8 +13,7 @@ import java.util.ArrayList;
 public class Database extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "undergraduate_projects.db",
             TABLE_USERS = "users", TABLE_STUDENTS = "students", TABLE_SUPERVISORS = "supervisors",
-            TABLE_COORDINATOR = "coordinator";
-    //    TABLE_PROJECTS = "projects";
+            TABLE_COORDINATOR = "coordinator", TABLE_PROJECTS = "projects";
     public static final int DATABASE_VERSION = 1;
 
     public Database(@Nullable Context context) {
@@ -34,8 +33,8 @@ public class Database extends SQLiteOpenHelper {
                 "phone_number text, email text, area text)");
         db.execSQL("CREATE TABLE coordinator (id integer PRIMARY KEY AUTOINCREMENT, name text, " +
                 "phone_number text, email text)");
-//        db.execSQL("CREATE TABLE projects (id integer PRIMARY KEY AUTOINCREMENT, id_number " +
-//                "text, topic_one text, topic_two text, topic_three text, date text, status text)");
+        db.execSQL("CREATE TABLE projects (id integer PRIMARY KEY AUTOINCREMENT, id_number text, " +
+                "approved_topic text)");
     }
 
     @Override
@@ -44,7 +43,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUPERVISORS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COORDINATOR);
-//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROJECTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROJECTS);
         onCreate(db);
     }
 
@@ -87,19 +86,17 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 
-//    /**
-//     * Adds a row to Projects Table
-//     */
-//    public void insertProject(Projects projects) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        String sqlInsert = "INSERT INTO " + TABLE_PROJECTS;
-//        sqlInsert += " values( null, '" + projects.getIdNumber() + "', '" + projects.getFirstTopic() +
-//                "', '" + projects.getSecondTopic() + "', '" + projects.getThirdTopic() + "', '" +
-//                projects.getDate() + "', '" + projects.getStatus() + "' )";
-//
-//        db.execSQL(sqlInsert);
-//        db.close();
-//    }
+    /**
+     * Adds a row to Projects Table
+     */
+    public void insertProject(Projects projects) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sqlInsert = "INSERT INTO " + TABLE_PROJECTS;
+        sqlInsert += " values( null, '" + projects.getIdNumber() + "', '" + projects.getApprovedTopic() + "' )";
+
+        db.execSQL(sqlInsert);
+        db.close();
+    }
 
     /**
      * Adds a row to Students Table
@@ -185,27 +182,26 @@ public class Database extends SQLiteOpenHelper {
         return supervisors;
     }
 
-//    /**
-//     * Selects and returns all the rows in Projects Table
-//     */
-//    public ArrayList<Projects> selectAllProjects() {
-//        String sqlQuery = "SELECT * FROM " + TABLE_PROJECTS;
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        @SuppressLint("Recycle")
-//        Cursor cursor = db.rawQuery(sqlQuery, null);
-//
-//        ArrayList<Projects> projects = new ArrayList<>();
-//        while (cursor.moveToNext()) {
-//            Projects currentProject = new Projects(cursor.getInt(0),
-//                    cursor.getString(1), cursor.getString(2), cursor.getString(3),
-//                    cursor.getString(4), cursor.getString(5), cursor.getString(6));
-//            projects.add(currentProject);
-//        }
-//
-//        db.close();
-//        return projects;
-//    }
+    /**
+     * Selects and returns all the rows in Projects Table
+     */
+    public ArrayList<Projects> selectAllProjects() {
+        String sqlQuery = "SELECT * FROM " + TABLE_PROJECTS;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        @SuppressLint("Recycle")
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        ArrayList<Projects> projects = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            Projects currentProject = new Projects(cursor.getInt(0),
+                    cursor.getString(1), cursor.getString(2));
+            projects.add(currentProject);
+        }
+
+        db.close();
+        return projects;
+    }
 
     /**
      * Selects and returns all the rows in Students Table
@@ -251,14 +247,14 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 
-//    /**
-//     * Removes the row with the selected item from Projects Table
-//     */
-//    public void deleteProject(String idNumber) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        db.delete(TABLE_PROJECTS, "id_number" + " = ?", new String[]{idNumber});
-//        db.close();
-//    }
+    /**
+     * Removes the row with the selected item from Projects Table
+     */
+    public void deleteProject(String idNumber) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_PROJECTS, "id_number" + " = ?", new String[]{idNumber});
+        db.close();
+    }
 
     /**
      * Removes the row with the selected item from Supervisors Table
@@ -300,16 +296,16 @@ public class Database extends SQLiteOpenHelper {
         return cursor.getCount();
     }
 
-//    /**
-//     * Returns the total number of rows in Projects Table
-//     */
-//    public int getProjectCount() {
-//        String countQuery = "SELECT * FROM " + TABLE_PROJECTS;
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(countQuery, null);
-//        cursor.close();
-//        return cursor.getCount();
-//    }
+    /**
+     * Returns the total number of rows in Projects Table
+     */
+    public int getProjectCount() {
+        String countQuery = "SELECT * FROM " + TABLE_PROJECTS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.close();
+        return cursor.getCount();
+    }
 
     /**
      * Returns the total number of rows in Students Table
@@ -349,13 +345,13 @@ public class Database extends SQLiteOpenHelper {
         return db.delete(TABLE_COORDINATOR, null, null);
     }
 
-//    /**
-//     * Clears all rows in Projects Table and returns the number of rows remaining
-//     */
-//    public Integer clearProjects() {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        return db.delete(TABLE_PROJECTS, null, null);
-//    }
+    /**
+     * Clears all rows in Projects Table and returns the number of rows remaining
+     */
+    public Integer clearProjects() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.delete(TABLE_PROJECTS, null, null);
+    }
 
     /**
      * Clears all rows in Students Table and returns the number of rows remaining

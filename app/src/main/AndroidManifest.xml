@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ProjectManagement"
         tools:targetApi="31">
         <activity
+            android:name=".activities.SubmittedTopicsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.CreateCoordinatorProfileActivity"
             android:exported="false" />
         <activity
