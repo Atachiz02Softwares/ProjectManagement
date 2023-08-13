@@ -1,195 +1,58 @@
 package morpheus.softwares.projectmanagement.adapters;
 
-import static java.lang.String.format;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
-import morpheus.softwares.projectmanagement.models.Links;
-import morpheus.softwares.projectmanagement.models.Student;
+import morpheus.softwares.projectmanagement.models.Projects;
 
 public class CoodinatorAdapter extends RecyclerView.Adapter<CoodinatorAdapter.Holder> {
     Context context;
-    ArrayList<Student> students;
+    ArrayList<Projects> projects;
 
-    public CoodinatorAdapter(Context context, ArrayList<Student> students) {
+    public CoodinatorAdapter(Context context, ArrayList<Projects> projects) {
         this.context = context;
-        this.students = students;
+        this.projects = projects;
     }
 
     @NonNull
     @Override
     public CoodinatorAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.projects_recycler, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recycler_view, parent, false);
         return new Holder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CoodinatorAdapter.Holder holder, int position) {
-        Student student = students.get(position);
+        Projects project = projects.get(position);
 
-        String firstTopic = student.getFirstProject(), secondTopic = student.getSecondProject(),
-                thirdTopic = student.getThirdProject(), idNumber = student.getIdNumber(),
-                supervisors = format("%s %s %s", new Links(context).matchSupervisors(student.getFirstArea()),
-                        new Links(context).matchSupervisors(student.getSecondArea()),
-                        new Links(context).matchSupervisors(student.getThirdArea()));
-
-        holder.firstTopic.setText(firstTopic);
-        holder.secondTopic.setText(secondTopic);
-        holder.thirdTopic.setText(thirdTopic);
-        holder.idNumber.setText(idNumber);
-        holder.supervisors.setText(supervisors);
-
-        holder.firstApprove.setOnClickListener(v -> {
-            if ((holder.firstApprove.getText()).equals("Approve")) {
-                student.setFirstStatus("Approved");
-                student.setSecondStatus("Disapproved");
-                student.setThirdStatus("Disapproved");
-                holder.secondApprove.setText(R.string.disapprove);
-                holder.thirdApprove.setVisibility(R.string.disapprove);
-            } else {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogRounded);
-                builder.setCancelable(false);
-                builder.setTitle("Reason for disapproval");
-                builder.setIcon(R.drawable.baseline_cancel_24);
-                builder.setCancelable(false);
-
-                LayoutInflater inflater = LayoutInflater.from(context);
-                View view = inflater.inflate(R.layout.report_dialog, null);
-                EditText report = view.findViewById(R.id.report);
-                Button disapprove = view.findViewById(R.id.disapprove);
-
-                AlertDialog alertDialog = builder.create();
-
-                disapprove.setOnClickListener(vi -> {
-                    if (String.valueOf(report.getText()).isEmpty()) {
-                        report.setError("Please provide a reason for your disapproval...");
-                    } else {
-                        student.setFirstReport(String.valueOf(report.getText()).trim());
-                        Toast.makeText(context, "Topic disapproved!", Toast.LENGTH_SHORT).show();
-                        alertDialog.dismiss();
-                    }
-                });
-
-                builder.setView(view);
-
-                alertDialog.setCanceledOnTouchOutside(false);
-                alertDialog.show();
-            }
-        });
-
-        holder.secondApprove.setOnClickListener(v -> {
-            if ((holder.secondApprove.getText()).equals("Approve")) {
-                student.setFirstStatus("Disapproved");
-                student.setSecondStatus("Approved");
-                student.setThirdStatus("Disapproved");
-                holder.firstApprove.setText(R.string.disapprove);
-                holder.thirdApprove.setVisibility(R.string.disapprove);
-            } else {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogRounded);
-                builder.setCancelable(false);
-                builder.setTitle("Reason for disapproval");
-                builder.setIcon(R.drawable.baseline_cancel_24);
-                builder.setCancelable(false);
-
-                LayoutInflater inflater = LayoutInflater.from(context);
-                View view = inflater.inflate(R.layout.report_dialog, null);
-                EditText report = view.findViewById(R.id.report);
-                Button disapprove = view.findViewById(R.id.disapprove);
-
-                AlertDialog alertDialog = builder.create();
-
-                disapprove.setOnClickListener(vi -> {
-                    if (String.valueOf(report.getText()).isEmpty()) {
-                        report.setError("Please provide a reason for your disapproval...");
-                    } else {
-                        student.setSecondReport(String.valueOf(report.getText()).trim());
-                        Toast.makeText(context, "Topic disapproved!", Toast.LENGTH_SHORT).show();
-                        alertDialog.dismiss();
-                    }
-                });
-
-                builder.setView(view);
-
-                alertDialog.setCanceledOnTouchOutside(false);
-                alertDialog.show();
-            }
-        });
-
-        holder.thirdApprove.setOnClickListener(v -> {
-            if ((holder.thirdApprove.getText()).equals("Approve")) {
-                student.setFirstStatus("Disapproved");
-                student.setSecondStatus("Disapproved");
-                student.setThirdStatus("Approved");
-                holder.firstApprove.setText(R.string.disapprove);
-                holder.thirdApprove.setVisibility(R.string.disapprove);
-            } else {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogRounded);
-                builder.setCancelable(false);
-                builder.setTitle("Reason for disapproval");
-                builder.setIcon(R.drawable.baseline_cancel_24);
-                builder.setCancelable(false);
-
-                LayoutInflater inflater = LayoutInflater.from(context);
-                View view = inflater.inflate(R.layout.report_dialog, null);
-                EditText report = view.findViewById(R.id.report);
-                Button disapprove = view.findViewById(R.id.disapprove);
-
-                AlertDialog alertDialog = builder.create();
-
-                disapprove.setOnClickListener(vi -> {
-                    if (String.valueOf(report.getText()).isEmpty()) {
-                        report.setError("Please provide a reason for your disapproval...");
-                    } else {
-                        student.setThirdReport(String.valueOf(report.getText()).trim());
-                        Toast.makeText(context, "Topic disapproved!", Toast.LENGTH_SHORT).show();
-                        alertDialog.dismiss();
-                    }
-                });
-
-                builder.setView(view);
-
-                alertDialog.setCanceledOnTouchOutside(false);
-                alertDialog.show();
-            }
-        });
+        holder.idNumber.setText(project.getIdNumber());
+        holder.topic.setText(project.getApprovedTopic());
+        holder.status.setText(R.string.approved);
     }
 
     @Override
     public int getItemCount() {
-        return students.size();
+        return projects.size();
     }
 
     public static class Holder extends RecyclerView.ViewHolder {
-        TextView firstTopic, secondTopic, thirdTopic, idNumber, supervisors;
-        Button firstApprove, secondApprove, thirdApprove;
+        TextView topic, idNumber, status;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
 
-            firstTopic = itemView.findViewById(R.id.firstTopic);
-            secondTopic = itemView.findViewById(R.id.secondTopic);
-            thirdTopic = itemView.findViewById(R.id.thirdTopic);
-            idNumber = itemView.findViewById(R.id.idNumber);
-            supervisors = itemView.findViewById(R.id.supervisors);
-            firstApprove = itemView.findViewById(R.id.firstApprove);
-            secondApprove = itemView.findViewById(R.id.secondApprove);
-            thirdApprove = itemView.findViewById(R.id.thirdApprove);
+            topic = itemView.findViewById(R.id.projectTopic);
+            idNumber = itemView.findViewById(R.id.idNum);
+            status = itemView.findViewById(R.id.status);
         }
     }
 }

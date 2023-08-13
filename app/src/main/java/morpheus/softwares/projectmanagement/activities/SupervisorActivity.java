@@ -26,7 +26,7 @@ import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.adapters.SupervisorAdapter;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
-import morpheus.softwares.projectmanagement.models.Student;
+import morpheus.softwares.projectmanagement.models.Projects;
 import morpheus.softwares.projectmanagement.models.Supervisor;
 import morpheus.softwares.projectmanagement.models.User;
 
@@ -40,7 +40,7 @@ public class SupervisorActivity extends AppCompatActivity {
     AppBarLayout appBarLayout;
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
-    ArrayList<Student> students;
+    ArrayList<Projects> projects;
     SupervisorAdapter supervisorAdapter;
     RecyclerView recyclerView;
 
@@ -75,9 +75,9 @@ public class SupervisorActivity extends AppCompatActivity {
         supervisorNavRole = header.findViewById(R.id.navRole);
         supervisorNavRole.setText(R.string.supervisor);
 
-        students = new ArrayList<>();
+        projects = new ArrayList<>();
         recyclerView = findViewById(R.id.supervisorList);
-        supervisorAdapter = new SupervisorAdapter(this, students);
+        supervisorAdapter = new SupervisorAdapter(this, projects);
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

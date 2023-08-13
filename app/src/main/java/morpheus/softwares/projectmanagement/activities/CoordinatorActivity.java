@@ -26,7 +26,7 @@ import morpheus.softwares.projectmanagement.adapters.CoodinatorAdapter;
 import morpheus.softwares.projectmanagement.models.Coordinator;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
-import morpheus.softwares.projectmanagement.models.Student;
+import morpheus.softwares.projectmanagement.models.Projects;
 import morpheus.softwares.projectmanagement.models.User;
 
 public class CoordinatorActivity extends AppCompatActivity {
@@ -38,7 +38,7 @@ public class CoordinatorActivity extends AppCompatActivity {
     AppBarLayout appBarLayout;
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
-    ArrayList<Student> students;
+    ArrayList<Projects> projects;
     CoodinatorAdapter coodinatorAdapter;
     RecyclerView recyclerView;
 
@@ -72,9 +72,9 @@ public class CoordinatorActivity extends AppCompatActivity {
         coordinatorNavRole = header.findViewById(R.id.navRole);
         coordinatorNavRole.setText(R.string.coordinator);
 
-        students = new ArrayList<>();
+        projects = new ArrayList<>();
         recyclerView = findViewById(R.id.coordinatorList);
-        coodinatorAdapter = new CoodinatorAdapter(this, students);
+        coodinatorAdapter = new CoodinatorAdapter(this, projects);
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

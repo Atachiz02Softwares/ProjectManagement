@@ -12,15 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
-import morpheus.softwares.projectmanagement.models.Student;
+import morpheus.softwares.projectmanagement.models.Projects;
 
 public class SupervisorAdapter extends RecyclerView.Adapter<SupervisorAdapter.Holder> {
     Context context;
-    ArrayList<Student> students;
+    ArrayList<Projects> projects;
 
-    public SupervisorAdapter(Context context, ArrayList<Student> students) {
+    public SupervisorAdapter(Context context, ArrayList<Projects> projects) {
         this.context = context;
-        this.students = students;
+        this.projects = projects;
     }
 
     @NonNull
@@ -32,17 +32,16 @@ public class SupervisorAdapter extends RecyclerView.Adapter<SupervisorAdapter.Ho
 
     @Override
     public void onBindViewHolder(@NonNull SupervisorAdapter.Holder holder, int position) {
-        Student student = students.get(position);
+        Projects project = projects.get(position);
 
-        ArrayList<String> areas = new ArrayList<>();
-        for (Student std : students) {
-//            if (std.getFirstArea().equals()
-        }
+        holder.idNumber.setText(project.getIdNumber());
+        holder.topic.setText(project.getApprovedTopic());
+        holder.status.setText(R.string.approved);
     }
 
     @Override
     public int getItemCount() {
-        return students.size();
+        return projects.size();
     }
 
     public static class Holder extends RecyclerView.ViewHolder {
