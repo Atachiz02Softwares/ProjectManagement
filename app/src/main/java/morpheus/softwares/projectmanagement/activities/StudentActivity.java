@@ -1,7 +1,6 @@
 package morpheus.softwares.projectmanagement.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -10,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -35,6 +35,8 @@ public class StudentActivity extends AppCompatActivity {
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
 
+    CardView first, second, third;
+
     TextView studentName, studentID, studentNavName, studentNavID, studentNavRole, firstProject,
             firstArea, firstSupervisor, firstStatus, secondProject, secondArea, secondSupervisor,
             secondStatus, thirdProject, thirdArea, thirdSupervisor, thirdStatus;
@@ -49,6 +51,11 @@ public class StudentActivity extends AppCompatActivity {
         appBarLayout = findViewById(R.id.studentAppBar);
         toolbar = findViewById(R.id.studentToolbar);
         collapsingToolbarLayout = findViewById(R.id.studentCollapsingToolbar);
+
+        first = findViewById(R.id.studentFirst);
+        second = findViewById(R.id.studentSecond);
+        third = findViewById(R.id.studentThird);
+
         studentName = findViewById(R.id.studentName);
         studentID = findViewById(R.id.studentID);
         firstProject = findViewById(R.id.studentFirstTopic);
@@ -83,8 +90,11 @@ public class StudentActivity extends AppCompatActivity {
         studentNavRole = header.findViewById(R.id.navRole);
         studentNavRole.setText(R.string.stdent);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("Profile", MODE_PRIVATE);
-        String profile = sharedPreferences.getString("profile", "null");
+//        Rubbish code
+//        SharedPreferences sharedPreferences = getSharedPreferences("Profile", MODE_PRIVATE);
+//        String profile = sharedPreferences.getString("profile", "null");
+
+        String profile = getIntent().getStringExtra("idNumber");
         String nil = "Create profile...";
 
         ArrayList<User> users = database.selectAllUsers();
@@ -101,6 +111,10 @@ public class StudentActivity extends AppCompatActivity {
         ArrayList<Student> students = database.selectAllStudents();
         for (Student student : students)
             if (student.getIdNumber().equals(profile)) {
+                first.setVisibility(View.VISIBLE);
+                second.setVisibility(View.VISIBLE);
+                third.setVisibility(View.VISIBLE);
+
                 String status = student.getFirstStatus(), areaOne = student.getFirstArea(),
                         areaTwo = student.getSecondArea(), areaThree = student.getThirdArea(),
                         supervisorOne = new Links(this).matchSupervisors(areaOne),
@@ -144,5 +158,14 @@ public class StudentActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
             return false;
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        first.setVisibility(View.VISIBLE);
+        second.setVisibility(View.VISIBLE);
+        third.setVisibility(View.VISIBLE);
     }
 }

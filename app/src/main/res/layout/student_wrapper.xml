@@ -95,9 +95,11 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/studentFirst"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:visibility="gone"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="5dp">
 
@@ -170,9 +172,11 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/studentSecond"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:visibility="gone"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="5dp">
 
@@ -245,9 +249,11 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/studentThird"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:visibility="gone"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="5dp">
 

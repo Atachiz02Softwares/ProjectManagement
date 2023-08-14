@@ -67,6 +67,7 @@
                 android:id="@+id/createProfileFirstProjectName"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:padding="10dp"
                 android:layout_below="@id/createProfileEmail"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/line_border"
@@ -97,6 +98,7 @@
                 android:id="@+id/createProfileSecondProjectName"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:padding="10dp"
                 android:layout_below="@id/categoryOne"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/line_border"
@@ -129,6 +131,7 @@
                 android:layout_height="100dp"
                 android:layout_below="@id/categoryTwo"
                 android:layout_marginTop="30dp"
+                android:padding="10dp"
                 android:background="@drawable/line_border"
                 android:hint="@string/_3rd_proposed_project_topic"
                 android:inputType="textMultiLine" />

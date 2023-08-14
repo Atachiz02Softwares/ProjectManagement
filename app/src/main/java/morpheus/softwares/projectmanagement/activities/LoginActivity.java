@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 switch (role) {
                     case "student":
-                        startActivity(new Intent(this, StudentActivity.class));
+                        startActivity(new Intent(this, StudentActivity.class).putExtra("idNumber", identifier));
                         finish();
                         break;
                     case "supervisor":

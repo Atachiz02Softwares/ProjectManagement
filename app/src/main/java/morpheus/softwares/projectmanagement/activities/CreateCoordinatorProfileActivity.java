@@ -39,7 +39,7 @@ public class CreateCoordinatorProfileActivity extends AppCompatActivity {
             Coordinator coordinator = new Coordinator(0, coordinatorName, phoneNumber, email);
             database.insertCoordinator(coordinator);
 
-            new Links(this).setProfile(email);
+            new Links(this).setStatus(email);
             Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
 
             startActivity(new Intent(this, CoordinatorActivity.class).putExtra("uid", email));

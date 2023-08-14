@@ -78,15 +78,15 @@ public class Links {
         editor.apply();
     }
 
-    /**
-     * Sets the status of profile creation to 'student', 'supervisor' or 'coordinator'
-     */
-    public void setProfile(String profile) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);
-        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-        myEdit.putString("profile", profile);
-        myEdit.apply();
-    }
+//    /**
+//     * Sets the status of profile creation to 'student', 'supervisor' or 'coordinator'
+//     */
+//    public void setProfile(String profile) {
+//        SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);
+//        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+//        myEdit.putString("profile", profile);
+//        myEdit.apply();
+//    }
 
     /**
      * Sets the status of profile creation to 'student', 'supervisor' or 'coordinator'

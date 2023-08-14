@@ -50,7 +50,7 @@ public class CreateSupervisorProfileActivity extends AppCompatActivity {
             Supervisor supervisor = new Supervisor(0, supervisorName, phoneNumber, email, areaOfExpertise);
             database.insertSupervisor(supervisor);
 
-            new Links(this).setProfile(email);
+            new Links(this).setStatus(email);
             Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
 
             startActivity(new Intent(this, SupervisorActivity.class).putExtra("uid", email));

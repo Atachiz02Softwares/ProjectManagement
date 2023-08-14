@@ -72,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             switch (signUpAs) {
                 case "student":
-                    startActivity(new Intent(this, StudentActivity.class));
+                    startActivity(new Intent(this, StudentActivity.class).putExtra("idNumber", idNumber));
                     finish();
                     break;
                 case "supervisor":
