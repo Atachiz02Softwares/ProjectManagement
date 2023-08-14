@@ -2,6 +2,7 @@ package morpheus.softwares.projectmanagement.adapters;
 
 import static java.lang.String.format;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,16 +21,20 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
+import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
+import morpheus.softwares.projectmanagement.models.Projects;
 import morpheus.softwares.projectmanagement.models.Student;
 
 public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder> {
     Context context;
     ArrayList<Student> students;
+    Database database;
 
     public ProjectsAdapter(Context context, ArrayList<Student> students) {
         this.context = context;
         this.students = students;
+        this.database = new Database(context);
     }
 
     @NonNull
@@ -57,6 +62,9 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder
 
         holder.firstApprove.setOnClickListener(v -> {
             if ((holder.firstApprove.getText()).equals("Approve")) {
+                Projects project = new Projects(0, idNumber, firstTopic);
+                database.insertProject(project);
+
                 student.setFirstStatus("Approved");
                 student.setSecondStatus("Disapproved");
                 student.setThirdStatus("Disapproved");
@@ -95,6 +103,9 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder
 
         holder.secondApprove.setOnClickListener(v -> {
             if ((holder.secondApprove.getText()).equals("Approve")) {
+                Projects project = new Projects(0, idNumber, secondTopic);
+                database.insertProject(project);
+
                 student.setFirstStatus("Disapproved");
                 student.setSecondStatus("Approved");
                 student.setThirdStatus("Disapproved");
@@ -133,6 +144,9 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder
 
         holder.thirdApprove.setOnClickListener(v -> {
             if ((holder.thirdApprove.getText()).equals("Approve")) {
+                Projects project = new Projects(0, idNumber, thirdTopic);
+                database.insertProject(project);
+
                 student.setFirstStatus("Disapproved");
                 student.setSecondStatus("Disapproved");
                 student.setThirdStatus("Approved");
@@ -173,6 +187,12 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder
     @Override
     public int getItemCount() {
         return students.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filter(ArrayList<Student> filteredStudents) {
+        this.students = filteredStudents;
+        notifyDataSetChanged();
     }
 
     public static class Holder extends RecyclerView.ViewHolder {
