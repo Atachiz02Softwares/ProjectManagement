@@ -19,10 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
         signup = findViewById(R.id.mainSignup);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("Status", MODE_PRIVATE);
-        String status = sharedPreferences.getString("status", "");
+        SharedPreferences sharedPreferences = getSharedPreferences("Profile", MODE_PRIVATE);
+        String profile = sharedPreferences.getString("profile", "");
 
-        switch (status) {
+        switch (profile) {
             case "student":
                 startActivity(new Intent(this, StudentActivity.class));
                 finish();

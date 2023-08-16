@@ -69,32 +69,51 @@ public class Links {
     }
 
     /**
-     * Removes the status of a user account from 'student', 'supervisor' or 'coordinator'
+     * Sets the status of profile creation to 'student', 'supervisor' or 'coordinator'
      */
-    public void removeStatus() {
+    public boolean checkStatus(String profile) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("Status", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove("status");
-        editor.apply();
+        String prof = sharedPreferences.getString("status", "null");
+        return prof.equals(profile);
     }
 
 //    /**
-//     * Sets the status of profile creation to 'student', 'supervisor' or 'coordinator'
+//     * Removes the status of a user account from 'student', 'supervisor' or 'coordinator'
 //     */
-//    public void setProfile(String profile) {
-//        SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);
-//        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-//        myEdit.putString("profile", profile);
-//        myEdit.apply();
+//    public void removeStatus() {
+//        SharedPreferences sharedPreferences = context.getSharedPreferences("Status", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.remove("status");
+//        editor.apply();
 //    }
 
     /**
      * Sets the status of profile creation to 'student', 'supervisor' or 'coordinator'
      */
-    public boolean checkProfile(String profile) {
+    public void setProfile(String profile) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);
-        String prof = sharedPreferences.getString("profile", "null");
-        return prof.equals(profile);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putString("profile", profile);
+        myEdit.apply();
+    }
+
+//    /**
+//     * Sets the status of profile creation to 'student', 'supervisor' or 'coordinator'
+//     */
+//    public boolean checkProfile(String profile) {
+//        SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);
+//        String prof = sharedPreferences.getString("profile", "");
+//        return prof.equals(profile);
+//    }
+
+    /**
+     * Removes the status of a user account from 'student', 'supervisor' or 'coordinator'
+     */
+    public void removeProfile() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("profile");
+        editor.apply();
     }
 
     /**

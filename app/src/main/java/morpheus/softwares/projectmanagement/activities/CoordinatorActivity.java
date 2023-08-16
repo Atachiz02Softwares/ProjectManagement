@@ -82,27 +82,28 @@ public class CoordinatorActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(coodinatorAdapter);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("Status", MODE_PRIVATE);
+        String status = sharedPreferences.getString("status", "");
+        String nil = "Create profile...";
+
         ArrayList<Coordinator> coordinators = database.selectAllCoordinators();
         for (Coordinator coordinator : coordinators) {
             String name = coordinator.getName(), email = coordinator.getEmail();
 
-            coordinatorName.setText(name);
-            coordinatorNavName.setText(name);
-            coordinatorEmail.setText(email);
-            coordinatorNavEmail.setText(email);
+            if (email.equals(status)) {
+                coordinatorName.setText(name);
+                coordinatorNavName.setText(name);
+                coordinatorEmail.setText(email);
+                coordinatorNavEmail.setText(email);
+            } else {
+                coordinatorName.setText(nil);
+                coordinatorNavName.setText(nil);
+            }
         }
-
-        SharedPreferences sharedPreferences = getSharedPreferences("Profile", MODE_PRIVATE);
-        String profile = sharedPreferences.getString("profile", "null");
-        String nil = "Create profile...";
 
         ArrayList<User> users = database.selectAllUsers();
         for (User user : users)
-            if (user.getIdentifier().equals(profile)) {
-                String name = user.getName();
-                coordinatorName.setText(name);
-                coordinatorNavName.setText(name);
-            } else {
+            if (!user.getIdentifier().equals(status)) {
                 coordinatorName.setText(nil);
                 coordinatorNavName.setText(nil);
             }
@@ -110,7 +111,7 @@ public class CoordinatorActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile) {
                 String email = String.valueOf(coordinatorNavEmail.getText()).trim();
-                if (new Links(this).checkProfile(email))
+                if (new Links(this).checkStatus(email))
                     Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
                 else
                     startActivity(new Intent(this, CreateCoordinatorProfileActivity.class));
@@ -121,7 +122,7 @@ public class CoordinatorActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.about)
                 Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
-                new Links(this).removeStatus();
+                new Links(this).removeProfile();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
             } else if (item.getItemId() == R.id.exit) finishAffinity();

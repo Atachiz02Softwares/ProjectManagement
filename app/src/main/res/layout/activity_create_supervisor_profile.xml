@@ -36,7 +36,7 @@
         android:autofillHints="name"
         android:backgroundTint="@color/green"
         android:hint="@string/your_name"
-        android:inputType="text"
+        android:inputType="textPersonName"
         android:maxLines="1"
         android:textSize="18sp" />
 

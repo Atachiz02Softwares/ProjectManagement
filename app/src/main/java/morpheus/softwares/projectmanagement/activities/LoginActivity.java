@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginSuccessful = true;
                 String role = user.getRole();
 
-                new Links(this).setStatus(role);
+                new Links(this).setProfile(role);
 
                 switch (role) {
                     case "student":

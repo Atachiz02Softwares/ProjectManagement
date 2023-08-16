@@ -139,7 +139,7 @@ public class StudentActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile) {
                 String id = String.valueOf(studentNavID.getText()).trim();
-                if (new Links(this).checkProfile(id))
+                if (new Links(this).checkStatus(id))
                     Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
                 else
                     startActivity(new Intent(this, CreateStudentProfileActivity.class));
@@ -150,7 +150,7 @@ public class StudentActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.about)
                 Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
-                new Links(this).removeStatus();
+                new Links(this).removeProfile();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
             } else if (item.getItemId() == R.id.exit) finishAffinity();

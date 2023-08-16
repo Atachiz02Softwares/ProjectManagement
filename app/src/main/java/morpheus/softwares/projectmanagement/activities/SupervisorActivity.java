@@ -109,7 +109,7 @@ public class SupervisorActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile) {
                 String email = String.valueOf(supervisorNavEmail.getText()).trim();
-                if (new Links(this).checkProfile(email))
+                if (new Links(this).checkStatus(email))
                     Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
                 else
                     startActivity(new Intent(this, CreateSupervisorProfileActivity.class));
@@ -120,7 +120,7 @@ public class SupervisorActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.about)
                 Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
-                new Links(this).removeStatus();
+                new Links(this).removeProfile();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
             } else if (item.getItemId() == R.id.exit) finishAffinity();

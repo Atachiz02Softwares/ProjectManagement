@@ -58,32 +58,37 @@ public class SignUpActivity extends AppCompatActivity {
                 signUpAs = String.valueOf(role.getText());
         boolean hasSignedUp = new Links(this).hasSignedUp(idNumber);
 
-        if (TextUtils.isEmpty(pin) || TextUtils.isEmpty(confirmPin) || TextUtils.isEmpty(idNumber) || TextUtils.isEmpty(name))
+        if (hasSignedUp)
+            Toast.makeText(this, "You already have an account!", Toast.LENGTH_SHORT).show();
+        else if (TextUtils.isEmpty(pin) || TextUtils.isEmpty(confirmPin) || TextUtils.isEmpty(idNumber) ||
+                TextUtils.isEmpty(name) || TextUtils.isEmpty(signUpAs))
             Toast.makeText(this, "No field should be empty!", Toast.LENGTH_SHORT).show();
         else if (!TextUtils.equals(pin, confirmPin))
             Toast.makeText(this, "Pins must be the same!", Toast.LENGTH_SHORT).show();
-        else if (hasSignedUp)
-            Toast.makeText(this, "You already have an account!", Toast.LENGTH_SHORT).show();
-        else {
-            User newUser = new User(0, idNumber, pin, name, signUpAs);
-            database.insertUser(newUser);
-            new Links(this).setStatus(signUpAs);
-            Toast.makeText(this, "Signup successful!", Toast.LENGTH_SHORT).show();
-
+        else
             switch (signUpAs) {
                 case "student":
+                    signUp(idNumber, pin, name, signUpAs);
                     startActivity(new Intent(this, StudentActivity.class).putExtra("idNumber", idNumber));
                     finish();
                     break;
                 case "supervisor":
+                    signUp(idNumber, pin, name, signUpAs);
                     startActivity(new Intent(this, SupervisorActivity.class));
                     finish();
                     break;
                 case "coordinator":
+                    signUp(idNumber, pin, name, signUpAs);
                     startActivity(new Intent(this, CoordinatorActivity.class));
                     finish();
                     break;
             }
-        }
+    }
+
+    private void signUp(String idNumber, String pin, String name, String role) {
+        User newUser = new User(0, idNumber, pin, name, role);
+        database.insertUser(newUser);
+        new Links(this).setProfile(role);
+        Toast.makeText(this, "Signup successful!", Toast.LENGTH_SHORT).show();
     }
 }
