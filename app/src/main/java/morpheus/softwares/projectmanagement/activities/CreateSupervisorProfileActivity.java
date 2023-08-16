@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import morpheus.softwares.projectmanagement.models.Supervisor;
 
 public class CreateSupervisorProfileActivity extends AppCompatActivity {
     String[] AREAS = new Links(CreateSupervisorProfileActivity.this).getAreas();
+    ImageView back;
     EditText name, mail, phone;
 
     AutoCompleteTextView area;
@@ -30,6 +32,7 @@ public class CreateSupervisorProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_supervisor_profile);
 
+        back = findViewById(R.id.createSupervisorProfileBack);
         name = findViewById(R.id.createSupervisorProfileName);
         mail = findViewById(R.id.createSupervisorProfileEmail);
         phone = findViewById(R.id.createSupervisorProfilePhone);
@@ -41,6 +44,8 @@ public class CreateSupervisorProfileActivity extends AppCompatActivity {
 
         database = new Database(this);
 
+        back.setOnClickListener(v -> finish());
+
         createProfile.setOnClickListener(v -> {
             String supervisorName = String.valueOf(name.getText()).trim(),
                     email = String.valueOf(mail.getText()).trim(),
@@ -50,7 +55,7 @@ public class CreateSupervisorProfileActivity extends AppCompatActivity {
             Supervisor supervisor = new Supervisor(0, supervisorName, phoneNumber, email, areaOfExpertise);
             database.insertSupervisor(supervisor);
 
-            new Links(this).setStatus(email);
+            new Links(this).setID(email);
             Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
 
             startActivity(new Intent(this, SupervisorActivity.class).putExtra("uid", email));

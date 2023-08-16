@@ -7,6 +7,15 @@
     android:padding="10dp"
     tools:context=".activities.CreateCoordinatorProfileActivity">
 
+    <ImageView
+        android:id="@+id/createCoordinatorProfileBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/round_arrow_back_ios_24" />
+
     <TextView
         android:id="@+id/createCoordinatorProfileTitle"
         android:layout_width="wrap_content"

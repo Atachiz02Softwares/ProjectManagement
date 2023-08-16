@@ -74,12 +74,12 @@ public class SignUpActivity extends AppCompatActivity {
                     break;
                 case "supervisor":
                     signUp(idNumber, pin, name, signUpAs);
-                    startActivity(new Intent(this, SupervisorActivity.class));
+                    startActivity(new Intent(this, SupervisorActivity.class).putExtra("idNumber", idNumber));
                     finish();
                     break;
                 case "coordinator":
                     signUp(idNumber, pin, name, signUpAs);
-                    startActivity(new Intent(this, CoordinatorActivity.class));
+                    startActivity(new Intent(this, CoordinatorActivity.class).putExtra("idNumber", idNumber));
                     finish();
                     break;
             }

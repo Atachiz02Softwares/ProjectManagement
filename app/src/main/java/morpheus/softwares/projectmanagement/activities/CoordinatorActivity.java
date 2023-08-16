@@ -27,7 +27,6 @@ import morpheus.softwares.projectmanagement.models.Coordinator;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Projects;
-import morpheus.softwares.projectmanagement.models.User;
 
 public class CoordinatorActivity extends AppCompatActivity {
     TextView coordinatorName, coordinatorEmail, coordinatorNavName, coordinatorNavEmail, coordinatorNavRole;
@@ -82,15 +81,15 @@ public class CoordinatorActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(coodinatorAdapter);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("Status", MODE_PRIVATE);
-        String status = sharedPreferences.getString("status", "");
-        String nil = "Create profile...";
+        SharedPreferences sharedPreferences = getSharedPreferences("ID", MODE_PRIVATE);
+        String status = sharedPreferences.getString("id", "");
+        String nil = "Create profile...", id = getIntent().getStringExtra("idNumber");
 
         ArrayList<Coordinator> coordinators = database.selectAllCoordinators();
         for (Coordinator coordinator : coordinators) {
             String name = coordinator.getName(), email = coordinator.getEmail();
 
-            if (email.equals(status)) {
+            if (email.equals(id)) {
                 coordinatorName.setText(name);
                 coordinatorNavName.setText(name);
                 coordinatorEmail.setText(email);
@@ -98,20 +97,23 @@ public class CoordinatorActivity extends AppCompatActivity {
             } else {
                 coordinatorName.setText(nil);
                 coordinatorNavName.setText(nil);
+                coordinatorEmail.setText("");
+                coordinatorNavEmail.setText("");
             }
         }
 
-        ArrayList<User> users = database.selectAllUsers();
-        for (User user : users)
-            if (!user.getIdentifier().equals(status)) {
-                coordinatorName.setText(nil);
-                coordinatorNavName.setText(nil);
-            }
+//        ArrayList<User> users = database.selectAllUsers();
+//        for (User user : users)
+//            if (!user.getIdentifier().equals(id)) {
+//                coordinatorName.setText(nil);
+//                coordinatorNavName.setText(nil);
+//                coordinatorEmail.setText("");
+//                coordinatorNavEmail.setText("");
+//            }
 
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile) {
-                String email = String.valueOf(coordinatorNavEmail.getText()).trim();
-                if (new Links(this).checkStatus(email))
+                if (new Links(this).checkID(status))
                     Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
                 else
                     startActivity(new Intent(this, CreateCoordinatorProfileActivity.class));

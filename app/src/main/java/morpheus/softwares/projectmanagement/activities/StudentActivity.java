@@ -1,6 +1,7 @@
 package morpheus.softwares.projectmanagement.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -23,7 +24,6 @@ import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Student;
-import morpheus.softwares.projectmanagement.models.User;
 
 public class StudentActivity extends AppCompatActivity {
 
@@ -90,56 +90,67 @@ public class StudentActivity extends AppCompatActivity {
         studentNavRole = header.findViewById(R.id.navRole);
         studentNavRole.setText(R.string.stdent);
 
-//        Rubbish code
-//        SharedPreferences sharedPreferences = getSharedPreferences("Profile", MODE_PRIVATE);
-//        String profile = sharedPreferences.getString("profile", "null");
+        SharedPreferences sharedPreferences = getSharedPreferences("ID", MODE_PRIVATE);
+        String status = sharedPreferences.getString("id", "");
+        String nil = "Create profile...", id = getIntent().getStringExtra("idNumber");
 
-        String profile = getIntent().getStringExtra("idNumber");
-        String nil = "Create profile...";
+        ArrayList<Student> students = database.selectAllStudents();
+        for (Student student : students) {
+            String idNumber = student.getIdNumber(), email = student.getEmail();
 
-        ArrayList<User> users = database.selectAllUsers();
-        for (User user : users)
-            if (user.getIdentifier().equals(profile)) {
-                String name = user.getName();
-                studentName.setText(name);
-                studentNavName.setText(name);
+            if (email.equals(id)) {
+                studentName.setText(idNumber);
+                studentNavName.setText(idNumber);
+                studentID.setText(email);
+                studentNavID.setText(email);
             } else {
                 studentName.setText(nil);
                 studentNavName.setText(nil);
+                studentID.setText("");
+                studentNavID.setText("");
             }
+        }
 
-        ArrayList<Student> students = database.selectAllStudents();
+//        ArrayList<User> users = database.selectAllUsers();
+//        for (User user : users)
+//            if (user.getIdentifier().equals(id)) {
+//                String name = user.getName();
+//                studentName.setText(name);
+//                studentNavName.setText(name);
+//            } else {
+//                studentName.setText(nil);
+//                studentNavName.setText(nil);
+//            }
+
         for (Student student : students)
-            if (student.getIdNumber().equals(profile)) {
+            if (student.getIdNumber().equals(status)) {
                 first.setVisibility(View.VISIBLE);
                 second.setVisibility(View.VISIBLE);
                 third.setVisibility(View.VISIBLE);
 
-                String status = student.getFirstStatus(), areaOne = student.getFirstArea(),
+                String status1 = student.getFirstStatus(), status2 = student.getSecondStatus(),
+                        status3 = student.getThirdStatus(), areaOne = student.getFirstArea(),
                         areaTwo = student.getSecondArea(), areaThree = student.getThirdArea(),
                         supervisorOne = new Links(this).matchSupervisors(areaOne),
                         supervisorTwo = new Links(this).matchSupervisors(areaTwo),
                         supervisorThree = new Links(this).matchSupervisors(areaThree);
-                studentID.setText(profile);
-                studentNavID.setText(student.getEmail());
                 firstProject.setText(student.getFirstProject());
                 firstArea.setText(areaOne);
                 firstSupervisor.setText(supervisorOne);
-                firstStatus.setText(status);
+                firstStatus.setText(status1);
                 secondProject.setText(student.getSecondProject());
                 secondArea.setText(areaTwo);
                 secondSupervisor.setText(supervisorTwo);
-                secondStatus.setText(status);
+                secondStatus.setText(status2);
                 thirdProject.setText(student.getThirdProject());
                 thirdArea.setText(areaThree);
                 thirdSupervisor.setText(supervisorThree);
-                thirdStatus.setText(status);
+                thirdStatus.setText(status3);
             }
 
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile) {
-                String id = String.valueOf(studentNavID.getText()).trim();
-                if (new Links(this).checkStatus(id))
+                if (new Links(this).checkID(status))
                     Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
                 else
                     startActivity(new Intent(this, CreateStudentProfileActivity.class));

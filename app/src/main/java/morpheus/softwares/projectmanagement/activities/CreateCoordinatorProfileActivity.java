@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
 
 public class CreateCoordinatorProfileActivity extends AppCompatActivity {
+    ImageView back;
     EditText name, mail, phone;
     Button createProfile;
 
@@ -24,12 +26,15 @@ public class CreateCoordinatorProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_coordinator_profile);
 
+        back = findViewById(R.id.createCoordinatorProfileBack);
         name = findViewById(R.id.createCoordinatorProfileName);
         mail = findViewById(R.id.createCoordinatorProfileEmail);
         phone = findViewById(R.id.createCoordinatorProfilePhone);
         createProfile = findViewById(R.id.createCoordinatorProfileCreate);
 
         database = new Database(this);
+
+        back.setOnClickListener(v -> finish());
 
         createProfile.setOnClickListener(v -> {
             String coordinatorName = String.valueOf(name.getText()).trim(),
@@ -39,7 +44,7 @@ public class CreateCoordinatorProfileActivity extends AppCompatActivity {
             Coordinator coordinator = new Coordinator(0, coordinatorName, phoneNumber, email);
             database.insertCoordinator(coordinator);
 
-            new Links(this).setStatus(email);
+            new Links(this).setID(email);
             Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
 
             startActivity(new Intent(this, CoordinatorActivity.class).putExtra("uid", email));

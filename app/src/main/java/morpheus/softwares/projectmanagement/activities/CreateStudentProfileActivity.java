@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import morpheus.softwares.projectmanagement.models.Student;
 
 public class CreateStudentProfileActivity extends AppCompatActivity {
     String[] AREAS = new Links(CreateStudentProfileActivity.this).getAreas();
+    ImageView back;
     EditText id, mail, firstTopic, secondTopic, thirdTopic;
 
     AutoCompleteTextView firstArea;
@@ -42,6 +44,7 @@ public class CreateStudentProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_student_profile);
 
+        back = findViewById(R.id.createProfileBack);
         id = findViewById(R.id.createProfileID);
         mail = findViewById(R.id.createProfileEmail);
         firstTopic = findViewById(R.id.createProfileFirstProjectName);
@@ -66,6 +69,8 @@ public class CreateStudentProfileActivity extends AppCompatActivity {
 
         database = new Database(this);
 
+        back.setOnClickListener(v -> finish());
+
         createProfile.setOnClickListener(v -> {
             // Current Date/Time
             LocalDateTime date = LocalDateTime.now();
@@ -88,7 +93,7 @@ public class CreateStudentProfileActivity extends AppCompatActivity {
                     "Unapproved", "Unapproved", "Unapproved", "", "", "");
             database.insertStudent(student);
 
-            new Links(this).setStatus(idNumber);
+            new Links(this).setID(idNumber);
             Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
 
             startActivity(new Intent(this, StudentActivity.class).putExtra("uid", idNumber));

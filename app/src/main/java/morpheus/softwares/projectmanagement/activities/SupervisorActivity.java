@@ -28,7 +28,6 @@ import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Projects;
 import morpheus.softwares.projectmanagement.models.Supervisor;
-import morpheus.softwares.projectmanagement.models.User;
 
 public class SupervisorActivity extends AppCompatActivity {
     TextView supervisorName, supervisorEmail, supervisorNavName, supervisorNavEmail, supervisorNavRole;
@@ -85,31 +84,39 @@ public class SupervisorActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(supervisorAdapter);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("ID", MODE_PRIVATE);
+        String status = sharedPreferences.getString("id", "");
+        String nil = "Create profile...", id = getIntent().getStringExtra("idNumber");
+
         ArrayList<Supervisor> supervisors = database.selectAllSupervisors();
         for (Supervisor supervisor : supervisors) {
             String name = supervisor.getName(), email = supervisor.getEmail();
 
-            supervisorName.setText(name);
-            supervisorNavName.setText(name);
-            supervisorEmail.setText(email);
-            supervisorNavEmail.setText(email);
-        }
-
-        SharedPreferences sharedPreferences = getSharedPreferences("Profile", MODE_PRIVATE);
-        String profile = sharedPreferences.getString("profile", "null");
-        String nil = "Create profile...";
-
-        ArrayList<User> users = database.selectAllUsers();
-        for (User user : users)
-            if (!user.getIdentifier().equals(profile)) {
+            if (email.equals(id)) {
+                supervisorName.setText(name);
+                supervisorNavName.setText(name);
+                supervisorEmail.setText(email);
+                supervisorNavEmail.setText(email);
+            } else {
                 supervisorName.setText(nil);
                 supervisorNavName.setText(nil);
+                supervisorEmail.setText("");
+                supervisorNavEmail.setText("");
             }
+        }
+
+//        ArrayList<User> users = database.selectAllUsers();
+//        for (User user : users)
+//            if (!user.getIdentifier().equals(id)) {
+//                supervisorName.setText(nil);
+//                supervisorNavName.setText(nil);
+//                supervisorEmail.setText("");
+//                supervisorNavEmail.setText("");
+//            }
 
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile) {
-                String email = String.valueOf(supervisorNavEmail.getText()).trim();
-                if (new Links(this).checkStatus(email))
+                if (new Links(this).checkID(status))
                     Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
                 else
                     startActivity(new Intent(this, CreateSupervisorProfileActivity.class));

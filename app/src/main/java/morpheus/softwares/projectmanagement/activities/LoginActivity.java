@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                 return; // Exit the method to prevent further processing
             }
 
-            if (user.getIdentifier().trim().equalsIgnoreCase(identifier) && user.getPin().trim().equals(pinCode)) {
+            else if (user.getIdentifier().trim().equalsIgnoreCase(identifier) && user.getPin().trim().equals(pinCode)) {
                 loginSuccessful = true;
                 String role = user.getRole();
 
@@ -62,11 +62,11 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                         break;
                     case "supervisor":
-                        startActivity(new Intent(this, SupervisorActivity.class));
+                        startActivity(new Intent(this, SupervisorActivity.class).putExtra("idNumber", identifier));
                         finish();
                         break;
                     case "coordinator":
-                        startActivity(new Intent(this, CoordinatorActivity.class));
+                        startActivity(new Intent(this, CoordinatorActivity.class).putExtra("idNumber", identifier));
                         finish();
                         break;
                 }

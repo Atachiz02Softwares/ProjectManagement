@@ -8,6 +8,15 @@
     android:padding="10dp"
     tools:context=".activities.CreateSupervisorProfileActivity">
 
+    <ImageView
+        android:id="@+id/createSupervisorProfileBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/round_arrow_back_ios_24" />
+
     <TextView
         android:id="@+id/createSupervisorProfileTitle"
         android:layout_width="wrap_content"
@@ -48,8 +57,8 @@
         android:layout_marginTop="20dp"
         android:autofillHints="emailAddress"
         android:backgroundTint="@color/green"
-        android:inputType="textEmailAddress"
         android:hint="@string/email"
+        android:inputType="textEmailAddress"
         android:maxLines="1"
         android:textSize="18sp" />
 

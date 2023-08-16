@@ -50,17 +50,17 @@ public class Links {
     }
 
     /**
-     * Sets the status of a user account creation to 'student', 'supervisor' or 'coordinator'
+     * Sets the email/ID Number of a user account
      */
-    public void setStatus(String status) {
+    public void setID(String status) {
         // Storing data into SharedPreferences
-        SharedPreferences sharedPreferences = context.getSharedPreferences("Status", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ID", MODE_PRIVATE);
 
         // Creating an Editor object to edit(write to the file)
         SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
         // Storing the key and its value as the data fetched from edittext
-        myEdit.putString("status", status);
+        myEdit.putString("id", status);
 
         // Once the changes have been made,
         // we need to commit to apply those changes made,
@@ -69,26 +69,26 @@ public class Links {
     }
 
     /**
-     * Sets the status of profile creation to 'student', 'supervisor' or 'coordinator'
+     * Checks the email/ID Number of the signed in Student, Supervisor/Coordinator
      */
-    public boolean checkStatus(String profile) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("Status", MODE_PRIVATE);
-        String prof = sharedPreferences.getString("status", "null");
+    public boolean checkID(String profile) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ID", MODE_PRIVATE);
+        String prof = sharedPreferences.getString("id", "null");
         return prof.equals(profile);
     }
 
 //    /**
-//     * Removes the status of a user account from 'student', 'supervisor' or 'coordinator'
+//     * Removes the ID Number/email of a user account
 //     */
-//    public void removeStatus() {
-//        SharedPreferences sharedPreferences = context.getSharedPreferences("Status", MODE_PRIVATE);
+//    public void removeID() {
+//        SharedPreferences sharedPreferences = context.getSharedPreferences("ID", MODE_PRIVATE);
 //        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.remove("status");
+//        editor.remove("id");
 //        editor.apply();
 //    }
 
     /**
-     * Sets the status of profile creation to 'student', 'supervisor' or 'coordinator'
+     * Sets the profile of a user account to 'student', 'supervisor' or 'coordinator'
      */
     public void setProfile(String profile) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);
@@ -107,7 +107,7 @@ public class Links {
 //    }
 
     /**
-     * Removes the status of a user account from 'student', 'supervisor' or 'coordinator'
+     * Removes the profile of a user account from 'student', 'supervisor' or 'coordinator'
      */
     public void removeProfile() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);

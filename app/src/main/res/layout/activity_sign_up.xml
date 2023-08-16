@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/signUpTitle"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/signUpLinearLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="@string/signed_up"
         android:textSize="16sp"
         android:textStyle="italic" />
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/signUpLogin"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/darkGreen"
         android:text="@string/create_account"
         android:textColor="@color/white"
