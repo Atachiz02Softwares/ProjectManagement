@@ -11,10 +11,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Supervisor;
+import morpheus.softwares.projectmanagement.models.User;
 
 public class CreateSupervisorProfileActivity extends AppCompatActivity {
     String[] AREAS = new Links(CreateSupervisorProfileActivity.this).getAreas();
@@ -52,11 +55,14 @@ public class CreateSupervisorProfileActivity extends AppCompatActivity {
                     phoneNumber = String.valueOf(phone.getText()).trim(),
                     areaOfExpertise = String.valueOf(area.getText()).trim();
 
-            Supervisor supervisor = new Supervisor(0, supervisorName, phoneNumber, email, areaOfExpertise);
-            database.insertSupervisor(supervisor);
-
-            new Links(this).setEmail(email);
-            Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
+            ArrayList<User> users = database.selectAllUsers();
+            for (User user : users)
+                if (user.getIdentifier().equals(email)) {
+                    Supervisor supervisor = new Supervisor(0, supervisorName, phoneNumber, email, areaOfExpertise);
+                    database.insertSupervisor(supervisor);
+                    database.updateUserStatus(email, getString(R.string.created));
+                    Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
+                }
 
             startActivity(new Intent(this, SupervisorActivity.class).putExtra("uid", email));
             finish();

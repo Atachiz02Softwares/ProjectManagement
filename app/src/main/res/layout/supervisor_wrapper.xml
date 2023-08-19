@@ -70,8 +70,10 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
+                    android:padding="5dp"
                     android:text="@string/view_submitted_topics"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
                 <!--                <de.hdodenhof.circleimageview.CircleImageView-->
                 <!--                    android:id="@+id/supervisorProfilePic"-->

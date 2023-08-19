@@ -9,10 +9,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.models.Coordinator;
 import morpheus.softwares.projectmanagement.models.Database;
-import morpheus.softwares.projectmanagement.models.Links;
+import morpheus.softwares.projectmanagement.models.User;
 
 public class CreateCoordinatorProfileActivity extends AppCompatActivity {
     ImageView back;
@@ -41,11 +43,14 @@ public class CreateCoordinatorProfileActivity extends AppCompatActivity {
                     email = String.valueOf(mail.getText()).trim(),
                     phoneNumber = String.valueOf(phone.getText()).trim();
 
-            Coordinator coordinator = new Coordinator(0, coordinatorName, phoneNumber, email);
-            database.insertCoordinator(coordinator);
-
-            new Links(this).setEmail(email);
-            Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
+            ArrayList<User> users = database.selectAllUsers();
+            for (User user : users)
+                if (user.getIdentifier().equals(email)) {
+                    Coordinator coordinator = new Coordinator(0, coordinatorName, phoneNumber, email);
+                    database.insertCoordinator(coordinator);
+                    database.updateUserStatus(email, getString(R.string.created));
+                    Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
+                }
 
             startActivity(new Intent(this, CoordinatorActivity.class).putExtra("uid", email));
             finish();

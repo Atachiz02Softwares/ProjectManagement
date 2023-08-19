@@ -27,6 +27,7 @@ import morpheus.softwares.projectmanagement.models.Coordinator;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Projects;
+import morpheus.softwares.projectmanagement.models.User;
 
 public class CoordinatorActivity extends AppCompatActivity {
     TextView coordinatorName, coordinatorEmail, coordinatorNavName, coordinatorNavEmail, coordinatorNavRole;
@@ -81,10 +82,8 @@ public class CoordinatorActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(coodinatorAdapter);
 
-        SharedPreferences prefID = getSharedPreferences("ID", MODE_PRIVATE),
-                prefEmail = getSharedPreferences("Email", MODE_PRIVATE);
-        String status = prefID.getString("id", ""),
-                email = prefEmail.getString("email", ""),
+        SharedPreferences prefID = getSharedPreferences("ID", MODE_PRIVATE);
+        String status = prefID.getString("id", null),
                 nil = "Create profile...", id = getIntent().getStringExtra("idNumber");
 
         coordinatorName.setText(nil);
@@ -103,12 +102,23 @@ public class CoordinatorActivity extends AppCompatActivity {
             }
         }
 
+        ArrayList<User> users = database.selectAllUsers();
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile) {
-                if (new Links(this).checkEmail(email))
-                    Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
-                else
-                    startActivity(new Intent(this, CreateCoordinatorProfileActivity.class));
+                boolean foundDesiredUser = false;
+
+                for (User user : users) {
+                    String email = user.getIdentifier(), stat = user.getStatus();
+
+                    if ((email.equals(status) || email.equals(id)) && stat.equals(getString(R.string.created))) {
+                        Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
+                        foundDesiredUser = true;
+                        break;
+                    }
+                }
+
+                if (!foundDesiredUser)
+                    startActivity(new Intent(this, CreateStudentProfileActivity.class));
             } else if (item.getItemId() == R.id.viewApprovedTopics)
                 Toast.makeText(this, "View Approved Topic", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.complain)
@@ -117,8 +127,7 @@ public class CoordinatorActivity extends AppCompatActivity {
                 Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
                 new Links(this).removeProfile();
-                startActivity(new Intent(this, LoginActivity.class));
-                finish();
+                finishAffinity();
             } else if (item.getItemId() == R.id.exit) finishAffinity();
 
             drawerLayout.closeDrawer(GravityCompat.START);

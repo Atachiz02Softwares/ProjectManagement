@@ -4,8 +4,7 @@ public class Student {
     private int id;
     private String idNumber, email, firstProject, secondProject, thirdProject, firstArea,
             secondArea, thirdArea, grouping, date, firstStatus, secondStatus, thirdStatus, firstReport,
-            secondReport,
-            thirdReport;
+            secondReport, thirdReport;
 
     public Student(int id, String idNumber, String email, String firstProject,
                    String secondProject, String thirdProject, String firstArea,

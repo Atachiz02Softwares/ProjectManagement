@@ -1,6 +1,7 @@
 package morpheus.softwares.projectmanagement.models;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,7 +24,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE users (id integer PRIMARY KEY AUTOINCREMENT, identifier " +
-                "text, pin text, name text, role text)");
+                "text, pin text, name text, role text, status text)");
         db.execSQL("CREATE TABLE students (id integer PRIMARY KEY AUTOINCREMENT, id_number " +
                 "text, email text, first_project text, second_project text, " +
                 "third_project text, first_area text, second_area text, third_area text, " +
@@ -54,7 +55,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String sqlInsert = "INSERT INTO " + TABLE_USERS;
         sqlInsert += " values( null, '" + users.getIdentifier() + "', '" + users.getPin() +
-                "', '" + users.getName() + "', '" + users.getRole() + "' )";
+                "', '" + users.getName() + "', '" + users.getRole() + "', '" + users.getStatus() + "' )";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -131,7 +132,7 @@ public class Database extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             User currentUser = new User(cursor.getInt(0),
                     cursor.getString(1), cursor.getString(2), cursor.getString(3),
-                    cursor.getString(4));
+                    cursor.getString(4), cursor.getString(5));
             users.add(currentUser);
         }
 
@@ -367,5 +368,19 @@ public class Database extends SQLiteOpenHelper {
     public Integer clearSupervisors() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.delete(TABLE_SUPERVISORS, null, null);
+    }
+
+    /**
+     * Updates the status of a user in the users table.
+     *
+     * @param identifier The unique identifier of the user whose status is to be updated.
+     * @param newStatus  The new status to be set for the user.
+     */
+    public void updateUserStatus(String identifier, String newStatus) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("status", newStatus);
+        db.update(TABLE_USERS, values, "identifier=?", new String[]{identifier});
+        db.close();
     }
 }

@@ -15,11 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Student;
+import morpheus.softwares.projectmanagement.models.User;
 
 public class CreateStudentProfileActivity extends AppCompatActivity {
     String[] AREAS = new Links(CreateStudentProfileActivity.this).getAreas();
@@ -88,13 +90,17 @@ public class CreateStudentProfileActivity extends AppCompatActivity {
                             group.isChecked() ? String.valueOf(group.getText()).trim() : null,
                     formattedDate = date.format(myFormatObj);
 
-            Student student = new Student(0, idNumber, email, firstProject, secondProject,
-                    thirdProject, areaOne, areaTwo, areaThree, aloneGroup, formattedDate,
-                    "Unapproved", "Unapproved", "Unapproved", "", "", "");
-            database.insertStudent(student);
-
-            new Links(this).setEmail(email);
-            Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
+            ArrayList<User> users = database.selectAllUsers();
+            for (User user : users)
+                if (user.getIdentifier().equals(idNumber)) {
+                    Student student = new Student(0, idNumber, email, firstProject, secondProject,
+                            thirdProject, areaOne, areaTwo, areaThree, aloneGroup, formattedDate,
+                            "Unapproved", "Unapproved", "Unapproved",
+                            "", "", "");
+                    database.insertStudent(student);
+                    database.updateUserStatus(idNumber, getString(R.string.created));
+                    Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
+                }
 
             startActivity(new Intent(this, StudentActivity.class).putExtra("uid", idNumber));
             finish();

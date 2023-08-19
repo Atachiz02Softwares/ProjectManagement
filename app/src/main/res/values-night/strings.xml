@@ -56,4 +56,5 @@
     <string name="view_submitted_topics">View Submitted Topics</string>
     <string name="submitted_topics">Submitted Topics</string>
     <string name="search">Search to filter</string>
+    <string name="created">created</string>
 </resources>

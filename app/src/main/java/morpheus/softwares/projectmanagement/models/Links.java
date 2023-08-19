@@ -9,11 +9,12 @@ import java.util.ArrayList;
 
 public class Links {
     protected final Context context;
-    private final String[] areas = {"Artificial Intelligence", "Software Engineering", "Game " +
-            "Design", "Networking", "Multimedia Technology", "Cyber Security", "Data Science", "Programming Languages",
-            "Soft Computing", "Machine Learning", "Data structures & Algorithms", "Computer Hardware",
-            "Medical Informatics", "Cloud Computing", "Game Design", "Data Mining", "Information " +
-            "& Communication Technology", "Computer Vision", "Natural Language Processing"};
+    private final String[] areas = {"Artificial Intelligence", "Software Engineering", "Quantum " +
+            "Computing", "Networking", "Multimedia Technology", "Cyber Security", "Data Science",
+            "Programming Languages", "Soft Computing", "Machine Learning", "Data structures & " +
+            "Algorithms", "Computer Hardware", "Medical Informatics", "Cloud Computing", "Game " +
+            "Design", "Data Mining", "Information & Communication Technology", "Computer Vision",
+            "Natural Language Processing"};
     private final String[] roles = {"student", "supervisor", "coordinator"};
     Database database;
 
@@ -69,25 +70,6 @@ public class Links {
     }
 
     /**
-     * Sets the email of a user account
-     */
-    public void setEmail(String email) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("Email", MODE_PRIVATE);
-        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-        myEdit.putString("email", email);
-        myEdit.apply();
-    }
-
-    /**
-     * Checks the ID Number of the signed in user
-     */
-    public boolean checkEmail(String profile) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("Email", MODE_PRIVATE);
-        String prof = sharedPreferences.getString("email", "");
-        return prof.equals(profile);
-    }
-
-    /**
      * Sets the profile of a user account to 'student', 'supervisor' or 'coordinator'
      */
     public void setProfile(String profile) {
@@ -96,15 +78,6 @@ public class Links {
         myEdit.putString("profile", profile);
         myEdit.apply();
     }
-
-//    /**
-//     * Sets the status of profile creation to 'student', 'supervisor' or 'coordinator'
-//     */
-//    public boolean checkProfile(String profile) {
-//        SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);
-//        String prof = sharedPreferences.getString("profile", "");
-//        return prof.equals(profile);
-//    }
 
     /**
      * Removes the profile of a user account from 'student', 'supervisor' or 'coordinator'
@@ -146,8 +119,4 @@ public class Links {
         // Convert the result StringBuilder to a String and return it
         return result.toString();
     }
-
-//    public String projectArea(){
-//
-//    }
 }

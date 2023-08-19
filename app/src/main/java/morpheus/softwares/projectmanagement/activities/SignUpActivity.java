@@ -86,7 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void signUp(String idNumber, String pin, String name, String role) {
-        User newUser = new User(0, idNumber, pin, name, role);
+        User newUser = new User(0, idNumber, pin, name, role, "pending");
         database.insertUser(newUser);
         new Links(this).setProfile(role);
         new Links(this).setID(idNumber);
