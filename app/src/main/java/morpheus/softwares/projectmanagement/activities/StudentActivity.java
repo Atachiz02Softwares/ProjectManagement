@@ -90,50 +90,36 @@ public class StudentActivity extends AppCompatActivity {
         studentNavRole = header.findViewById(R.id.navRole);
         studentNavRole.setText(R.string.stdent);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("ID", MODE_PRIVATE);
-        String status = sharedPreferences.getString("id", "");
-        String nil = "Create profile...", id = getIntent().getStringExtra("idNumber");
+        SharedPreferences prefID = getSharedPreferences("ID", MODE_PRIVATE),
+                prefEmail = getSharedPreferences("Email", MODE_PRIVATE);
+        String status = prefID.getString("id", ""),
+                email = prefEmail.getString("email", ""),
+                nil = "Create profile...", id = getIntent().getStringExtra("idNumber");
+
+        studentName.setText(nil);
+        studentNavName.setText(nil);
+        studentID.setText("");
+        studentNavID.setText("");
 
         ArrayList<Student> students = database.selectAllStudents();
         for (Student student : students) {
-            String idNumber = student.getIdNumber(), email = student.getEmail();
-
-            if (email.equals(id)) {
-                studentName.setText(idNumber);
-                studentNavName.setText(idNumber);
-                studentID.setText(email);
-                studentNavID.setText(email);
-            } else {
-                studentName.setText(nil);
-                studentNavName.setText(nil);
-                studentID.setText("");
-                studentNavID.setText("");
-            }
-        }
-
-//        ArrayList<User> users = database.selectAllUsers();
-//        for (User user : users)
-//            if (user.getIdentifier().equals(id)) {
-//                String name = user.getName();
-//                studentName.setText(name);
-//                studentNavName.setText(name);
-//            } else {
-//                studentName.setText(nil);
-//                studentNavName.setText(nil);
-//            }
-
-        for (Student student : students)
-            if (student.getIdNumber().equals(status)) {
+            String idNumber = student.getIdNumber();
+            if (idNumber.equals(status) || idNumber.equals(id)) {
                 first.setVisibility(View.VISIBLE);
                 second.setVisibility(View.VISIBLE);
                 third.setVisibility(View.VISIBLE);
 
-                String status1 = student.getFirstStatus(), status2 = student.getSecondStatus(),
+                String mail = student.getEmail(),
+                        status1 = student.getFirstStatus(), status2 = student.getSecondStatus(),
                         status3 = student.getThirdStatus(), areaOne = student.getFirstArea(),
                         areaTwo = student.getSecondArea(), areaThree = student.getThirdArea(),
                         supervisorOne = new Links(this).matchSupervisors(areaOne),
                         supervisorTwo = new Links(this).matchSupervisors(areaTwo),
                         supervisorThree = new Links(this).matchSupervisors(areaThree);
+                studentName.setText(idNumber);
+                studentNavName.setText(idNumber);
+                studentID.setText(mail);
+                studentNavID.setText(mail);
                 firstProject.setText(student.getFirstProject());
                 firstArea.setText(areaOne);
                 firstSupervisor.setText(supervisorOne);
@@ -147,10 +133,11 @@ public class StudentActivity extends AppCompatActivity {
                 thirdSupervisor.setText(supervisorThree);
                 thirdStatus.setText(status3);
             }
+        }
 
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile) {
-                if (new Links(this).checkID(status))
+                if (new Links(this).checkEmail(email))
                     Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
                 else
                     startActivity(new Intent(this, CreateStudentProfileActivity.class));

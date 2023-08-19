@@ -84,39 +84,31 @@ public class SupervisorActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(supervisorAdapter);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("ID", MODE_PRIVATE);
-        String status = sharedPreferences.getString("id", "");
-        String nil = "Create profile...", id = getIntent().getStringExtra("idNumber");
+        SharedPreferences prefID = getSharedPreferences("ID", MODE_PRIVATE),
+                prefEmail = getSharedPreferences("Email", MODE_PRIVATE);
+        String status = prefID.getString("id", ""),
+                email = prefEmail.getString("email", ""),
+                nil = "Create profile...", id = getIntent().getStringExtra("idNumber");
+
+        supervisorName.setText(nil);
+        supervisorNavName.setText(nil);
+        supervisorEmail.setText("");
+        supervisorNavEmail.setText("");
 
         ArrayList<Supervisor> supervisors = database.selectAllSupervisors();
         for (Supervisor supervisor : supervisors) {
-            String name = supervisor.getName(), email = supervisor.getEmail();
-
-            if (email.equals(id)) {
+            String name = supervisor.getName(), mail = supervisor.getEmail();
+            if (mail.equals(id) || mail.equals(status)) {
                 supervisorName.setText(name);
                 supervisorNavName.setText(name);
-                supervisorEmail.setText(email);
-                supervisorNavEmail.setText(email);
-            } else {
-                supervisorName.setText(nil);
-                supervisorNavName.setText(nil);
-                supervisorEmail.setText("");
-                supervisorNavEmail.setText("");
+                supervisorEmail.setText(mail);
+                supervisorNavEmail.setText(mail);
             }
         }
 
-//        ArrayList<User> users = database.selectAllUsers();
-//        for (User user : users)
-//            if (!user.getIdentifier().equals(id)) {
-//                supervisorName.setText(nil);
-//                supervisorNavName.setText(nil);
-//                supervisorEmail.setText("");
-//                supervisorNavEmail.setText("");
-//            }
-
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.createProfile) {
-                if (new Links(this).checkID(status))
+                if (new Links(this).checkEmail(email))
                     Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
                 else
                     startActivity(new Intent(this, CreateSupervisorProfileActivity.class));

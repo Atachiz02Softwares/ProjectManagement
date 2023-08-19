@@ -93,7 +93,7 @@ public class CreateStudentProfileActivity extends AppCompatActivity {
                     "Unapproved", "Unapproved", "Unapproved", "", "", "");
             database.insertStudent(student);
 
-            new Links(this).setID(idNumber);
+            new Links(this).setEmail(email);
             Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
 
             startActivity(new Intent(this, StudentActivity.class).putExtra("uid", idNumber));

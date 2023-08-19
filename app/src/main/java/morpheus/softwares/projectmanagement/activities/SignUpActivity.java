@@ -69,17 +69,17 @@ public class SignUpActivity extends AppCompatActivity {
             switch (signUpAs) {
                 case "student":
                     signUp(idNumber, pin, name, signUpAs);
-                    startActivity(new Intent(this, StudentActivity.class).putExtra("idNumber", idNumber));
+                    startActivity(new Intent(this, StudentActivity.class));
                     finish();
                     break;
                 case "supervisor":
                     signUp(idNumber, pin, name, signUpAs);
-                    startActivity(new Intent(this, SupervisorActivity.class).putExtra("idNumber", idNumber));
+                    startActivity(new Intent(this, SupervisorActivity.class));
                     finish();
                     break;
                 case "coordinator":
                     signUp(idNumber, pin, name, signUpAs);
-                    startActivity(new Intent(this, CoordinatorActivity.class).putExtra("idNumber", idNumber));
+                    startActivity(new Intent(this, CoordinatorActivity.class));
                     finish();
                     break;
             }
@@ -89,6 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
         User newUser = new User(0, idNumber, pin, name, role);
         database.insertUser(newUser);
         new Links(this).setProfile(role);
+        new Links(this).setID(idNumber);
         Toast.makeText(this, "Signup successful!", Toast.LENGTH_SHORT).show();
     }
 }

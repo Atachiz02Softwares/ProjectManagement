@@ -69,23 +69,23 @@ public class Links {
     }
 
     /**
-     * Checks the email/ID Number of the signed in Student, Supervisor/Coordinator
+     * Sets the email of a user account
      */
-    public boolean checkID(String profile) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("ID", MODE_PRIVATE);
-        String prof = sharedPreferences.getString("id", "null");
-        return prof.equals(profile);
+    public void setEmail(String email) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Email", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putString("email", email);
+        myEdit.apply();
     }
 
-//    /**
-//     * Removes the ID Number/email of a user account
-//     */
-//    public void removeID() {
-//        SharedPreferences sharedPreferences = context.getSharedPreferences("ID", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.remove("id");
-//        editor.apply();
-//    }
+    /**
+     * Checks the ID Number of the signed in user
+     */
+    public boolean checkEmail(String profile) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Email", MODE_PRIVATE);
+        String prof = sharedPreferences.getString("email", "");
+        return prof.equals(profile);
+    }
 
     /**
      * Sets the profile of a user account to 'student', 'supervisor' or 'coordinator'
