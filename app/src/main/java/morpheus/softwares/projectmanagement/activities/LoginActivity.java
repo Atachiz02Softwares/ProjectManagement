@@ -45,11 +45,13 @@ public class LoginActivity extends AppCompatActivity {
         boolean loginSuccessful = false;
 
         for (User user : users) {
+            // Check for empty fields
             if (TextUtils.isEmpty(identifier) || TextUtils.isEmpty(pinCode)) {
                 Toast.makeText(this, "No field should be empty!", Toast.LENGTH_SHORT).show();
                 return; // Exit the method to prevent further processing
             }
 
+            // Check for valid login
             else if (user.getIdentifier().trim().equalsIgnoreCase(identifier) && user.getPin().trim().equals(pinCode)) {
                 loginSuccessful = true;
                 String role = user.getRole();
@@ -60,20 +62,21 @@ public class LoginActivity extends AppCompatActivity {
                     case "student":
                         startActivity(new Intent(this, StudentActivity.class).putExtra("idNumber", identifier));
                         finish();
-                        break;
+                        return; // Exit the method since the login is successful
                     case "supervisor":
                         startActivity(new Intent(this, SupervisorActivity.class).putExtra("idNumber", identifier));
                         finish();
-                        break;
+                        return; // Exit the method since the login is successful
                     case "coordinator":
                         startActivity(new Intent(this, CoordinatorActivity.class).putExtra("idNumber", identifier));
                         finish();
-                        break;
+                        return; // Exit the method since the login is successful
                 }
-                break; // Exit the loop since login is successful
             }
+            break; // Exit the loop since the login is successful
         }
 
+        // This block will execute only if login was not successful
         if (!loginSuccessful) {
             Toast.makeText(this, "Incorrect login details!", Toast.LENGTH_SHORT).show();
         }
