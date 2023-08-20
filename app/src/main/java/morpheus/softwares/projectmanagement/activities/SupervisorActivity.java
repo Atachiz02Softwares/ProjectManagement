@@ -129,8 +129,7 @@ public class SupervisorActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.about)
                 Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
-                database.updateUserOnlineOfflineStatus(String.valueOf(supervisorEmail.getText()),
-                        "offline");
+                database.updateUserOnlineOfflineStatus(String.valueOf(supervisorEmail.getText()), "offline");
                 finishAffinity();
             } else if (item.getItemId() == R.id.exit) finishAffinity();
 

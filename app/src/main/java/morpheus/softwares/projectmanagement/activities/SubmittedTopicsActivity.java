@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.adapters.ProjectsAdapter;
+import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Student;
 
 public class SubmittedTopicsActivity extends AppCompatActivity {
@@ -25,6 +26,8 @@ public class SubmittedTopicsActivity extends AppCompatActivity {
     ProjectsAdapter projectsAdapter;
     RecyclerView recyclerView;
 
+    Database database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +36,11 @@ public class SubmittedTopicsActivity extends AppCompatActivity {
         title = findViewById(R.id.t);
         search = findViewById(R.id.search);
 
-        students = new ArrayList<>();
+        database = new Database(this);
+
+        String area = getIntent().getStringExtra("area");
+
+        students = database.selectAllStudents();
         recyclerView = findViewById(R.id.submittedTopicsList);
         projectsAdapter = new ProjectsAdapter(this, students);
         recyclerView.setHasFixedSize(true);
@@ -42,6 +49,15 @@ public class SubmittedTopicsActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(projectsAdapter);
+
+//        ArrayList<String> areas = new ArrayList<>();
+//        for (Student student : students) {
+//            areas.add(student.getFirstArea());
+//            areas.add(student.getSecondArea());
+//            areas.add(student.getThirdArea());
+//
+//            if (areas.contains(area)) recyclerView.setAdapter(projectsAdapter);
+//        }
 
         title.setOnClickListener(v -> finish());
 
