@@ -44,7 +44,7 @@ public class Links {
         ArrayList<User> users = database.selectAllUsers();
 
         for (User user : users) {
-            if (user.getIdentifier().equals(identifier))
+            if (user.getIdentifier().equalsIgnoreCase(identifier))
                 return true;
         }
         return false;
@@ -67,26 +67,6 @@ public class Links {
         // we need to commit to apply those changes made,
         // otherwise, it will throw an error
         myEdit.apply();
-    }
-
-    /**
-     * Sets the profile of a user account to 'student', 'supervisor' or 'coordinator'
-     */
-    public void setProfile(String profile) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);
-        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-        myEdit.putString("profile", profile);
-        myEdit.apply();
-    }
-
-    /**
-     * Removes the profile of a user account from 'student', 'supervisor' or 'coordinator'
-     */
-    public void removeProfile() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("Profile", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove("profile");
-        editor.apply();
     }
 
     /**

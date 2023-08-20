@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.adapters.SupervisorAdapter;
 import morpheus.softwares.projectmanagement.models.Database;
-import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Projects;
 import morpheus.softwares.projectmanagement.models.Supervisor;
 import morpheus.softwares.projectmanagement.models.User;
@@ -122,7 +121,7 @@ public class SupervisorActivity extends AppCompatActivity {
                 }
 
                 if (!foundDesiredUser)
-                    startActivity(new Intent(this, CreateStudentProfileActivity.class));
+                    startActivity(new Intent(this, CreateSupervisorProfileActivity.class));
             } else if (item.getItemId() == R.id.viewApprovedTopics)
                 Toast.makeText(this, "View Approved Topic", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.complain)
@@ -130,7 +129,8 @@ public class SupervisorActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.about)
                 Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
-                new Links(this).removeProfile();
+                database.updateUserOnlineOfflineStatus(String.valueOf(supervisorEmail.getText()),
+                        "offline");
                 finishAffinity();
             } else if (item.getItemId() == R.id.exit) finishAffinity();
 

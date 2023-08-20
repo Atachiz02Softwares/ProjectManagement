@@ -38,7 +38,7 @@ public class StudentActivity extends AppCompatActivity {
 
     CardView first, second, third;
 
-    TextView studentName, studentID, studentNavName, studentNavID, studentNavRole, firstProject,
+    TextView studentID, studentEmail, studentNavID, studentNavEmail, studentNavRole, firstProject,
             firstArea, firstSupervisor, firstStatus, secondProject, secondArea, secondSupervisor,
             secondStatus, thirdProject, thirdArea, thirdSupervisor, thirdStatus;
 
@@ -57,8 +57,8 @@ public class StudentActivity extends AppCompatActivity {
         second = findViewById(R.id.studentSecond);
         third = findViewById(R.id.studentThird);
 
-        studentName = findViewById(R.id.studentName);
-        studentID = findViewById(R.id.studentID);
+        studentID = findViewById(R.id.studentName);
+        studentEmail = findViewById(R.id.studentID);
         firstProject = findViewById(R.id.studentFirstTopic);
         firstArea = findViewById(R.id.studentFirstArea);
         firstSupervisor = findViewById(R.id.studentFirstSupervisor);
@@ -86,8 +86,8 @@ public class StudentActivity extends AppCompatActivity {
 
         // NavigationView items
         header = navigationView.getHeaderView(0);
-        studentNavName = header.findViewById(R.id.navName);
-        studentNavID = header.findViewById(R.id.navEmail);
+        studentNavID = header.findViewById(R.id.navName);
+        studentNavEmail = header.findViewById(R.id.navEmail);
         studentNavRole = header.findViewById(R.id.navRole);
         studentNavRole.setText(R.string.stdent);
 
@@ -95,10 +95,10 @@ public class StudentActivity extends AppCompatActivity {
         String status = prefID.getString("id", null),
                 nil = "Create profile...", id = getIntent().getStringExtra("idNumber");
 
-        studentName.setText(nil);
-        studentNavName.setText(nil);
-        studentID.setText("");
-        studentNavID.setText("");
+        studentID.setText(nil);
+        studentNavID.setText(nil);
+        studentEmail.setText("");
+        studentNavEmail.setText("");
 
         ArrayList<Student> students = database.selectAllStudents();
         for (Student student : students) {
@@ -115,10 +115,10 @@ public class StudentActivity extends AppCompatActivity {
                         supervisorOne = new Links(this).matchSupervisors(areaOne),
                         supervisorTwo = new Links(this).matchSupervisors(areaTwo),
                         supervisorThree = new Links(this).matchSupervisors(areaThree);
-                studentName.setText(idNumber);
-                studentNavName.setText(idNumber);
-                studentID.setText(mail);
-                studentNavID.setText(mail);
+                studentID.setText(idNumber);
+                studentNavID.setText(idNumber);
+                studentEmail.setText(mail);
+                studentNavEmail.setText(mail);
                 firstProject.setText(student.getFirstProject());
                 firstArea.setText(areaOne);
                 firstSupervisor.setText(supervisorOne);
@@ -158,7 +158,7 @@ public class StudentActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.about)
                 Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
-                new Links(this).removeProfile();
+                database.updateUserOnlineOfflineStatus(String.valueOf(studentID.getText()), "offline");
                 finishAffinity();
             } else if (item.getItemId() == R.id.exit) finishAffinity();
 

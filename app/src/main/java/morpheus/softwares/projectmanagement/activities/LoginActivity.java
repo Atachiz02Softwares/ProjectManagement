@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.models.Database;
-import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.User;
 
 public class LoginActivity extends AppCompatActivity {
@@ -45,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         boolean loginSuccessful = false;
 
         for (User user : users) {
+            String id = user.getIdentifier(), pin = user.getPin().trim(), role = user.getRole();
             // Check for empty fields
             if (TextUtils.isEmpty(identifier) || TextUtils.isEmpty(pinCode)) {
                 Toast.makeText(this, "No field should be empty!", Toast.LENGTH_SHORT).show();
@@ -52,11 +52,10 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             // Check for valid login
-            else if (user.getIdentifier().trim().equalsIgnoreCase(identifier) && user.getPin().trim().equals(pinCode)) {
+            else if (id.equalsIgnoreCase(identifier) && pin.equals(pinCode)) {
                 loginSuccessful = true;
-                String role = user.getRole();
 
-                new Links(this).setProfile(role);
+                database.updateUserOnlineOfflineStatus(id, "online");
 
                 switch (role) {
                     case "student":
@@ -72,8 +71,9 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                         return; // Exit the method since the login is successful
                 }
+
+                break;  // Exit the loop since the login is successful
             }
-            break; // Exit the loop since the login is successful
         }
 
         // This block will execute only if login was not successful

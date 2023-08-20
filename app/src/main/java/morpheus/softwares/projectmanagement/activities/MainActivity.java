@@ -1,16 +1,20 @@
 package morpheus.softwares.projectmanagement.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 import morpheus.softwares.projectmanagement.R;
+import morpheus.softwares.projectmanagement.models.Database;
+import morpheus.softwares.projectmanagement.models.User;
 
 public class MainActivity extends AppCompatActivity {
     Button signup;
+    Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,23 +22,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         signup = findViewById(R.id.mainSignup);
+        database = new Database(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("Profile", MODE_PRIVATE);
-        String profile = sharedPreferences.getString("profile", "");
+        ArrayList<User> users = database.selectAllUsers();
+        for (User user : users) {
+            String role = user.getRole(), onlineOffline = user.getOnlineOffline();
 
-        switch (profile) {
-            case "student":
-                startActivity(new Intent(this, StudentActivity.class));
-                finish();
+            if (onlineOffline.equals("online")) {
+                switch (role) {
+                    case "student":
+                        startActivity(new Intent(this, StudentActivity.class));
+                        finish();
+                        return;
+                    case "supervisor":
+                        startActivity(new Intent(this, SupervisorActivity.class));
+                        finish();
+                        return;
+                    case "coordinator":
+                        startActivity(new Intent(this, CoordinatorActivity.class));
+                        finish();
+                        return;
+                }
                 break;
-            case "supervisor":
-                startActivity(new Intent(this, SupervisorActivity.class));
-                finish();
-                break;
-            case "coordinator":
-                startActivity(new Intent(this, CoordinatorActivity.class));
-                finish();
-                break;
+            }
         }
 
         signup.setOnClickListener(v -> {

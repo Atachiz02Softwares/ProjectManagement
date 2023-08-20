@@ -2,15 +2,16 @@ package morpheus.softwares.projectmanagement.models;
 
 public class User {
     protected int id;
-    protected String identifier, pin, name, role, status;
+    protected String identifier, pin, name, role, status, onlineOffline;
 
-    public User(int id, String identifier, String pin, String name, String role, String status) {
+    public User(int id, String identifier, String pin, String name, String role, String status, String onlineOffline) {
         setId(id);
         setIdentifier(identifier);
         setPin(pin);
         setName(name);
         setRole(role);
         setStatus(status);
+        setOnlineOffline(onlineOffline);
     }
 
     public int getId() {
@@ -59,5 +60,13 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getOnlineOffline() {
+        return onlineOffline;
+    }
+
+    public void setOnlineOffline(String onlineOffline) {
+        this.onlineOffline = onlineOffline;
     }
 }

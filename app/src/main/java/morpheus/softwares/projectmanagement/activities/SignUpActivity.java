@@ -86,9 +86,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void signUp(String idNumber, String pin, String name, String role) {
-        User newUser = new User(0, idNumber, pin, name, role, "pending");
+        User newUser = new User(0, idNumber, pin, name, role, "pending", "online");
         database.insertUser(newUser);
-        new Links(this).setProfile(role);
         new Links(this).setID(idNumber);
         Toast.makeText(this, "Signup successful!", Toast.LENGTH_SHORT).show();
     }

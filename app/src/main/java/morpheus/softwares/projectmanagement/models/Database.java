@@ -24,7 +24,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE users (id integer PRIMARY KEY AUTOINCREMENT, identifier " +
-                "text, pin text, name text, role text, status text)");
+                "text, pin text, name text, role text, status text, onlineOffline text)");
         db.execSQL("CREATE TABLE students (id integer PRIMARY KEY AUTOINCREMENT, id_number " +
                 "text, email text, first_project text, second_project text, " +
                 "third_project text, first_area text, second_area text, third_area text, " +
@@ -55,7 +55,8 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String sqlInsert = "INSERT INTO " + TABLE_USERS;
         sqlInsert += " values( null, '" + users.getIdentifier() + "', '" + users.getPin() +
-                "', '" + users.getName() + "', '" + users.getRole() + "', '" + users.getStatus() + "' )";
+                "', '" + users.getName() + "', '" + users.getRole() + "', '" + users.getStatus() +
+                "', '" + users.getOnlineOffline() + "' )";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -132,7 +133,7 @@ public class Database extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             User currentUser = new User(cursor.getInt(0),
                     cursor.getString(1), cursor.getString(2), cursor.getString(3),
-                    cursor.getString(4), cursor.getString(5));
+                    cursor.getString(4), cursor.getString(5), cursor.getString(6));
             users.add(currentUser);
         }
 
@@ -380,6 +381,21 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("status", newStatus);
+        db.update(TABLE_USERS, values, "identifier=?", new String[]{identifier});
+        db.close();
+    }
+
+    /**
+     * Updates the status of a user in the users table.
+     *
+     * @param identifier             The unique identifier of the user whose online/offline status is to be
+     *                               updated.
+     * @param newOnlineOfflineStatus The new status to be set for the user.
+     */
+    public void updateUserOnlineOfflineStatus(String identifier, String newOnlineOfflineStatus) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("onlineOffline", newOnlineOfflineStatus);
         db.update(TABLE_USERS, values, "identifier=?", new String[]{identifier});
         db.close();
     }

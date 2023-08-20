@@ -25,7 +25,6 @@ import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.adapters.CoodinatorAdapter;
 import morpheus.softwares.projectmanagement.models.Coordinator;
 import morpheus.softwares.projectmanagement.models.Database;
-import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Projects;
 import morpheus.softwares.projectmanagement.models.User;
 
@@ -118,7 +117,7 @@ public class CoordinatorActivity extends AppCompatActivity {
                 }
 
                 if (!foundDesiredUser)
-                    startActivity(new Intent(this, CreateStudentProfileActivity.class));
+                    startActivity(new Intent(this, CreateCoordinatorProfileActivity.class));
             } else if (item.getItemId() == R.id.viewApprovedTopics)
                 Toast.makeText(this, "View Approved Topic", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.complain)
@@ -126,7 +125,8 @@ public class CoordinatorActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.about)
                 Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
-                new Links(this).removeProfile();
+                database.updateUserOnlineOfflineStatus(String.valueOf(coordinatorEmail.getText()),
+                        "offline");
                 finishAffinity();
             } else if (item.getItemId() == R.id.exit) finishAffinity();
 
