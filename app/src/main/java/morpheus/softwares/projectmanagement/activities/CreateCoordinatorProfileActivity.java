@@ -45,7 +45,7 @@ public class CreateCoordinatorProfileActivity extends AppCompatActivity {
 
             ArrayList<User> users = database.selectAllUsers();
             for (User user : users)
-                if (user.getIdentifier().equals(email)) {
+                if (user.getEmail().equals(email)) {
                     Coordinator coordinator = new Coordinator(0, coordinatorName, phoneNumber, email);
                     database.insertCoordinator(coordinator);
                     database.updateUserStatus(email, getString(R.string.created));

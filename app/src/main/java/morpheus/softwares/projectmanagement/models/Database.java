@@ -23,7 +23,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE users (id integer PRIMARY KEY AUTOINCREMENT, identifier " +
+        db.execSQL("CREATE TABLE users (id integer PRIMARY KEY AUTOINCREMENT, email " +
                 "text, pin text, name text, role text, status text, onlineOffline text)");
         db.execSQL("CREATE TABLE students (id integer PRIMARY KEY AUTOINCREMENT, id_number " +
                 "text, email text, first_project text, second_project text, " +
@@ -34,7 +34,7 @@ public class Database extends SQLiteOpenHelper {
                 "phone_number text, email text, area text)");
         db.execSQL("CREATE TABLE coordinator (id integer PRIMARY KEY AUTOINCREMENT, name text, " +
                 "phone_number text, email text)");
-        db.execSQL("CREATE TABLE projects (id integer PRIMARY KEY AUTOINCREMENT, id_number text, " +
+        db.execSQL("CREATE TABLE projects (id integer PRIMARY KEY AUTOINCREMENT, email text, " +
                 "approved_topic text)");
     }
 
@@ -54,7 +54,7 @@ public class Database extends SQLiteOpenHelper {
     public void insertUser(User users) {
         SQLiteDatabase db = this.getWritableDatabase();
         String sqlInsert = "INSERT INTO " + TABLE_USERS;
-        sqlInsert += " values( null, '" + users.getIdentifier() + "', '" + users.getPin() +
+        sqlInsert += " values( null, '" + users.getEmail() + "', '" + users.getPin() +
                 "', '" + users.getName() + "', '" + users.getRole() + "', '" + users.getStatus() +
                 "', '" + users.getOnlineOffline() + "' )";
 
@@ -234,27 +234,27 @@ public class Database extends SQLiteOpenHelper {
     /**
      * Removes the row with the selected item from Users Table
      */
-    public void deleteUser(String identifier) {
+    public void deleteUser(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_USERS, "identifier" + " = ?", new String[]{identifier});
+        db.delete(TABLE_USERS, "email=?", new String[]{email});
         db.close();
     }
 
     /**
      * Removes the row with the selected item from Students Table
      */
-    public void deleteStudent(String idNumber) {
+    public void deleteStudent(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_STUDENTS, "id_number" + " = ?", new String[]{idNumber});
+        db.delete(TABLE_STUDENTS, "email=?", new String[]{email});
         db.close();
     }
 
     /**
      * Removes the row with the selected item from Projects Table
      */
-    public void deleteProject(String idNumber) {
+    public void deleteProject(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_PROJECTS, "id_number" + " = ?", new String[]{idNumber});
+        db.delete(TABLE_PROJECTS, "id_number=?", new String[]{email});
         db.close();
     }
 
@@ -263,7 +263,7 @@ public class Database extends SQLiteOpenHelper {
      */
     public void deleteSupervisor(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_SUPERVISORS, "email" + " = ?", new String[]{email});
+        db.delete(TABLE_SUPERVISORS, "email=?", new String[]{email});
         db.close();
     }
 
@@ -272,7 +272,7 @@ public class Database extends SQLiteOpenHelper {
      */
     public void deleteCoordinator(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_COORDINATOR, "email" + " = ?", new String[]{email});
+        db.delete(TABLE_COORDINATOR, "email=?", new String[]{email});
         db.close();
     }
 
@@ -374,29 +374,29 @@ public class Database extends SQLiteOpenHelper {
     /**
      * Updates the status of a user in the users table.
      *
-     * @param identifier The unique identifier of the user whose status is to be updated.
-     * @param newStatus  The new status to be set for the user.
+     * @param email     The unique email of the user whose status is to be updated.
+     * @param newStatus The new status to be set for the user.
      */
-    public void updateUserStatus(String identifier, String newStatus) {
+    public void updateUserStatus(String email, String newStatus) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("status", newStatus);
-        db.update(TABLE_USERS, values, "identifier=?", new String[]{identifier});
+        db.update(TABLE_USERS, values, "email=?", new String[]{email});
         db.close();
     }
 
     /**
      * Updates the status of a user in the users table.
      *
-     * @param identifier             The unique identifier of the user whose online/offline status is to be
+     * @param email                  The unique email of the user whose online/offline status is to be
      *                               updated.
      * @param newOnlineOfflineStatus The new status to be set for the user.
      */
-    public void updateUserOnlineOfflineStatus(String identifier, String newOnlineOfflineStatus) {
+    public void updateUserOnlineOfflineStatus(String email, String newOnlineOfflineStatus) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("onlineOffline", newOnlineOfflineStatus);
-        db.update(TABLE_USERS, values, "identifier=?", new String[]{identifier});
+        db.update(TABLE_USERS, values, "email=?", new String[]{email});
         db.close();
     }
 }

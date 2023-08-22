@@ -57,7 +57,7 @@ public class CreateSupervisorProfileActivity extends AppCompatActivity {
 
             ArrayList<User> users = database.selectAllUsers();
             for (User user : users)
-                if (user.getIdentifier().equals(email)) {
+                if (user.getEmail().equals(email)) {
                     Supervisor supervisor = new Supervisor(0, supervisorName, phoneNumber, email, areaOfExpertise);
                     database.insertSupervisor(supervisor);
                     database.updateUserStatus(email, getString(R.string.created));

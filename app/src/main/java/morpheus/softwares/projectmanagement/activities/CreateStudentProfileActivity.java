@@ -92,7 +92,7 @@ public class CreateStudentProfileActivity extends AppCompatActivity {
 
             ArrayList<User> users = database.selectAllUsers();
             for (User user : users)
-                if (user.getIdentifier().equals(idNumber)) {
+                if (user.getEmail().equals(idNumber)) {
                     Student student = new Student(0, idNumber, email, firstProject, secondProject,
                             thirdProject, areaOne, areaTwo, areaThree, aloneGroup, formattedDate,
                             "Unapproved", "Unapproved", "Unapproved",

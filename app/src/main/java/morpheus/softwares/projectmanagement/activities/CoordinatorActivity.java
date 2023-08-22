@@ -107,7 +107,7 @@ public class CoordinatorActivity extends AppCompatActivity {
                 boolean foundDesiredUser = false;
 
                 for (User user : users) {
-                    String email = user.getIdentifier(), stat = user.getStatus();
+                    String email = user.getEmail(), stat = user.getStatus();
 
                     if ((email.equals(status) || email.equals(id)) && stat.equals(getString(R.string.created))) {
                         Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();

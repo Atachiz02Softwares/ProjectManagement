@@ -20,7 +20,7 @@ import morpheus.softwares.projectmanagement.models.User;
 
 public class SignUpActivity extends AppCompatActivity {
     private final String[] ROLES = new Links(SignUpActivity.this).getRoles();
-    EditText idNum, pinCode, confirmPinCode, studentName;
+    EditText email, pinCode, confirmPinCode, studentName;
     AutoCompleteTextView role;
     ArrayAdapter<String> roleAdapter;
     TextView login;
@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        idNum = findViewById(R.id.signUpID);
+        email = findViewById(R.id.signUpEmail);
         pinCode = findViewById(R.id.signUpPin);
         confirmPinCode = findViewById(R.id.signUpConfirmPin);
         studentName = findViewById(R.id.signUpName);
@@ -51,16 +51,16 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void onClick(View v) {
-        String idNumber = String.valueOf(idNum.getText()).trim(),
+        String email = String.valueOf(this.email.getText()).trim(),
                 pin = String.valueOf(pinCode.getText()).trim(),
                 confirmPin = String.valueOf(confirmPinCode.getText()).trim(),
                 name = String.valueOf(studentName.getText()).trim(),
                 signUpAs = String.valueOf(role.getText());
-        boolean hasSignedUp = new Links(this).hasSignedUp(idNumber);
+        boolean hasSignedUp = new Links(this).hasSignedUp(email);
 
         if (hasSignedUp)
             Toast.makeText(this, "You already have an account!", Toast.LENGTH_SHORT).show();
-        else if (TextUtils.isEmpty(pin) || TextUtils.isEmpty(confirmPin) || TextUtils.isEmpty(idNumber) ||
+        else if (TextUtils.isEmpty(pin) || TextUtils.isEmpty(confirmPin) || TextUtils.isEmpty(email) ||
                 TextUtils.isEmpty(name) || TextUtils.isEmpty(signUpAs))
             Toast.makeText(this, "No field should be empty!", Toast.LENGTH_SHORT).show();
         else if (!TextUtils.equals(pin, confirmPin))
@@ -68,27 +68,27 @@ public class SignUpActivity extends AppCompatActivity {
         else
             switch (signUpAs) {
                 case "student":
-                    signUp(idNumber, pin, name, signUpAs);
+                    signUp(email, pin, name, signUpAs);
                     startActivity(new Intent(this, StudentActivity.class));
                     finish();
                     break;
                 case "supervisor":
-                    signUp(idNumber, pin, name, signUpAs);
+                    signUp(email, pin, name, signUpAs);
                     startActivity(new Intent(this, SupervisorActivity.class));
                     finish();
                     break;
                 case "coordinator":
-                    signUp(idNumber, pin, name, signUpAs);
+                    signUp(email, pin, name, signUpAs);
                     startActivity(new Intent(this, CoordinatorActivity.class));
                     finish();
                     break;
             }
     }
 
-    private void signUp(String idNumber, String pin, String name, String role) {
-        User newUser = new User(0, idNumber, pin, name, role, "pending", "online");
+    private void signUp(String email, String pin, String name, String role) {
+        User newUser = new User(0, email, pin, name, role, "pending", "online");
         database.insertUser(newUser);
-        new Links(this).setID(idNumber);
+        new Links(this).setEmail(email);
         Toast.makeText(this, "Signup successful!", Toast.LENGTH_SHORT).show();
     }
 }

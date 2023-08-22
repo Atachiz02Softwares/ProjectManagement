@@ -2,11 +2,11 @@ package morpheus.softwares.projectmanagement.models;
 
 public class User {
     protected int id;
-    protected String identifier, pin, name, role, status, onlineOffline;
+    protected String email, pin, name, role, status, onlineOffline;
 
-    public User(int id, String identifier, String pin, String name, String role, String status, String onlineOffline) {
+    public User(int id, String email, String pin, String name, String role, String status, String onlineOffline) {
         setId(id);
-        setIdentifier(identifier);
+        setEmail(email);
         setPin(pin);
         setName(name);
         setRole(role);
@@ -22,12 +22,12 @@ public class User {
         this.id = id;
     }
 
-    public String getIdentifier() {
-        return identifier;
+    public String getEmail() {
+        return email;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPin() {

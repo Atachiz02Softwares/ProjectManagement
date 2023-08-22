@@ -44,7 +44,7 @@ public class Links {
         ArrayList<User> users = database.selectAllUsers();
 
         for (User user : users) {
-            if (user.getIdentifier().equalsIgnoreCase(identifier))
+            if (user.getEmail().equalsIgnoreCase(identifier))
                 return true;
         }
         return false;
@@ -53,7 +53,7 @@ public class Links {
     /**
      * Sets the email/ID Number of a user account
      */
-    public void setID(String status) {
+    public void setEmail(String status) {
         // Storing data into SharedPreferences
         SharedPreferences sharedPreferences = context.getSharedPreferences("ID", MODE_PRIVATE);
 

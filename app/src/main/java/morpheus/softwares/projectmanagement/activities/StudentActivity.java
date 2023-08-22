@@ -140,7 +140,7 @@ public class StudentActivity extends AppCompatActivity {
                 boolean foundDesiredUser = false;
 
                 for (User user : users) {
-                    String idNumber = user.getIdentifier(), stat = user.getStatus();
+                    String idNumber = user.getEmail(), stat = user.getStatus();
 
                     if ((idNumber.equals(status) || idNumber.equals(id)) && stat.equals(getString(R.string.created))) {
                         Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
