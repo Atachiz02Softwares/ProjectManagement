@@ -50,9 +50,10 @@ public class CreateCoordinatorProfileActivity extends AppCompatActivity {
                     database.insertCoordinator(coordinator);
                     database.updateUserStatus(email, getString(R.string.created));
                     Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
+                    break;
                 }
 
-            startActivity(new Intent(this, CoordinatorActivity.class).putExtra("uid", email));
+            startActivity(new Intent(this, CoordinatorActivity.class));
             finish();
         });
     }

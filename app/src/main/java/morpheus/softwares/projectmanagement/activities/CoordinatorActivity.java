@@ -83,7 +83,7 @@ public class CoordinatorActivity extends AppCompatActivity {
 
         SharedPreferences prefID = getSharedPreferences("ID", MODE_PRIVATE);
         String status = prefID.getString("id", null),
-                nil = "Create profile...", id = getIntent().getStringExtra("idNumber");
+                nil = "Create profile...", id = getIntent().getStringExtra("email");
 
         coordinatorName.setText(nil);
         coordinatorNavName.setText(nil);
@@ -98,6 +98,7 @@ public class CoordinatorActivity extends AppCompatActivity {
                 coordinatorNavName.setText(name);
                 coordinatorEmail.setText(mail);
                 coordinatorNavEmail.setText(mail);
+                break;
             }
         }
 

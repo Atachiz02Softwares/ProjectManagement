@@ -93,7 +93,7 @@ public class StudentActivity extends AppCompatActivity {
 
         SharedPreferences prefID = getSharedPreferences("ID", MODE_PRIVATE);
         String status = prefID.getString("id", null),
-                nil = "Create profile...", id = getIntent().getStringExtra("idNumber");
+                nil = "Create profile...", id = getIntent().getStringExtra("email");
 
         studentID.setText(nil);
         studentNavID.setText(nil);
@@ -102,13 +102,13 @@ public class StudentActivity extends AppCompatActivity {
 
         ArrayList<Student> students = database.selectAllStudents();
         for (Student student : students) {
-            String idNumber = student.getIdNumber();
-            if (idNumber.equals(status) || idNumber.equals(id)) {
+            String email = student.getEmail();
+            if (email.equals(status) || email.equals(id)) {
                 first.setVisibility(View.VISIBLE);
                 second.setVisibility(View.VISIBLE);
                 third.setVisibility(View.VISIBLE);
 
-                String mail = student.getEmail(),
+                String idNumber = student.getIdNumber(),
                         status1 = student.getFirstStatus(), status2 = student.getSecondStatus(),
                         status3 = student.getThirdStatus(), areaOne = student.getFirstArea(),
                         areaTwo = student.getSecondArea(), areaThree = student.getThirdArea(),
@@ -117,8 +117,8 @@ public class StudentActivity extends AppCompatActivity {
                         supervisorThree = new Links(this).matchSupervisors(areaThree);
                 studentID.setText(idNumber);
                 studentNavID.setText(idNumber);
-                studentEmail.setText(mail);
-                studentNavEmail.setText(mail);
+                studentEmail.setText(email);
+                studentNavEmail.setText(email);
                 firstProject.setText(student.getFirstProject());
                 firstArea.setText(areaOne);
                 firstSupervisor.setText(supervisorOne);
@@ -131,6 +131,7 @@ public class StudentActivity extends AppCompatActivity {
                 thirdArea.setText(areaThree);
                 thirdSupervisor.setText(supervisorThree);
                 thirdStatus.setText(status3);
+                break;
             }
         }
 
@@ -140,9 +141,9 @@ public class StudentActivity extends AppCompatActivity {
                 boolean foundDesiredUser = false;
 
                 for (User user : users) {
-                    String idNumber = user.getEmail(), stat = user.getStatus();
+                    String email = user.getEmail(), stat = user.getStatus();
 
-                    if ((idNumber.equals(status) || idNumber.equals(id)) && stat.equals(getString(R.string.created))) {
+                    if ((email.equals(status) || email.equals(id)) && stat.equals(getString(R.string.created))) {
                         Toast.makeText(this, "You can't create multiple profiles...", Toast.LENGTH_SHORT).show();
                         foundDesiredUser = true;
                         break;
@@ -158,7 +159,7 @@ public class StudentActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.about)
                 Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
-                database.updateUserOnlineOfflineStatus(String.valueOf(studentID.getText()), "offline");
+                database.updateUserOnlineOfflineStatus(String.valueOf(studentEmail.getText()), "offline");
                 finishAffinity();
             } else if (item.getItemId() == R.id.exit) finishAffinity();
 

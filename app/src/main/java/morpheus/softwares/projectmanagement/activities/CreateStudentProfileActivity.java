@@ -102,7 +102,7 @@ public class CreateStudentProfileActivity extends AppCompatActivity {
                     Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
                 }
 
-            startActivity(new Intent(this, StudentActivity.class).putExtra("uid", idNumber));
+            startActivity(new Intent(this, StudentActivity.class));
             finish();
         });
     }

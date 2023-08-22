@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.logInLogin);
 
         database = new Database(this);
+        String email = "email";
 
         login.setOnClickListener(v -> {
             String identifier = id.getText().toString().trim();
@@ -57,17 +58,17 @@ public class LoginActivity extends AppCompatActivity {
 
             switch (role) {
                 case "student":
-                    startActivity(new Intent(this, StudentActivity.class).putExtra("idNumber", identifier));
+                    startActivity(new Intent(this, StudentActivity.class).putExtra(email, identifier));
                     finish();
                     return; // Exit the method since the login is successful
                 case "supervisor":
-                    startActivity(new Intent(this, SupervisorActivity.class).putExtra("idNumber", identifier));
+                    startActivity(new Intent(this, SupervisorActivity.class).putExtra(email, identifier));
                     finish();
-                    return; // Exit the method since the login is successful
+                    return;
                 case "coordinator":
-                    startActivity(new Intent(this, CoordinatorActivity.class).putExtra("idNumber", identifier));
+                    startActivity(new Intent(this, CoordinatorActivity.class).putExtra(email, identifier));
                     finish();
-                    return; // Exit the method since the login is successful
+                    return;
             }
 
             // This block will execute only if login was not successful

@@ -86,7 +86,7 @@ public class SupervisorActivity extends AppCompatActivity {
 
         SharedPreferences prefID = getSharedPreferences("ID", MODE_PRIVATE);
         String status = prefID.getString("id", null),
-                nil = "Create profile...", id = getIntent().getStringExtra("idNumber");
+                nil = "Create profile...", id = getIntent().getStringExtra("email");
 
         supervisorName.setText(nil);
         supervisorNavName.setText(nil);
@@ -102,6 +102,7 @@ public class SupervisorActivity extends AppCompatActivity {
                 supervisorNavName.setText(name);
                 supervisorEmail.setText(mail);
                 supervisorNavEmail.setText(mail);
+                break;
             }
         }
 
