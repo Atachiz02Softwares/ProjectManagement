@@ -8,15 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
@@ -49,10 +45,12 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder
         Student student = students.get(position);
 
         String firstTopic = student.getFirstProject(), secondTopic = student.getSecondProject(),
-                thirdTopic = student.getThirdProject(), idNumber = student.getIdNumber(),
-                supervisors = format("%s %s %s", new Links(context).matchSupervisors(student.getFirstArea()),
-                        new Links(context).matchSupervisors(student.getSecondArea()),
-                        new Links(context).matchSupervisors(student.getThirdArea()));
+                thirdTopic = student.getThirdProject(), email = student.getEmail(), idNumber = student.getIdNumber(),
+                firstStatus = student.getFirstStatus(), secondStatus = student.getSecondStatus(),
+                thirdStatus = student.getThirdStatus(), supervisors = format("%s %s %s",
+                new Links(context).matchSupervisors(student.getFirstArea()),
+                new Links(context).matchSupervisors(student.getSecondArea()),
+                new Links(context).matchSupervisors(student.getThirdArea()));
 
         holder.firstTopic.setText(firstTopic);
         holder.secondTopic.setText(secondTopic);
@@ -60,128 +58,175 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder
         holder.idNumber.setText(idNumber);
         holder.supervisors.setText(supervisors);
 
+        if (firstStatus.equals(context.getString(R.string.approved))) {
+            holder.secondApprove.setEnabled(false);
+            holder.thirdApprove.setEnabled(false);
+        } else if (secondStatus.equals(context.getString(R.string.approved))) {
+            holder.firstApprove.setEnabled(false);
+            holder.thirdApprove.setEnabled(false);
+        } else if (thirdStatus.equals(context.getString(R.string.approved))) {
+            holder.firstApprove.setEnabled(false);
+            holder.secondApprove.setEnabled(false);
+        }
+
         holder.firstApprove.setOnClickListener(v -> {
-            if ((holder.firstApprove.getText()).equals("Approve")) {
-                Projects project = new Projects(0, idNumber, firstTopic);
-                database.insertProject(project);
+            Projects project = new Projects(0, email, firstTopic);
+            database.insertProject(project);
+            database.updateFistTopicApprovalStatus(email, context.getString(R.string.approved));
+            database.updateSecondTopicApprovalStatus(email, context.getString(R.string.disapproved));
+            database.updateThirdTopicApprovalStatus(email, context.getString(R.string.disapproved));
 
-                student.setFirstStatus("Approved");
-                student.setSecondStatus("Disapproved");
-                student.setThirdStatus("Disapproved");
-                holder.secondApprove.setText(R.string.disapprove);
-                holder.thirdApprove.setVisibility(R.string.disapprove);
-            } else {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogRounded);
-                builder.setCancelable(false);
-                builder.setTitle("Reason for disapproval");
-                builder.setIcon(R.drawable.baseline_cancel_24);
-                builder.setCancelable(false);
-
-                LayoutInflater inflater = LayoutInflater.from(context);
-                View view = inflater.inflate(R.layout.report_dialog, null);
-                EditText report = view.findViewById(R.id.report);
-                Button disapprove = view.findViewById(R.id.disapprove);
-
-                AlertDialog alertDialog = builder.create();
-
-                disapprove.setOnClickListener(vi -> {
-                    if (String.valueOf(report.getText()).isEmpty()) {
-                        report.setError("Please provide a reason for your disapproval...");
-                    } else {
-                        student.setFirstReport(String.valueOf(report.getText()).trim());
-                        Toast.makeText(context, "Topic disapproved!", Toast.LENGTH_SHORT).show();
-                        alertDialog.dismiss();
-                    }
-                });
-
-                builder.setView(view);
-
-                alertDialog.setCanceledOnTouchOutside(false);
-                alertDialog.show();
-            }
+            holder.secondApprove.setEnabled(false);
+            holder.thirdApprove.setEnabled(false);
+            Toast.makeText(context, "First topic approved!", Toast.LENGTH_SHORT).show();
         });
 
         holder.secondApprove.setOnClickListener(v -> {
-            if ((holder.secondApprove.getText()).equals("Approve")) {
-                Projects project = new Projects(0, idNumber, secondTopic);
-                database.insertProject(project);
+            Projects project = new Projects(0, email, secondTopic);
+            database.insertProject(project);
+            database.updateFistTopicApprovalStatus(email, context.getString(R.string.disapproved));
+            database.updateSecondTopicApprovalStatus(email, context.getString(R.string.approved));
+            database.updateThirdTopicApprovalStatus(email, context.getString(R.string.disapproved));
 
-                student.setFirstStatus("Disapproved");
-                student.setSecondStatus("Approved");
-                student.setThirdStatus("Disapproved");
-                holder.firstApprove.setText(R.string.disapprove);
-                holder.thirdApprove.setVisibility(R.string.disapprove);
-            } else {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogRounded);
-                builder.setCancelable(false);
-                builder.setTitle("Reason for disapproval");
-                builder.setIcon(R.drawable.baseline_cancel_24);
-                builder.setCancelable(false);
-
-                LayoutInflater inflater = LayoutInflater.from(context);
-                View view = inflater.inflate(R.layout.report_dialog, null);
-                EditText report = view.findViewById(R.id.report);
-                Button disapprove = view.findViewById(R.id.disapprove);
-
-                AlertDialog alertDialog = builder.create();
-
-                disapprove.setOnClickListener(vi -> {
-                    if (String.valueOf(report.getText()).isEmpty()) {
-                        report.setError("Please provide a reason for your disapproval...");
-                    } else {
-                        student.setSecondReport(String.valueOf(report.getText()).trim());
-                        Toast.makeText(context, "Topic disapproved!", Toast.LENGTH_SHORT).show();
-                        alertDialog.dismiss();
-                    }
-                });
-
-                builder.setView(view);
-
-                alertDialog.setCanceledOnTouchOutside(false);
-                alertDialog.show();
-            }
+            holder.firstApprove.setEnabled(false);
+            holder.thirdApprove.setEnabled(false);
+            Toast.makeText(context, "Second topic approved!", Toast.LENGTH_SHORT).show();
         });
 
         holder.thirdApprove.setOnClickListener(v -> {
-            if ((holder.thirdApprove.getText()).equals("Approve")) {
-                Projects project = new Projects(0, idNumber, thirdTopic);
-                database.insertProject(project);
+            Projects project = new Projects(0, email, thirdTopic);
+            database.insertProject(project);
+            database.updateFistTopicApprovalStatus(email, context.getString(R.string.disapproved));
+            database.updateSecondTopicApprovalStatus(email, context.getString(R.string.disapproved));
+            database.updateThirdTopicApprovalStatus(email, context.getString(R.string.approved));
 
-                student.setFirstStatus("Disapproved");
-                student.setSecondStatus("Disapproved");
-                student.setThirdStatus("Approved");
-                holder.firstApprove.setText(R.string.disapprove);
-                holder.thirdApprove.setVisibility(R.string.disapprove);
-            } else {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogRounded);
-                builder.setCancelable(false);
-                builder.setTitle("Reason for disapproval");
-                builder.setIcon(R.drawable.baseline_cancel_24);
-                builder.setCancelable(false);
-
-                LayoutInflater inflater = LayoutInflater.from(context);
-                View view = inflater.inflate(R.layout.report_dialog, null);
-                EditText report = view.findViewById(R.id.report);
-                Button disapprove = view.findViewById(R.id.disapprove);
-
-                AlertDialog alertDialog = builder.create();
-
-                disapprove.setOnClickListener(vi -> {
-                    if (String.valueOf(report.getText()).isEmpty()) {
-                        report.setError("Please provide a reason for your disapproval...");
-                    } else {
-                        student.setThirdReport(String.valueOf(report.getText()).trim());
-                        Toast.makeText(context, "Topic disapproved!", Toast.LENGTH_SHORT).show();
-                        alertDialog.dismiss();
-                    }
-                });
-
-                builder.setView(view);
-
-                alertDialog.setCanceledOnTouchOutside(false);
-                alertDialog.show();
-            }
+            holder.firstApprove.setEnabled(false);
+            holder.thirdApprove.setEnabled(false);
+            Toast.makeText(context, "Third topic approved!", Toast.LENGTH_SHORT).show();
         });
+
+//        holder.firstApprove.setOnClickListener(v -> {
+//            if ((holder.firstApprove.getText()).equals("Approve")) {
+//                Projects project = new Projects(0, idNumber, firstTopic);
+//                database.insertProject(project);
+//
+//                student.setFirstStatus("Approved");
+//                student.setSecondStatus("Disapproved");
+//                student.setThirdStatus("Disapproved");
+//                holder.secondApprove.setText(R.string.disapprove);
+//                holder.thirdApprove.setVisibility(R.string.disapprove);
+//            } else {
+//                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogRounded);
+//                builder.setCancelable(false);
+//                builder.setTitle("Reason for disapproval");
+//                builder.setIcon(R.drawable.baseline_cancel_24);
+//                builder.setCancelable(false);
+//
+//                LayoutInflater inflater = LayoutInflater.from(context);
+//                View view = inflater.inflate(R.layout.report_dialog, null);
+//                EditText report = view.findViewById(R.id.report);
+//                Button disapprove = view.findViewById(R.id.disapprove);
+//
+//                AlertDialog alertDialog = builder.create();
+//
+//                disapprove.setOnClickListener(vi -> {
+//                    if (String.valueOf(report.getText()).isEmpty()) {
+//                        report.setError("Please provide a reason for your disapproval...");
+//                    } else {
+//                        student.setFirstReport(String.valueOf(report.getText()).trim());
+//                        Toast.makeText(context, "Topic disapproved!", Toast.LENGTH_SHORT).show();
+//                        alertDialog.dismiss();
+//                    }
+//                });
+//
+//                builder.setView(view);
+//
+//                alertDialog.setCanceledOnTouchOutside(false);
+//                alertDialog.show();
+//            }
+//        });
+//
+//        holder.secondApprove.setOnClickListener(v -> {
+//            if ((holder.secondApprove.getText()).equals("Approve")) {
+//                Projects project = new Projects(0, idNumber, secondTopic);
+//                database.insertProject(project);
+//
+//                student.setFirstStatus("Disapproved");
+//                student.setSecondStatus("Approved");
+//                student.setThirdStatus("Disapproved");
+//                holder.firstApprove.setText(R.string.disapprove);
+//                holder.thirdApprove.setVisibility(R.string.disapprove);
+//            } else {
+//                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogRounded);
+//                builder.setCancelable(false);
+//                builder.setTitle("Reason for disapproval");
+//                builder.setIcon(R.drawable.baseline_cancel_24);
+//                builder.setCancelable(false);
+//
+//                LayoutInflater inflater = LayoutInflater.from(context);
+//                View view = inflater.inflate(R.layout.report_dialog, null);
+//                EditText report = view.findViewById(R.id.report);
+//                Button disapprove = view.findViewById(R.id.disapprove);
+//
+//                AlertDialog alertDialog = builder.create();
+//
+//                disapprove.setOnClickListener(vi -> {
+//                    if (String.valueOf(report.getText()).isEmpty()) {
+//                        report.setError("Please provide a reason for your disapproval...");
+//                    } else {
+//                        student.setSecondReport(String.valueOf(report.getText()).trim());
+//                        Toast.makeText(context, "Topic disapproved!", Toast.LENGTH_SHORT).show();
+//                        alertDialog.dismiss();
+//                    }
+//                });
+//
+//                builder.setView(view);
+//
+//                alertDialog.setCanceledOnTouchOutside(false);
+//                alertDialog.show();
+//            }
+//        });
+//
+//        holder.thirdApprove.setOnClickListener(v -> {
+//            if ((holder.thirdApprove.getText()).equals("Approve")) {
+//                Projects project = new Projects(0, idNumber, thirdTopic);
+//                database.insertProject(project);
+//
+//                student.setFirstStatus("Disapproved");
+//                student.setSecondStatus("Disapproved");
+//                student.setThirdStatus("Approved");
+//                holder.firstApprove.setText(R.string.disapprove);
+//                holder.thirdApprove.setVisibility(R.string.disapprove);
+//            } else {
+//                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogRounded);
+//                builder.setCancelable(false);
+//                builder.setTitle("Reason for disapproval");
+//                builder.setIcon(R.drawable.baseline_cancel_24);
+//                builder.setCancelable(false);
+//
+//                LayoutInflater inflater = LayoutInflater.from(context);
+//                View view = inflater.inflate(R.layout.report_dialog, null);
+//                EditText report = view.findViewById(R.id.report);
+//                Button disapprove = view.findViewById(R.id.disapprove);
+//
+//                AlertDialog alertDialog = builder.create();
+//
+//                disapprove.setOnClickListener(vi -> {
+//                    if (String.valueOf(report.getText()).isEmpty()) {
+//                        report.setError("Please provide a reason for your disapproval...");
+//                    } else {
+//                        student.setThirdReport(String.valueOf(report.getText()).trim());
+//                        Toast.makeText(context, "Topic disapproved!", Toast.LENGTH_SHORT).show();
+//                        alertDialog.dismiss();
+//                    }
+//                });
+//
+//                builder.setView(view);
+//
+//                alertDialog.setCanceledOnTouchOutside(false);
+//                alertDialog.show();
+//            }
+//        });
     }
 
     @Override

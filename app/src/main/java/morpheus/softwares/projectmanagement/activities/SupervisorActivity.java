@@ -86,7 +86,7 @@ public class SupervisorActivity extends AppCompatActivity {
 
         SharedPreferences prefID = getSharedPreferences("ID", MODE_PRIVATE);
         String status = prefID.getString("id", null),
-                nil = "Create profile...", id = getIntent().getStringExtra("email");
+                nil = "Create profile...", id = getIntent().getStringExtra(getString(R.string.mail));
 
         supervisorName.setText(nil);
         supervisorNavName.setText(nil);
@@ -130,8 +130,13 @@ public class SupervisorActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.about)
                 Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
-                database.updateUserOnlineOfflineStatus(String.valueOf(supervisorEmail.getText()), "offline");
-                finishAffinity();
+                String email = String.valueOf(supervisorEmail.getText()), name = String.valueOf(supervisorName.getText());
+
+                if (!name.equals(nil)) {
+                    database.updateUserOnlineOfflineStatus(email, "offline");
+                    finishAffinity();
+                } else
+                    Toast.makeText(this, "Create profile before logging out", Toast.LENGTH_SHORT).show();
             } else if (item.getItemId() == R.id.exit) finishAffinity();
 
             drawerLayout.closeDrawer(GravityCompat.START);

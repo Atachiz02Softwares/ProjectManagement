@@ -55,6 +55,8 @@
     <string name="approved">Approved</string>
     <string name="view_submitted_topics">View Submitted Topics</string>
     <string name="submitted_topics">Submitted Topics</string>
-    <string name="search">Search to filter</string>
+    <string name="search">Search with ID number</string>
     <string name="created">created</string>
+    <string name="mail">email</string>
+    <string name="disapproved">Disapproved</string>
 </resources>

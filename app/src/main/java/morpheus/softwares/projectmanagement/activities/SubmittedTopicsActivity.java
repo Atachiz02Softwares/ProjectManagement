@@ -50,15 +50,6 @@ public class SubmittedTopicsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(projectsAdapter);
 
-//        ArrayList<String> areas = new ArrayList<>();
-//        for (Student student : students) {
-//            areas.add(student.getFirstArea());
-//            areas.add(student.getSecondArea());
-//            areas.add(student.getThirdArea());
-//
-//            if (areas.contains(area)) recyclerView.setAdapter(projectsAdapter);
-//        }
-
         title.setOnClickListener(v -> finish());
 
         search.addTextChangedListener(new TextWatcher() {

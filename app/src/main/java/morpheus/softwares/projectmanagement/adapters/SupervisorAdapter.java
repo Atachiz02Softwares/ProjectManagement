@@ -36,7 +36,7 @@ public class SupervisorAdapter extends RecyclerView.Adapter<SupervisorAdapter.Ho
 
         holder.idNumber.setText(project.getIdNumber());
         holder.topic.setText(project.getApprovedTopic());
-        holder.status.setText(R.string.approved);
+        holder.status.setText(context.getString(R.string.approved));
     }
 
     @Override

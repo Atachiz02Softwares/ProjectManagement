@@ -92,7 +92,7 @@ public class CreateStudentProfileActivity extends AppCompatActivity {
 
             ArrayList<User> users = database.selectAllUsers();
             for (User user : users)
-                if (user.getEmail().equals(idNumber)) {
+                if (user.getEmail().equals(email)) {
                     Student student = new Student(0, idNumber, email, firstProject, secondProject,
                             thirdProject, areaOne, areaTwo, areaThree, aloneGroup, formattedDate,
                             "Unapproved", "Unapproved", "Unapproved",
@@ -100,7 +100,7 @@ public class CreateStudentProfileActivity extends AppCompatActivity {
                     database.insertStudent(student);
                     database.updateUserStatus(email, getString(R.string.created));
                     Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
-                    break;
+//                    break;
                 }
 
             startActivity(new Intent(this, StudentActivity.class));

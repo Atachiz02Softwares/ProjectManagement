@@ -23,23 +23,24 @@ public class MainActivity extends AppCompatActivity {
 
         signup = findViewById(R.id.mainSignup);
         database = new Database(this);
+        String email = getString(R.string.mail);
 
         ArrayList<User> users = database.selectAllUsers();
         for (User user : users) {
-            String role = user.getRole(), onlineOffline = user.getOnlineOffline();
+            String role = user.getRole(), onlineOffline = user.getOnlineOffline(), identifier = user.getEmail();
 
             if (onlineOffline.equals("online")) {
                 switch (role) {
                     case "student":
-                        startActivity(new Intent(this, StudentActivity.class));
+                        startActivity(new Intent(this, StudentActivity.class).putExtra(email, identifier));
                         finish();
                         return;
                     case "supervisor":
-                        startActivity(new Intent(this, SupervisorActivity.class));
+                        startActivity(new Intent(this, SupervisorActivity.class).putExtra(email, identifier));
                         finish();
                         return;
                     case "coordinator":
-                        startActivity(new Intent(this, CoordinatorActivity.class));
+                        startActivity(new Intent(this, CoordinatorActivity.class).putExtra(email, identifier));
                         finish();
                         return;
                 }

@@ -399,4 +399,35 @@ public class Database extends SQLiteOpenHelper {
         db.update(TABLE_USERS, values, "email=?", new String[]{email});
         db.close();
     }
+
+    /**
+     * Updates the status of the first submitted topic in the Student's table.
+     *
+     * @param email             The unique email of the user whose project's approval status
+     *                          is to be updated.
+     * @param newApprovalStatus The new project approval status to be set for the user.
+     */
+    public void updateFistTopicApprovalStatus(String email, String newApprovalStatus) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("first_status", newApprovalStatus);
+        db.update(TABLE_STUDENTS, values, "email=?", new String[]{email});
+        db.close();
+    }
+
+    public void updateSecondTopicApprovalStatus(String email, String newApprovalStatus) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("second_status", newApprovalStatus);
+        db.update(TABLE_STUDENTS, values, "email=?", new String[]{email});
+        db.close();
+    }
+
+    public void updateThirdTopicApprovalStatus(String email, String newApprovalStatus) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("third_status", newApprovalStatus);
+        db.update(TABLE_STUDENTS, values, "email=?", new String[]{email});
+        db.close();
+    }
 }

@@ -83,7 +83,7 @@ public class CoordinatorActivity extends AppCompatActivity {
 
         SharedPreferences prefID = getSharedPreferences("ID", MODE_PRIVATE);
         String status = prefID.getString("id", null),
-                nil = "Create profile...", id = getIntent().getStringExtra("email");
+                nil = "Create profile...", id = getIntent().getStringExtra(getString(R.string.mail));
 
         coordinatorName.setText(nil);
         coordinatorNavName.setText(nil);
@@ -126,9 +126,13 @@ public class CoordinatorActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.about)
                 Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.logout) {
-                database.updateUserOnlineOfflineStatus(String.valueOf(coordinatorEmail.getText()),
-                        "offline");
-                finishAffinity();
+                String email = String.valueOf(coordinatorEmail.getText()), name = String.valueOf(coordinatorName.getText());
+
+                if (!name.equals(nil)) {
+                    database.updateUserOnlineOfflineStatus(email, "offline");
+                    finishAffinity();
+                } else
+                    Toast.makeText(this, "Create profile before logging out", Toast.LENGTH_SHORT).show();
             } else if (item.getItemId() == R.id.exit) finishAffinity();
 
             drawerLayout.closeDrawer(GravityCompat.START);

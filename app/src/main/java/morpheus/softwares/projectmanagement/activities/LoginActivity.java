@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.logInLogin);
 
         database = new Database(this);
-        String email = "email";
+        String email = getString(R.string.mail);
 
         login.setOnClickListener(v -> {
             String identifier = id.getText().toString().trim();
