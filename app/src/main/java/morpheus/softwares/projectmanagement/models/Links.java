@@ -43,10 +43,7 @@ public class Links {
     public boolean hasSignedUp(String identifier) {
         ArrayList<User> users = database.selectAllUsers();
 
-        for (User user : users) {
-            if (user.getEmail().equalsIgnoreCase(identifier))
-                return true;
-        }
+        for (User user : users) if (user.getEmail().equalsIgnoreCase(identifier)) return true;
         return false;
     }
 
@@ -88,12 +85,13 @@ public class Links {
             // Get the name of the current supervisor
             String currentSupervisor = supervisor.getName();
 
-            // Check if the supervisory area of the current supervisor matches the specified supervisoryArea
-            if (supervisor.getArea().equals(supervisoryArea)) {
-                // Append the name of the current supervisor to the result StringBuilder
-                // and add a newline character to separate the names of matching supervisors
+            /*
+             Check if the supervisory area of the current supervisor matches the specified supervisoryArea
+             Append the name of the current supervisor to the result StringBuilder
+             and add a newline character to separate the names of matching supervisors
+            */
+            if (supervisor.getArea().equals(supervisoryArea))
                 result.append(currentSupervisor).append(", ");
-            }
         }
 
         // Convert the result StringBuilder to a String and return it

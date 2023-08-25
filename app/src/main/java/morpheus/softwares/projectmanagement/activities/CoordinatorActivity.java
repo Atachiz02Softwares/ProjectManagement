@@ -23,7 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
-import morpheus.softwares.projectmanagement.adapters.ApprovedProjectsAdapter;
+import morpheus.softwares.projectmanagement.adapters.ApprovedTopicsAdapter;
 import morpheus.softwares.projectmanagement.models.Coordinator;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Projects;
@@ -39,7 +39,7 @@ public class CoordinatorActivity extends AppCompatActivity {
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
     ArrayList<Projects> projects;
-    ApprovedProjectsAdapter coodinatorAdapter;
+    ApprovedTopicsAdapter coodinatorAdapter;
     RecyclerView recyclerView;
 
     Database database;
@@ -74,7 +74,7 @@ public class CoordinatorActivity extends AppCompatActivity {
 
         projects = new ArrayList<>();
         recyclerView = findViewById(R.id.coordinatorList);
-        coodinatorAdapter = new ApprovedProjectsAdapter(this, projects);
+        coodinatorAdapter = new ApprovedTopicsAdapter(this, projects);
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

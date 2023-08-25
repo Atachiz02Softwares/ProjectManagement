@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
-import morpheus.softwares.projectmanagement.adapters.ProjectsAdapter;
+import morpheus.softwares.projectmanagement.adapters.SubmittedTopicsAdapter;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Student;
 
@@ -23,7 +23,7 @@ public class SubmittedTopicsActivity extends AppCompatActivity {
     EditText search;
 
     ArrayList<Student> students;
-    ProjectsAdapter projectsAdapter;
+    SubmittedTopicsAdapter projectsAdapter;
     RecyclerView recyclerView;
 
     Database database;
@@ -42,7 +42,7 @@ public class SubmittedTopicsActivity extends AppCompatActivity {
 
         students = database.selectAllStudents();
         recyclerView = findViewById(R.id.submittedTopicsList);
-        projectsAdapter = new ProjectsAdapter(this, students);
+        projectsAdapter = new SubmittedTopicsAdapter(this, students);
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

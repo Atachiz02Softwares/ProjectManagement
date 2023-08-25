@@ -14,24 +14,24 @@ import java.util.ArrayList;
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.models.Projects;
 
-public class ApprovedProjectsAdapter extends RecyclerView.Adapter<ApprovedProjectsAdapter.Holder> {
+public class ApprovedTopicsAdapter extends RecyclerView.Adapter<ApprovedTopicsAdapter.Holder> {
     Context context;
     ArrayList<Projects> projects;
 
-    public ApprovedProjectsAdapter(Context context, ArrayList<Projects> projects) {
+    public ApprovedTopicsAdapter(Context context, ArrayList<Projects> projects) {
         this.context = context;
         this.projects = projects;
     }
 
     @NonNull
     @Override
-    public ApprovedProjectsAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ApprovedTopicsAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.recycler_view, parent, false);
         return new Holder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ApprovedProjectsAdapter.Holder holder, int position) {
+    public void onBindViewHolder(@NonNull ApprovedTopicsAdapter.Holder holder, int position) {
         Projects project = projects.get(position);
 
         holder.idNumber.setText(project.getIdNumber());

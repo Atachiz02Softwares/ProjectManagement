@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,12 +21,12 @@ import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Projects;
 import morpheus.softwares.projectmanagement.models.Student;
 
-public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder> {
+public class SubmittedTopicsAdapter extends RecyclerView.Adapter<SubmittedTopicsAdapter.Holder> {
     Context context;
     ArrayList<Student> students;
     Database database;
 
-    public ProjectsAdapter(Context context, ArrayList<Student> students) {
+    public SubmittedTopicsAdapter(Context context, ArrayList<Student> students) {
         this.context = context;
         this.students = students;
         this.database = new Database(context);
@@ -35,13 +34,13 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder
 
     @NonNull
     @Override
-    public ProjectsAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SubmittedTopicsAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.projects_recycler, parent, false);
         return new Holder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProjectsAdapter.Holder holder, int position) {
+    public void onBindViewHolder(@NonNull SubmittedTopicsAdapter.Holder holder, int position) {
         Student student = students.get(position);
 
         String firstTopic = student.getFirstProject(), secondTopic = student.getSecondProject(),
@@ -70,7 +69,7 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder
         }
 
         holder.firstApprove.setOnClickListener(v -> {
-            Projects project = new Projects(0, email, firstTopic);
+            Projects project = new Projects(0, idNumber, firstTopic);
             database.insertProject(project);
             database.updateFistTopicApprovalStatus(email, context.getString(R.string.approved));
             database.updateSecondTopicApprovalStatus(email, context.getString(R.string.disapproved));
@@ -78,11 +77,10 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder
 
             holder.secondApprove.setEnabled(false);
             holder.thirdApprove.setEnabled(false);
-            Toast.makeText(context, "First topic approved!", Toast.LENGTH_SHORT).show();
         });
 
         holder.secondApprove.setOnClickListener(v -> {
-            Projects project = new Projects(0, email, secondTopic);
+            Projects project = new Projects(0, idNumber, secondTopic);
             database.insertProject(project);
             database.updateFistTopicApprovalStatus(email, context.getString(R.string.disapproved));
             database.updateSecondTopicApprovalStatus(email, context.getString(R.string.approved));
@@ -90,11 +88,10 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder
 
             holder.firstApprove.setEnabled(false);
             holder.thirdApprove.setEnabled(false);
-            Toast.makeText(context, "Second topic approved!", Toast.LENGTH_SHORT).show();
         });
 
         holder.thirdApprove.setOnClickListener(v -> {
-            Projects project = new Projects(0, email, thirdTopic);
+            Projects project = new Projects(0, idNumber, thirdTopic);
             database.insertProject(project);
             database.updateFistTopicApprovalStatus(email, context.getString(R.string.disapproved));
             database.updateSecondTopicApprovalStatus(email, context.getString(R.string.disapproved));
@@ -102,7 +99,6 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Holder
 
             holder.firstApprove.setEnabled(false);
             holder.thirdApprove.setEnabled(false);
-            Toast.makeText(context, "Third topic approved!", Toast.LENGTH_SHORT).show();
         });
     }
 
