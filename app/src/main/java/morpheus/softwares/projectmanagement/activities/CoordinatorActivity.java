@@ -3,6 +3,7 @@ package morpheus.softwares.projectmanagement.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
-import morpheus.softwares.projectmanagement.adapters.CoodinatorAdapter;
+import morpheus.softwares.projectmanagement.adapters.ApprovedProjectsAdapter;
 import morpheus.softwares.projectmanagement.models.Coordinator;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Projects;
@@ -38,7 +39,7 @@ public class CoordinatorActivity extends AppCompatActivity {
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
     ArrayList<Projects> projects;
-    CoodinatorAdapter coodinatorAdapter;
+    ApprovedProjectsAdapter coodinatorAdapter;
     RecyclerView recyclerView;
 
     Database database;
@@ -73,13 +74,15 @@ public class CoordinatorActivity extends AppCompatActivity {
 
         projects = new ArrayList<>();
         recyclerView = findViewById(R.id.coordinatorList);
-        coodinatorAdapter = new CoodinatorAdapter(this, projects);
+        coodinatorAdapter = new ApprovedProjectsAdapter(this, projects);
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(coodinatorAdapter);
+
+        Log.d("CoordinatorActivity", "Number of projects: " + projects.size());
 
         SharedPreferences prefID = getSharedPreferences("ID", MODE_PRIVATE);
         String status = prefID.getString("id", null),
