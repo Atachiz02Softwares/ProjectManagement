@@ -3,7 +3,6 @@ package morpheus.softwares.projectmanagement.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -75,7 +74,7 @@ public class SupervisorActivity extends AppCompatActivity {
         supervisorNavRole = header.findViewById(R.id.navRole);
         supervisorNavRole.setText(R.string.supervisor);
 
-        projects = new ArrayList<>();
+        projects = database.selectAllProjects();
         recyclerView = findViewById(R.id.supervisorList);
         supervisorAdapter = new ApprovedTopicsAdapter(this, projects);
         recyclerView.setHasFixedSize(true);
@@ -84,8 +83,6 @@ public class SupervisorActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(supervisorAdapter);
-
-        Log.d("SupervisorActivity", "Number of projects: " + projects.size());
 
         SharedPreferences prefID = getSharedPreferences("ID", MODE_PRIVATE);
         String status = prefID.getString("id", null),

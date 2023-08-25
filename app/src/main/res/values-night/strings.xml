@@ -59,4 +59,6 @@
     <string name="created">created</string>
     <string name="mail">email</string>
     <string name="disapproved">Disapproved</string>
+    <string name="topic_approved">Topic approved</string>
+    <string name="topic_already_approved">Topic already approved!</string>
 </resources>

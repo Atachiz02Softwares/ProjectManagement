@@ -3,7 +3,6 @@ package morpheus.softwares.projectmanagement.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,7 +71,7 @@ public class CoordinatorActivity extends AppCompatActivity {
         coordinatorNavRole = header.findViewById(R.id.navRole);
         coordinatorNavRole.setText(R.string.coordinator);
 
-        projects = new ArrayList<>();
+        projects = database.selectAllProjects();
         recyclerView = findViewById(R.id.coordinatorList);
         coodinatorAdapter = new ApprovedTopicsAdapter(this, projects);
         recyclerView.setHasFixedSize(true);
@@ -81,8 +80,6 @@ public class CoordinatorActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(coodinatorAdapter);
-
-        Log.d("CoordinatorActivity", "Number of projects: " + projects.size());
 
         SharedPreferences prefID = getSharedPreferences("ID", MODE_PRIVATE);
         String status = prefID.getString("id", null),
