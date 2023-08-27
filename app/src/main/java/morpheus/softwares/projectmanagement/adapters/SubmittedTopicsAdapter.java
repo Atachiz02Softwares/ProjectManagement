@@ -43,7 +43,6 @@ public class SubmittedTopicsAdapter extends RecyclerView.Adapter<SubmittedTopics
     @Override
     public void onBindViewHolder(@NonNull SubmittedTopicsAdapter.Holder holder, int position) {
         Student student = students.get(position);
-        ArrayList<Projects> projects = database.selectAllProjects();
 
         String firstTopic = student.getFirstProject(), secondTopic = student.getSecondProject(),
                 thirdTopic = student.getThirdProject(), email = student.getEmail(), idNumber = student.getIdNumber(),
@@ -71,57 +70,48 @@ public class SubmittedTopicsAdapter extends RecyclerView.Adapter<SubmittedTopics
         }
 
         holder.firstApprove.setOnClickListener(v -> {
-            for (Projects pro : projects)
-                if (!(pro.getApprovedTopic().equals(firstTopic))) {
-                    Projects project = new Projects(0, idNumber, firstTopic);
-                    database.insertProject(project);
-                    database.updateFistTopicApprovalStatus(email, context.getString(R.string.approved));
-                    database.updateSecondTopicApprovalStatus(email, context.getString(R.string.disapproved));
-                    database.updateThirdTopicApprovalStatus(email, context.getString(R.string.disapproved));
-                    Toast.makeText(context, context.getString(R.string.topic_approved), Toast.LENGTH_SHORT).show();
+            if (holder.secondApprove.isEnabled() && holder.thirdApprove.isEnabled()) {
+                Projects project = new Projects(0, idNumber, firstTopic);
+                database.insertProject(project);
+                database.updateFistTopicApprovalStatus(email, context.getString(R.string.approved));
+                database.updateSecondTopicApprovalStatus(email, context.getString(R.string.disapproved));
+                database.updateThirdTopicApprovalStatus(email, context.getString(R.string.disapproved));
+                Toast.makeText(context, context.getString(R.string.topic_approved), Toast.LENGTH_SHORT).show();
 
-                    holder.secondApprove.setEnabled(false);
-                    holder.thirdApprove.setEnabled(false);
-                } else {
-                    Toast.makeText(context, context.getString(R.string.topic_already_approved), Toast.LENGTH_SHORT).show();
-                    break;
-                }
+                holder.secondApprove.setEnabled(false);
+                holder.thirdApprove.setEnabled(false);
+            } else
+                Toast.makeText(context, context.getString(R.string.topic_already_approved), Toast.LENGTH_SHORT).show();
         });
 
         holder.secondApprove.setOnClickListener(v -> {
-            for (Projects pro : projects)
-                if (!(pro.getApprovedTopic().equals(secondTopic))) {
-                    Projects project = new Projects(0, idNumber, secondTopic);
-                    database.insertProject(project);
-                    database.updateFistTopicApprovalStatus(email, context.getString(R.string.disapproved));
-                    database.updateSecondTopicApprovalStatus(email, context.getString(R.string.approved));
-                    database.updateThirdTopicApprovalStatus(email, context.getString(R.string.disapproved));
-                    Toast.makeText(context, context.getString(R.string.topic_approved), Toast.LENGTH_SHORT).show();
+            if (holder.firstApprove.isEnabled() && holder.thirdApprove.isEnabled()) {
+                Projects project = new Projects(0, idNumber, secondTopic);
+                database.insertProject(project);
+                database.updateFistTopicApprovalStatus(email, context.getString(R.string.disapproved));
+                database.updateSecondTopicApprovalStatus(email, context.getString(R.string.approved));
+                database.updateThirdTopicApprovalStatus(email, context.getString(R.string.disapproved));
+                Toast.makeText(context, context.getString(R.string.topic_approved), Toast.LENGTH_SHORT).show();
 
-                    holder.firstApprove.setEnabled(false);
-                    holder.thirdApprove.setEnabled(false);
-                } else {
-                    Toast.makeText(context, context.getString(R.string.topic_already_approved), Toast.LENGTH_SHORT).show();
-                    break;
-                }
+                holder.firstApprove.setEnabled(false);
+                holder.thirdApprove.setEnabled(false);
+            } else
+                Toast.makeText(context, context.getString(R.string.topic_already_approved), Toast.LENGTH_SHORT).show();
         });
 
         holder.thirdApprove.setOnClickListener(v -> {
-            for (Projects pro : projects)
-                if (!(pro.getApprovedTopic().equals(thirdTopic))) {
-                    Projects project = new Projects(0, idNumber, thirdTopic);
-                    database.insertProject(project);
-                    database.updateFistTopicApprovalStatus(email, context.getString(R.string.disapproved));
-                    database.updateSecondTopicApprovalStatus(email, context.getString(R.string.disapproved));
-                    database.updateThirdTopicApprovalStatus(email, context.getString(R.string.approved));
-                    Toast.makeText(context, context.getString(R.string.topic_approved), Toast.LENGTH_SHORT).show();
+            if (holder.firstApprove.isEnabled() && holder.secondApprove.isEnabled()) {
+                Projects project = new Projects(0, idNumber, thirdTopic);
+                database.insertProject(project);
+                database.updateFistTopicApprovalStatus(email, context.getString(R.string.disapproved));
+                database.updateSecondTopicApprovalStatus(email, context.getString(R.string.disapproved));
+                database.updateThirdTopicApprovalStatus(email, context.getString(R.string.approved));
+                Toast.makeText(context, context.getString(R.string.topic_approved), Toast.LENGTH_SHORT).show();
 
-                    holder.firstApprove.setEnabled(false);
-                    holder.thirdApprove.setEnabled(false);
-                } else {
-                    Toast.makeText(context, context.getString(R.string.topic_already_approved), Toast.LENGTH_SHORT).show();
-                    break;
-                }
+                holder.firstApprove.setEnabled(false);
+                holder.thirdApprove.setEnabled(false);
+            } else
+                Toast.makeText(context, context.getString(R.string.topic_already_approved), Toast.LENGTH_SHORT).show();
         });
     }
 
