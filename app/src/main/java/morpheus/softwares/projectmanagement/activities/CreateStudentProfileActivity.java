@@ -100,11 +100,10 @@ public class CreateStudentProfileActivity extends AppCompatActivity {
                     database.insertStudent(student);
                     database.updateUserStatus(email, getString(R.string.created));
                     Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
-//                    break;
-                }
 
-            startActivity(new Intent(this, StudentActivity.class));
-            finish();
+                    startActivity(new Intent(this, StudentActivity.class));
+                    finish();
+                }
         });
     }
 }

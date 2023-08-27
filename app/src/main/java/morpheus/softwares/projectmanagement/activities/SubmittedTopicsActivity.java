@@ -38,7 +38,7 @@ public class SubmittedTopicsActivity extends AppCompatActivity {
 
         database = new Database(this);
 
-        String area = getIntent().getStringExtra("area");
+        String area = getIntent().getStringExtra(getString(R.string.area));
 
         students = database.selectAllStudents();
         recyclerView = findViewById(R.id.submittedTopicsList);

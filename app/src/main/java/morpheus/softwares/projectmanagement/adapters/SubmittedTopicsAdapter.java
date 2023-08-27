@@ -71,18 +71,17 @@ public class SubmittedTopicsAdapter extends RecyclerView.Adapter<SubmittedTopics
         }
 
         holder.firstApprove.setOnClickListener(v -> {
-            Projects project = new Projects(0, idNumber, firstTopic);
             for (Projects pro : projects)
-                if (!pro.getApprovedTopic().equals(firstTopic)) {
+                if (!(pro.getApprovedTopic().equals(firstTopic))) {
+                    Projects project = new Projects(0, idNumber, firstTopic);
                     database.insertProject(project);
-                    Toast.makeText(context, context.getString(R.string.topic_approved), Toast.LENGTH_SHORT).show();
                     database.updateFistTopicApprovalStatus(email, context.getString(R.string.approved));
                     database.updateSecondTopicApprovalStatus(email, context.getString(R.string.disapproved));
                     database.updateThirdTopicApprovalStatus(email, context.getString(R.string.disapproved));
+                    Toast.makeText(context, context.getString(R.string.topic_approved), Toast.LENGTH_SHORT).show();
 
                     holder.secondApprove.setEnabled(false);
                     holder.thirdApprove.setEnabled(false);
-                    break;
                 } else {
                     Toast.makeText(context, context.getString(R.string.topic_already_approved), Toast.LENGTH_SHORT).show();
                     break;
@@ -90,9 +89,9 @@ public class SubmittedTopicsAdapter extends RecyclerView.Adapter<SubmittedTopics
         });
 
         holder.secondApprove.setOnClickListener(v -> {
-            Projects project = new Projects(0, idNumber, secondTopic);
             for (Projects pro : projects)
-                if (!pro.getApprovedTopic().equals(secondTopic)) {
+                if (!(pro.getApprovedTopic().equals(secondTopic))) {
+                    Projects project = new Projects(0, idNumber, secondTopic);
                     database.insertProject(project);
                     database.updateFistTopicApprovalStatus(email, context.getString(R.string.disapproved));
                     database.updateSecondTopicApprovalStatus(email, context.getString(R.string.approved));
@@ -108,9 +107,9 @@ public class SubmittedTopicsAdapter extends RecyclerView.Adapter<SubmittedTopics
         });
 
         holder.thirdApprove.setOnClickListener(v -> {
-            Projects project = new Projects(0, idNumber, thirdTopic);
             for (Projects pro : projects)
-                if (!pro.getApprovedTopic().equals(thirdTopic)) {
+                if (!(pro.getApprovedTopic().equals(thirdTopic))) {
+                    Projects project = new Projects(0, idNumber, thirdTopic);
                     database.insertProject(project);
                     database.updateFistTopicApprovalStatus(email, context.getString(R.string.disapproved));
                     database.updateSecondTopicApprovalStatus(email, context.getString(R.string.disapproved));

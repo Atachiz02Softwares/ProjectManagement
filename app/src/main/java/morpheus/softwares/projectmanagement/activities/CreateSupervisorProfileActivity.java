@@ -62,11 +62,10 @@ public class CreateSupervisorProfileActivity extends AppCompatActivity {
                     database.insertSupervisor(supervisor);
                     database.updateUserStatus(email, getString(R.string.created));
                     Toast.makeText(this, "Profile created successfully!", Toast.LENGTH_SHORT).show();
-//                    break;
-                }
 
-            startActivity(new Intent(this, SupervisorActivity.class));
-            finish();
+                    startActivity(new Intent(this, SupervisorActivity.class));
+                    finish();
+                }
         });
     }
 }

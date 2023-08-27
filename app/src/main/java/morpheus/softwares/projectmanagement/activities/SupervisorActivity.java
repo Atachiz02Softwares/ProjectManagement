@@ -84,6 +84,12 @@ public class SupervisorActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(supervisorAdapter);
 
+//        Log.d("Number of projects: ", String.valueOf(projects.size()));
+//
+//        for (Projects project : projects) {
+//            Log.d(project.getIdNumber(), project.getApprovedTopic());
+//        }
+
         SharedPreferences prefID = getSharedPreferences("ID", MODE_PRIVATE);
         String status = prefID.getString("id", null),
                 nil = "Create profile...", id = getIntent().getStringExtra(getString(R.string.mail));
@@ -143,6 +149,22 @@ public class SupervisorActivity extends AppCompatActivity {
             return false;
         });
 
-        viewSubmittedTopics.setOnClickListener(v -> startActivity(new Intent(this, SubmittedTopicsActivity.class)));
+        viewSubmittedTopics.setOnClickListener(v -> {
+            boolean foundDesiredUser = false;
+
+            for (Supervisor supervisor : supervisors) {
+                String email = supervisor.getEmail(), area = supervisor.getArea();
+
+                if (email.equals(status) || email.equals(id)) {
+                    startActivity(new Intent(this, SubmittedTopicsActivity.class)
+                            .putExtra(getString(R.string.area), area));
+                    foundDesiredUser = true;
+                    break;
+                }
+            }
+
+            if (!foundDesiredUser)
+                Toast.makeText(this, "You have to create your profile...", Toast.LENGTH_SHORT).show();
+        });
     }
 }
