@@ -25,7 +25,7 @@ import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.adapters.ApprovedTopicsAdapter;
 import morpheus.softwares.projectmanagement.models.Coordinator;
 import morpheus.softwares.projectmanagement.models.Database;
-import morpheus.softwares.projectmanagement.models.Projects;
+import morpheus.softwares.projectmanagement.models.Project;
 import morpheus.softwares.projectmanagement.models.User;
 
 public class CoordinatorActivity extends AppCompatActivity {
@@ -37,7 +37,7 @@ public class CoordinatorActivity extends AppCompatActivity {
     AppBarLayout appBarLayout;
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
-    ArrayList<Projects> projects;
+    ArrayList<Project> projects;
     ApprovedTopicsAdapter coodinatorAdapter;
     RecyclerView recyclerView;
 

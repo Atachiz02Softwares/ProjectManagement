@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
-import morpheus.softwares.projectmanagement.models.Projects;
+import morpheus.softwares.projectmanagement.models.Project;
 import morpheus.softwares.projectmanagement.models.Student;
 
 public class SubmittedTopicsAdapter extends RecyclerView.Adapter<SubmittedTopicsAdapter.Holder> {
@@ -71,7 +71,7 @@ public class SubmittedTopicsAdapter extends RecyclerView.Adapter<SubmittedTopics
 
         holder.firstApprove.setOnClickListener(v -> {
             if (holder.secondApprove.isEnabled() && holder.thirdApprove.isEnabled()) {
-                Projects project = new Projects(0, idNumber, firstTopic);
+                Project project = new Project(0, idNumber, firstTopic);
                 database.insertProject(project);
                 database.updateFistTopicApprovalStatus(email, context.getString(R.string.approved));
                 database.updateSecondTopicApprovalStatus(email, context.getString(R.string.disapproved));
@@ -86,7 +86,7 @@ public class SubmittedTopicsAdapter extends RecyclerView.Adapter<SubmittedTopics
 
         holder.secondApprove.setOnClickListener(v -> {
             if (holder.firstApprove.isEnabled() && holder.thirdApprove.isEnabled()) {
-                Projects project = new Projects(0, idNumber, secondTopic);
+                Project project = new Project(0, idNumber, secondTopic);
                 database.insertProject(project);
                 database.updateFistTopicApprovalStatus(email, context.getString(R.string.disapproved));
                 database.updateSecondTopicApprovalStatus(email, context.getString(R.string.approved));
@@ -101,7 +101,7 @@ public class SubmittedTopicsAdapter extends RecyclerView.Adapter<SubmittedTopics
 
         holder.thirdApprove.setOnClickListener(v -> {
             if (holder.firstApprove.isEnabled() && holder.secondApprove.isEnabled()) {
-                Projects project = new Projects(0, idNumber, thirdTopic);
+                Project project = new Project(0, idNumber, thirdTopic);
                 database.insertProject(project);
                 database.updateFistTopicApprovalStatus(email, context.getString(R.string.disapproved));
                 database.updateSecondTopicApprovalStatus(email, context.getString(R.string.disapproved));

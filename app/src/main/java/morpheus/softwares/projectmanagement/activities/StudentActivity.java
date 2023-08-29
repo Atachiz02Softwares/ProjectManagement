@@ -2,12 +2,15 @@ package morpheus.softwares.projectmanagement.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -16,17 +19,25 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
+import morpheus.softwares.projectmanagement.models.Attachment;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Student;
 import morpheus.softwares.projectmanagement.models.User;
 
 public class StudentActivity extends AppCompatActivity {
+    private static final int PICK_FILE_REQUEST_CODE = 10;
+    private static String selectedFilePath;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -41,6 +52,8 @@ public class StudentActivity extends AppCompatActivity {
     TextView studentID, studentEmail, studentNavID, studentNavEmail, studentNavRole, firstProject,
             firstArea, firstSupervisor, firstStatus, secondProject, secondArea, secondSupervisor,
             secondStatus, thirdProject, thirdArea, thirdSupervisor, thirdStatus;
+    AlertDialog alertDialog;
+    MaterialAlertDialogBuilder builder;
 
     Database database;
 
@@ -171,6 +184,99 @@ public class StudentActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
             return false;
         });
+
+        first.setOnClickListener(v -> {
+            if (String.valueOf(firstStatus.getText()).equals(getString(R.string.approved))) {
+                showDialog();
+            } else {
+                Toast.makeText(this, "Topic not approved...", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        second.setOnClickListener(v -> {
+            if (String.valueOf(secondStatus.getText()).equals(getString(R.string.approved))) {
+                showDialog();
+            } else {
+                Toast.makeText(this, "Topic not approved...", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        third.setOnClickListener(v -> {
+            if (String.valueOf(thirdStatus.getText()).equals(getString(R.string.approved))) {
+                showDialog();
+            } else {
+                Toast.makeText(this, "Topic not approved...", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showDialog() {
+        builder = new MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialogRounded);
+        View view = getLayoutInflater().inflate(R.layout.import_dialog, null);
+        Button button = view.findViewById(R.id.selectFileButton);
+        TextView fileName = view.findViewById(R.id.selectedFileName);
+
+        if (selectedFilePath != null)
+            fileName.setText(selectedFilePath);
+
+        if (String.valueOf(button.getText()).equals(getString(R.string.select)))
+            button.setOnClickListener(v1 -> {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("*/*"); // All file types
+                startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
+            });
+        else {
+            button.setText(getString(R.string.submit));
+            button.setOnClickListener(v12 -> {
+                if (selectedFilePath != null) {
+                    try {
+                        database.insertAttachment(new Attachment(0, String.valueOf(studentEmail.getText()), selectedFilePath,
+                                getBytesFromAttachment(new File(selectedFilePath))));
+                    } catch (IOException e) {
+                        Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        throw new RuntimeException(e);
+                    }
+                } else
+                    Toast.makeText(this, "Select a file first", Toast.LENGTH_SHORT).show();
+                alertDialog.dismiss();
+            });
+        }
+
+        builder.setView(view);
+        alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * Convert file to Byte Array
+     */
+    private byte[] getBytesFromAttachment(File file) throws IOException {
+        FileInputStream fis = new FileInputStream(file);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+
+        while ((bytesRead = fis.read(buffer)) != -1) {
+            bos.write(buffer, 0, bytesRead);
+        }
+
+        fis.close();
+        return bos.toByteArray();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            Uri selectedFileUri = data.getData();
+
+            // Get the selected file's name/path
+            selectedFilePath = selectedFileUri.getPath();
+//            View view = getLayoutInflater().inflate(R.layout.import_dialog, null);
+//            TextView fileName = view.findViewById(R.id.selectedFileName);
+//            fileName.setText(selectedFilePath);
+        }
     }
 
     @Override

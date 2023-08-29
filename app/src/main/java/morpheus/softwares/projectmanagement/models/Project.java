@@ -1,10 +1,10 @@
 package morpheus.softwares.projectmanagement.models;
 
-public class Projects {
+public class Project {
     private int id;
     private String idNumber, approvedTopic;
 
-    public Projects(int id, String idNumber, String approvedTopic) {
+    public Project(int id, String idNumber, String approvedTopic) {
         setId(id);
         setIdNumber(idNumber);
         setApprovedTopic(approvedTopic);

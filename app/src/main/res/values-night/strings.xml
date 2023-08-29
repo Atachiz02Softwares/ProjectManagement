@@ -62,4 +62,7 @@
     <string name="topic_approved">Topic approved</string>
     <string name="topic_already_approved">Topic already approved!</string>
     <string name="area">area</string>
+    <string name="attach">Attach your project...</string>
+    <string name="select">Select File</string>
+    <string name="submit">Submit File</string>
 </resources>

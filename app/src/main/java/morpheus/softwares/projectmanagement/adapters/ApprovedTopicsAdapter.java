@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
-import morpheus.softwares.projectmanagement.models.Projects;
+import morpheus.softwares.projectmanagement.models.Project;
 
 public class ApprovedTopicsAdapter extends RecyclerView.Adapter<ApprovedTopicsAdapter.Holder> {
     Context context;
-    ArrayList<Projects> projects;
+    ArrayList<Project> projects;
 
-    public ApprovedTopicsAdapter(Context context, ArrayList<Projects> projects) {
+    public ApprovedTopicsAdapter(Context context, ArrayList<Project> projects) {
         this.context = context;
         this.projects = projects;
     }
@@ -32,7 +32,7 @@ public class ApprovedTopicsAdapter extends RecyclerView.Adapter<ApprovedTopicsAd
 
     @Override
     public void onBindViewHolder(@NonNull ApprovedTopicsAdapter.Holder holder, int position) {
-        Projects project = projects.get(position);
+        Project project = projects.get(position);
 
         holder.idNumber.setText(project.getIdNumber());
         holder.topic.setText(project.getApprovedTopic());

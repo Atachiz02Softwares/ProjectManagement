@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class Database extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "undergraduate_projects.db",
             TABLE_USERS = "users", TABLE_STUDENTS = "students", TABLE_SUPERVISORS = "supervisors",
-            TABLE_COORDINATOR = "coordinator", TABLE_PROJECTS = "projects";
+            TABLE_COORDINATOR = "coordinator", TABLE_PROJECTS = "projects", TABLE_FILES = "files",
+            FILE_NAME = "file_name", FILE_DATA = "file_data";
     public static final int DATABASE_VERSION = 1;
 
     public Database(@Nullable Context context) {
@@ -32,10 +33,10 @@ public class Database extends SQLiteOpenHelper {
                 "text, first_report text, second_report text, third_report text)");
         db.execSQL("CREATE TABLE supervisors (id integer PRIMARY KEY AUTOINCREMENT, name text, " +
                 "phone_number text, email text, area text)");
-        db.execSQL("CREATE TABLE coordinator (id integer PRIMARY KEY AUTOINCREMENT, name text, " +
-                "phone_number text, email text)");
-        db.execSQL("CREATE TABLE projects (id integer PRIMARY KEY AUTOINCREMENT, email text, " +
-                "approved_topic text)");
+        db.execSQL("CREATE TABLE coordinator (id integer PRIMARY KEY AUTOINCREMENT, name text, phone_number text, email text)");
+        db.execSQL("CREATE TABLE projects (id integer PRIMARY KEY AUTOINCREMENT, email text, approved_topic text)");
+        db.execSQL("CREATE TABLE files (id integer PRIMARY KEY AUTOINCREMENT, email text," +
+                FILE_NAME + " text, " + FILE_DATA + " blob)");
     }
 
     @Override
@@ -45,6 +46,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUPERVISORS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COORDINATOR);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROJECTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FILES);
         onCreate(db);
     }
 
@@ -91,7 +93,7 @@ public class Database extends SQLiteOpenHelper {
     /**
      * Adds a row to Projects Table
      */
-    public void insertProject(Projects projects) {
+    public void insertProject(Project projects) {
         SQLiteDatabase db = this.getWritableDatabase();
         String sqlInsert = "INSERT INTO " + TABLE_PROJECTS;
         sqlInsert += " values( null, '" + projects.getIdNumber() + "', '" + projects.getApprovedTopic() + "' )";
@@ -116,6 +118,18 @@ public class Database extends SQLiteOpenHelper {
                 students.getSecondReport() + "', '" + students.getThirdReport() + "' )";
 
         db.execSQL(sqlInsert);
+        db.close();
+    }
+
+    /**
+     * Adds a row to Files Table
+     */
+    public void insertAttachment(Attachment attachment) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(FILE_NAME, attachment.getAttachmentName());
+        values.put(FILE_DATA, attachment.getAttachmentData());
+        db.insert(TABLE_FILES, null, values);
         db.close();
     }
 
@@ -187,16 +201,16 @@ public class Database extends SQLiteOpenHelper {
     /**
      * Selects and returns all the rows in Projects Table
      */
-    public ArrayList<Projects> selectAllProjects() {
+    public ArrayList<Project> selectAllProjects() {
         String sqlQuery = "SELECT * FROM " + TABLE_PROJECTS;
 
         SQLiteDatabase db = this.getWritableDatabase();
         @SuppressLint("Recycle")
         Cursor cursor = db.rawQuery(sqlQuery, null);
 
-        ArrayList<Projects> projects = new ArrayList<>();
+        ArrayList<Project> projects = new ArrayList<>();
         while (cursor.moveToNext()) {
-            Projects currentProject = new Projects(cursor.getInt(0),
+            Project currentProject = new Project(cursor.getInt(0),
                     cursor.getString(1), cursor.getString(2));
             projects.add(currentProject);
         }
@@ -230,6 +244,49 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return students;
     }
+
+    /**
+     * Selects and returns all the rows in Files Table
+     */
+    public ArrayList<Attachment> selectAllAttachments() {
+        String sqlQuery = "SELECT * FROM " + TABLE_FILES;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        @SuppressLint("Recycle")
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        ArrayList<Attachment> attachments = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            Attachment attachment = new Attachment(cursor.getInt(0), cursor.getString(1),
+                    cursor.getString(2), cursor.getBlob(3));
+            attachments.add(attachment);
+        }
+
+        db.close();
+        return attachments;
+    }
+
+    /**
+     * Retrieve attachment from database
+     */
+    public byte[] getFileData(String filename) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {FILE_DATA};
+        String selection = FILE_NAME + "=?";
+        String[] selectionArgs = {filename};
+        Cursor cursor = db.query(TABLE_FILES, columns, selection, selectionArgs, null, null, null);
+
+        byte[] fileData = null;
+        if (cursor.moveToFirst()) {
+            int dataIndex = cursor.getColumnIndex(FILE_DATA);
+            fileData = cursor.getBlob(dataIndex);
+        }
+
+        cursor.close();
+        db.close();
+        return fileData;
+    }
+
 
     /**
      * Removes the row with the selected item from Users Table
@@ -428,6 +485,15 @@ public class Database extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("third_status", newApprovalStatus);
         db.update(TABLE_STUDENTS, values, "email=?", new String[]{email});
+        db.close();
+    }
+
+    public void updateAttachment(String email, String newAttachmentName, String newAttachmentData) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(FILE_NAME, newAttachmentName);
+        values.put(FILE_DATA, newAttachmentData);
+        db.update(TABLE_FILES, values, "email=?", new String[]{email});
         db.close();
     }
 }

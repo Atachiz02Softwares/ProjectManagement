@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.adapters.ApprovedTopicsAdapter;
 import morpheus.softwares.projectmanagement.models.Database;
-import morpheus.softwares.projectmanagement.models.Projects;
+import morpheus.softwares.projectmanagement.models.Project;
 import morpheus.softwares.projectmanagement.models.Supervisor;
 import morpheus.softwares.projectmanagement.models.User;
 
@@ -39,7 +39,7 @@ public class SupervisorActivity extends AppCompatActivity {
     AppBarLayout appBarLayout;
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
-    ArrayList<Projects> projects;
+    ArrayList<Project> projects;
     ApprovedTopicsAdapter supervisorAdapter;
     RecyclerView recyclerView;
 
