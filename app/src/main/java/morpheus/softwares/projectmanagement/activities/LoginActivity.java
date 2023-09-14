@@ -72,9 +72,8 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             // This block will execute only if login was not successful
-            if (!loginSuccessful) {
+            if (!loginSuccessful)
                 Toast.makeText(this, "Incorrect login details!", Toast.LENGTH_SHORT).show();
-            }
         });
     }
 }
