@@ -1,19 +1,26 @@
 package morpheus.softwares.projectmanagement.activities;
 
+import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -22,23 +29,28 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import morpheus.softwares.projectmanagement.R;
-import morpheus.softwares.projectmanagement.models.Attachment;
 import morpheus.softwares.projectmanagement.models.Database;
+import morpheus.softwares.projectmanagement.models.FileUtils;
 import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Student;
 import morpheus.softwares.projectmanagement.models.User;
 
 public class StudentActivity extends AppCompatActivity {
     private static final int PICK_FILE_REQUEST_CODE = 10;
+    private static final String[] FILE_TYPES = {"application/pdf", "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "text/plain"};
+    private static final String[] FILE_EXTENSIONS = {".pdf", ".doc", ".docx", ".txt"};
     private static String selectedFilePath;
-
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     View header;
@@ -46,15 +58,12 @@ public class StudentActivity extends AppCompatActivity {
     AppBarLayout appBarLayout;
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
-
     CardView first, second, third;
-
     TextView studentID, studentEmail, studentNavID, studentNavEmail, studentNavRole, firstProject,
             firstArea, firstSupervisor, firstStatus, secondProject, secondArea, secondSupervisor,
             secondStatus, thirdProject, thirdArea, thirdSupervisor, thirdStatus;
     AlertDialog alertDialog;
     MaterialAlertDialogBuilder builder;
-
     Database database;
 
     @Override
@@ -220,26 +229,45 @@ public class StudentActivity extends AppCompatActivity {
             fileName.setText(selectedFilePath);
 
         if (String.valueOf(button.getText()).equals(getString(R.string.select)))
-            button.setOnClickListener(v1 -> {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("*/*"); // All file types
-                startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
-            });
+            button.setOnClickListener(v1 -> chooseFile());
         else {
             button.setText(getString(R.string.submit));
             button.setOnClickListener(v12 -> {
                 if (selectedFilePath != null) {
+                    // Get the file extension
+                    String fileExtension = selectedFilePath.substring(selectedFilePath.lastIndexOf("."));
+
+                    // Generate a unique resource ID based on the file name
+                    int resourceId = getResources().getIdentifier(
+                            String.valueOf(studentID.getText()) + System.currentTimeMillis(),
+                            "raw", getPackageName()
+                    );
+
+                    // Get the file's InputStream and copy it to raw resources
                     try {
-                        database.insertAttachment(new Attachment(0, String.valueOf(studentEmail.getText()), selectedFilePath,
-                                getBytesFromAttachment(new File(selectedFilePath))));
+                        InputStream inputStream = Files.newInputStream(Paths.get(selectedFilePath));
+                        OutputStream outputStream = getResources().openRawResourceFd(resourceId).createOutputStream();
+
+                        byte[] buffer = new byte[1024];
+                        int length;
+                        while ((length = inputStream.read(buffer)) > 0) {
+                            outputStream.write(buffer, 0, length);
+                        }
+
+                        inputStream.close();
+                        outputStream.close();
+
+                        Toast.makeText(this, "File saved to raw folder", Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
-                        Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        throw new RuntimeException(e);
+                        e.printStackTrace();
+                        Toast.makeText(this, "Error saving file", Toast.LENGTH_SHORT).show();
                     }
-                } else
+                } else {
                     Toast.makeText(this, "Select a file first", Toast.LENGTH_SHORT).show();
+                }
                 alertDialog.dismiss();
             });
+
         }
 
         builder.setView(view);
@@ -247,35 +275,38 @@ public class StudentActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    /**
-     * Convert file to Byte Array
-     */
-    private byte[] getBytesFromAttachment(File file) throws IOException {
-        FileInputStream fis = new FileInputStream(file);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-
-        while ((bytesRead = fis.read(buffer)) != -1) {
-            bos.write(buffer, 0, bytesRead);
-        }
-
-        fis.close();
-        return bos.toByteArray();
-    }
+//    /**
+//     * Convert file to Byte Array
+//     */
+//    private byte[] getBytesFromAttachment(File file) throws IOException {
+//        FileInputStream fis = new FileInputStream(file);
+//        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//        byte[] buffer = new byte[1024];
+//        int bytesRead;
+//
+//        while ((bytesRead = fis.read(buffer)) != -1) {
+//            bos.write(buffer, 0, bytesRead);
+//        }
+//
+//        fis.close();
+//        return bos.toByteArray();
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            Uri selectedFileUri = data.getData();
-
-            // Get the selected file's name/path
-            selectedFilePath = selectedFileUri.getPath();
-//            View view = getLayoutInflater().inflate(R.layout.import_dialog, null);
-//            TextView fileName = view.findViewById(R.id.selectedFileName);
-//            fileName.setText(selectedFilePath);
+        if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            if (uri != null) {
+                String filePath = FileUtils.getPath(this, uri);
+                String fileName = new File(filePath).getName();
+                if (isValidFileType(fileName)) {
+                    openFile(filePath);
+                } else {
+                    Toast.makeText(this, "Invalid file type! Supported types: pdf, doc, docx, " +
+                            "txt...", Toast.LENGTH_LONG).show();
+                }
+            }
         }
     }
 
@@ -287,4 +318,81 @@ public class StudentActivity extends AppCompatActivity {
         second.setVisibility(View.VISIBLE);
         third.setVisibility(View.VISIBLE);
     }
+
+    /**
+     * Checks permissions
+     */
+    private void checkFilePermission() {
+        int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PICK_FILE_REQUEST_CODE);
+        else chooseFile();
+    }
+
+    /**
+     * Chooses a file from device storage
+     */
+    private void chooseFile() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");  // All file types
+        startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
+    }
+
+    // Allows for file selection only when required permissions are granted
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PICK_FILE_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                chooseFile();
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
+     * @return true if the current uri contains the valid acceptable file extensions, otherwise false
+     */
+    private boolean isValidFileType(String fileName) {
+        for (String extension : FILE_EXTENSIONS) {
+            if (fileName.endsWith(extension)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Creates an intent to open the selected file using an intent chooser. It sets the data and
+     * type of the file and then creates a chooser intent. If there are no apps to open the file,
+     * we catch the ActivityNotFoundException and show a toast message.
+     */
+    private void openFile(String filePath) {
+        File file = new File(filePath);
+        Intent target = new Intent(Intent.ACTION_VIEW);
+        target.setDataAndType(Uri.fromFile(file), getMimeType(filePath));
+        target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+        Intent intent = Intent.createChooser(target, "Open File");
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            // In case there are no apps to open the file, handle the exception
+            Toast.makeText(this, "No app to open this file,", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Used to determine the MIME type of the file based on its extension. This is important for
+     * specifying the type when creating the intent.
+     *
+     * @return The MIME type of the file or null if there is none.
+     */
+    private String getMimeType(String filePath) {
+        String extension = MimeTypeMap.getFileExtensionFromUrl(filePath);
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
+    }
+
 }
