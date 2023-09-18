@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -30,7 +31,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -174,8 +174,8 @@ public class StudentActivity extends AppCompatActivity {
 
                 if (!foundDesiredUser)
                     startActivity(new Intent(this, CreateStudentProfileActivity.class));
-            } else if (item.getItemId() == R.id.viewApprovedTopics)
-                Toast.makeText(this, "View Approved Topic", Toast.LENGTH_SHORT).show();
+            } else if (item.getItemId() == R.id.viewFiles)
+                startActivity(new Intent(this, ViewFilesActivity.class));
             else if (item.getItemId() == R.id.complain)
                 Toast.makeText(this, "Complain", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.about)
@@ -299,16 +299,24 @@ public class StudentActivity extends AppCompatActivity {
             Uri uri = data.getData();
             if (uri != null) {
                 String filePath = FileUtils.getPath(this, uri);
-                String fileName = new File(filePath).getName();
-                if (isValidFileType(fileName)) {
-                    openFile(filePath);
+                if (filePath != null) {
+                    String fileName = new File(filePath).getName();
+                    if (isValidFileType(fileName)) {
+                        openFile(filePath);
+                    } else {
+                        Toast.makeText(this, "Invalid file type! Supported types: pdf, doc, docx," +
+                                " txt...", Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    Toast.makeText(this, "Invalid file type! Supported types: pdf, doc, docx, " +
-                            "txt...", Toast.LENGTH_LONG).show();
+                    // Log the URI and filePath for debugging
+                    Log.e("FileUtils", "URI: " + uri);
+                    Log.e("FileUtils", "FilePath is null");
+                    Toast.makeText(this, "Error getting file path", Toast.LENGTH_SHORT).show();
                 }
             }
         }
     }
+
 
     @Override
     protected void onResume() {

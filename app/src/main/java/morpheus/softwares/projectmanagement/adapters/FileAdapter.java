@@ -46,7 +46,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.Holder> {
         holder.fileName.setOnClickListener(v -> {
             // Get the resource ID based on the file name
             int resourceId = context.getResources().getIdentifier(
-                    "raw/" + fileItem.getFileName(), null, context.getPackageName()
+                    fileItem.getFileName(), "raw", context.getPackageName()
             );
 
             // Open the file using an Intent Chooser

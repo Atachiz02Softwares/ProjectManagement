@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/baseline_import_export_24" />
+        android:src="@drawable/round_attach_file_24" />
 
     <TextView
         android:id="@+id/selectedFileName"

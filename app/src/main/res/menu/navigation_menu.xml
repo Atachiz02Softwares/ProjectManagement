@@ -5,7 +5,7 @@
         android:icon="@drawable/baseline_create_24"
         android:title="@string/create_profile" />
     <item
-        android:id="@+id/viewApprovedTopics"
+        android:id="@+id/viewFiles"
         android:icon="@drawable/round_file_copy_24"
         android:title="@string/view_files" />
     <item
