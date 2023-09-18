@@ -6,8 +6,8 @@
         android:title="@string/create_profile" />
     <item
         android:id="@+id/viewApprovedTopics"
-        android:icon="@drawable/baseline_topic_24"
-        android:title="@string/view_approved_topics" />
+        android:icon="@drawable/round_file_copy_24"
+        android:title="@string/view_files" />
     <item
         android:id="@+id/complain"
         android:icon="@drawable/round_report_problem_24"
