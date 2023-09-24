@@ -1,10 +1,14 @@
 package morpheus.softwares.projectmanagement.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -24,6 +28,14 @@ public class MainActivity extends AppCompatActivity {
         signup = findViewById(R.id.mainSignup);
         database = new Database(this);
         String email = getString(R.string.mail);
+
+        // Check for read permission and request it if not granted
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Request the permission
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 10);
+        }
 
         ArrayList<User> users = database.selectAllUsers();
         for (User user : users) {

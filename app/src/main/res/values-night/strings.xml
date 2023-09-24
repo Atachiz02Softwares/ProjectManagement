@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="atachiz02_softwares">Atachiz02 Softwares</string>
-    <string name="title">Student Project Management System</string>
+    <string name="title">Student Project Allocation &amp; Repository System</string>
     <string name="student">Proceed to Sign Up</string>
     <string name="account">Create Your Account</string>
     <string name="todo">TODO</string>
