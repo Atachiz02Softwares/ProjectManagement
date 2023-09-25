@@ -7,6 +7,17 @@
     android:padding="16dp"
     tools:context=".activities.ViewFilesActivity">
 
+    <TextView
+        android:id="@+id/txtFileName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Submitted Project Files"
+        android:textColor="@color/darkGreen"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fileRecyclerView"
         android:layout_width="match_parent"

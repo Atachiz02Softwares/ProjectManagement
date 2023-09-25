@@ -1,12 +1,12 @@
 package morpheus.softwares.projectmanagement.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,14 +24,16 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import morpheus.softwares.projectmanagement.R;
+import morpheus.softwares.projectmanagement.models.Attachment;
 import morpheus.softwares.projectmanagement.models.Database;
 import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Student;
@@ -184,7 +186,7 @@ public class StudentActivity extends AppCompatActivity {
 
         first.setOnClickListener(v -> {
             if (String.valueOf(firstStatus.getText()).equals(getString(R.string.approved))) {
-                openFilePicker();
+                selectFile();
             } else {
                 Toast.makeText(this, "Topic not approved...", Toast.LENGTH_SHORT).show();
             }
@@ -192,7 +194,7 @@ public class StudentActivity extends AppCompatActivity {
 
         second.setOnClickListener(v -> {
             if (String.valueOf(secondStatus.getText()).equals(getString(R.string.approved))) {
-                openFilePicker();
+                selectFile();
             } else {
                 Toast.makeText(this, "Topic not approved...", Toast.LENGTH_SHORT).show();
             }
@@ -200,17 +202,37 @@ public class StudentActivity extends AppCompatActivity {
 
         third.setOnClickListener(v -> {
             if (String.valueOf(thirdStatus.getText()).equals(getString(R.string.approved))) {
-
-                openFilePicker();
+                selectFile();
             } else {
                 Toast.makeText(this, "Topic not approved...", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void openFilePicker() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");  // Allow all file types
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        String email = String.valueOf(studentEmail.getText()), id = String.valueOf(studentID.getText());
+
+        if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK) {
+            Uri selectedFileUri = data.getData();
+
+            // Create a File object from the URI
+            assert selectedFileUri != null;
+            File selectedFile = new File(Objects.requireNonNull(selectedFileUri.getPath()));
+            try {
+                byte[] fileDataByteArray = convertFileToByteArray(this, selectedFileUri);
+                database.insertAttachment(new Attachment(0, email, id, fileDataByteArray));
+            } catch (IOException e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void selectFile() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("*/*"); // Select all file types
         startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
     }
 
@@ -223,75 +245,37 @@ public class StudentActivity extends AppCompatActivity {
         third.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK) {
-            // Get the URI of the selected file
-            Uri uri = data.getData();
-            if (uri != null) {
-                // Get the file path from the URI
-                String filePath = getPathFromUri(uri);
-
-                // Now, you can save the file to your desired folder
-                saveFile(filePath);
-            }
+    public byte[] convertFileToByteArray(Context context, Uri uri) throws IOException {
+        InputStream inputStream = context.getContentResolver().openInputStream(uri);
+        if (inputStream == null) {
+            throw new FileNotFoundException("File not found at URI: " + uri);
         }
+
+        // Get the file's display name (if available)
+        String fileName = getFileName(context, uri);
+
+        // Read the file data into a byte array
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, bytesRead);
+        }
+
+        inputStream.close();
+        return byteArrayOutputStream.toByteArray();
     }
 
-    private String getPathFromUri(Uri uri) {
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-        if (cursor != null) {
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            String filePath = cursor.getString(column_index);
+    private String getFileName(Context context, Uri uri) {
+        String displayName = null;
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            if (nameIndex != -1) {
+                displayName = cursor.getString(nameIndex);
+            }
             cursor.close();
-            return filePath;
         }
-
-        return uri.getPath(); // Fallback to URI.getPath()
+        return displayName;
     }
-
-    private void saveFile(String filePath) {
-        if (filePath == null) {
-            Toast.makeText(this, "File path is null", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Define the destination folder and file name
-        File destinationFolder = new File(Environment.getExternalStorageDirectory() + "/Projects");
-        File destinationFile = new File(destinationFolder, String.valueOf(studentEmail.getText()));
-
-        try {
-            // Create the destination folder if it doesn't exist
-            if (!destinationFolder.exists()) {
-                destinationFolder.mkdirs();
-            }
-
-            // Create input and output file streams
-            FileInputStream inputStream = new FileInputStream(filePath);
-            FileOutputStream outputStream = new FileOutputStream(destinationFile);
-
-            // Get the file channels for input and output streams
-            FileChannel inChannel = inputStream.getChannel();
-            FileChannel outChannel = outputStream.getChannel();
-
-            // Transfer data from the input channel to the output channel
-            inChannel.transferTo(0, inChannel.size(), outChannel);
-
-            // Close the streams and channels
-            inputStream.close();
-            outputStream.close();
-            inChannel.close();
-            outChannel.close();
-
-            // File saved successfully
-            Toast.makeText(this, "File saved to " + destinationFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Error: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
 }

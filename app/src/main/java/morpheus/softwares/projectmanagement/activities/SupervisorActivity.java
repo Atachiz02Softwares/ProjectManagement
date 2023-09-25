@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import morpheus.softwares.projectmanagement.R;
 import morpheus.softwares.projectmanagement.adapters.ApprovedTopicsAdapter;
 import morpheus.softwares.projectmanagement.models.Database;
-import morpheus.softwares.projectmanagement.models.Links;
 import morpheus.softwares.projectmanagement.models.Project;
 import morpheus.softwares.projectmanagement.models.Supervisor;
 import morpheus.softwares.projectmanagement.models.User;
@@ -131,7 +130,7 @@ public class SupervisorActivity extends AppCompatActivity {
                 if (!foundDesiredUser)
                     startActivity(new Intent(this, CreateSupervisorProfileActivity.class));
             } else if (item.getItemId() == R.id.viewFiles)
-                Toast.makeText(this, "View Approved Topic", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, ViewFilesActivity.class));
             else if (item.getItemId() == R.id.complain)
                 Toast.makeText(this, "Complain", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.about)

@@ -121,7 +121,7 @@ public class CoordinatorActivity extends AppCompatActivity {
                 if (!foundDesiredUser)
                     startActivity(new Intent(this, CreateCoordinatorProfileActivity.class));
             } else if (item.getItemId() == R.id.viewFiles)
-                Toast.makeText(this, "View Approved Topic", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, ViewFilesActivity.class));
             else if (item.getItemId() == R.id.complain)
                 Toast.makeText(this, "Complain", Toast.LENGTH_SHORT).show();
             else if (item.getItemId() == R.id.about)

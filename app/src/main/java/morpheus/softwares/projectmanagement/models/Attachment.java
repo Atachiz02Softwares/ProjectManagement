@@ -5,10 +5,10 @@ public class Attachment {
     private String email, attachmentName;
     private byte[] attachmentData;
 
-    public Attachment(int id, String email, String filename, byte[] attachmentData) {
+    public Attachment(int id, String email, String attachmentName, byte[] attachmentData) {
         setId(id);
         setEmail(email);
-        setAttachmentName(filename);
+        setAttachmentName(attachmentName);
         setAttachmentData(attachmentData);
     }
 

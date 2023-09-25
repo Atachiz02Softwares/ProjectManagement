@@ -29,12 +29,13 @@ public class MainActivity extends AppCompatActivity {
         database = new Database(this);
         String email = getString(R.string.mail);
 
-        // Check for read permission and request it if not granted
+        // Check if the app has permission to read and write external storage
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            // Request the permission
+            // Permission is not granted, request it
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 10);
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    5);
         }
 
         ArrayList<User> users = database.selectAllUsers();
